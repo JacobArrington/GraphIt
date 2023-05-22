@@ -1,8 +1,8 @@
-"""tables made
+"""fixed datafiles seeder
 
-Revision ID: 5c07472e6098
+Revision ID: f725402043ec
 Revises: 
-Create Date: 2023-05-18 21:05:50.688145
+Create Date: 2023-05-22 14:22:09.819180
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5c07472e6098'
+revision = 'f725402043ec'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,7 +30,9 @@ def upgrade():
     op.create_table('data_files',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('data', sa.JSON(), nullable=False),
+    sa.Column('filename', sa.String(length=256), nullable=False),
+    sa.Column('file_type', sa.Enum('csv', 'json', 'xlsx', name='filetype_enum'), nullable=False),
+    sa.Column('file_path', sa.String(length=500), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

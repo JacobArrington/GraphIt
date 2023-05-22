@@ -1,5 +1,6 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
+from .data_files import seed_datafiles, undo_datafiles
 
 from app.models.db import db, environment, SCHEMA
 
@@ -17,7 +18,10 @@ def seed():
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
         undo_users()
+        undo_datafiles()
+        
     seed_users()
+    seed_datafiles()
     # Add other seed functions here
 
 
@@ -25,4 +29,5 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_users()
+    undo_datafiles()
     # Add other undo functions here
