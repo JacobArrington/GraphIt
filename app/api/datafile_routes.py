@@ -14,6 +14,7 @@ def get_all_files():
     
     elif request.method == 'POST':
         data = request.get_json()
+        print(f"Request data: {data}")
         if 'filename' not in data or 'file_type' not in data or 'file_path'not in data:
             return jsonify({"error": "missing fields"})
         
