@@ -34,7 +34,7 @@ class Visualization(db.Model):
             'id': self.id,
             'user_id': self.user_id,
             'data_file_id': self.data_file_id,
-            'manual_data': self.manual_data,
+           # 'manual_data': self.manual_data,
             'visualization_type': self.visualization_type,
             'title': self.title,
             'description': self.description,
