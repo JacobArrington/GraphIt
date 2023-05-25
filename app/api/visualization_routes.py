@@ -40,7 +40,7 @@ def convert_to_chart(file_path, file_type, chart_type):
 
 
 
-@visualization_routes('', methods=['GET, POST'])
+@visualization_routes.route('', methods=['GET, POST'])
 @login_required
 def get_all_visualizations():
     if request.method =='GET':
