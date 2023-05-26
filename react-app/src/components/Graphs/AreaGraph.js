@@ -1,15 +1,13 @@
 import React from 'react';
-import {
-    AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
-} from 'recharts';
+import {AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
 
-const AreaChartComponent = ({ data }) => {
+const AreaGraph = ({ file, color, width, height }) => {
     return (
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width={width} height={height}>
             <AreaChart
                 width={500}
                 height={400}
-                data={data}
+                file={file}
                 margin={{
                     top: 10, right: 30, left: 0, bottom: 0,
                 }}
@@ -18,10 +16,10 @@ const AreaChartComponent = ({ data }) => {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+                <Area type="monotone" dataKey="uv" stroke={color} fill={color} />
             </AreaChart>
         </ResponsiveContainer>
     );
 }
 
-export default AreaChartComponent;
+export default AreaGraph;

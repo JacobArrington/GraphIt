@@ -3,8 +3,8 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 const COLORS =['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF']
 
-const PieChart = ({ file }) => {
-    <ResponsiveContainer width='100%' height='50%'>
+const CircleGraph = ({ file, color, width, height }) => {
+    <ResponsiveContainer width={width} height={color}>
         <PieChart>
             <Pie
                 file={file}
@@ -25,4 +25,4 @@ const PieChart = ({ file }) => {
     </ResponsiveContainer>
 }
 
-export default PieChart
+export default CircleGraph

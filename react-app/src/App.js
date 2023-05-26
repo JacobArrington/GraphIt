@@ -6,6 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import DataFiles from "./components/DataFiles";
+import PostVisualization from "./components/PostVisualization";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route path="/files">
             <DataFiles />
+          </Route>
+          <Route path='/visulazation/new'>
+            <PostVisualization />
           </Route>
         </Switch>
       )}
