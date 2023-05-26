@@ -6,7 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import DataFiles from "./components/DataFiles";
-import PostVisualization from "./components/PostVisualization";
+import PostVisualization from "./components/PostVisualizationModal";
 
 function App() {
   const dispatch = useDispatch();

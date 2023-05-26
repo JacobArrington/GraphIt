@@ -7,18 +7,19 @@ import AreaGraph from '../Graphs/AreaGraph';
 import PieGraph from '../Graphs/CircleGraph';
 import RadarGraph from '../Graphs/RadarGraph';
 import BarGraph from '../Graphs/BarGraphjs';
+import { useModal } from '../../context/Modal';
 
-
-const PostVisualization = ({ selectedFileId }) => {
+const PostVisualizationModal = ({ selectedFileId }) => {
   const dispatch = useDispatch();
   const history = useHistory()
+  const { closeModal } = useModal()
   const [chartType, setChartType] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [chartWidth, setChartWidth] = useState(500);
   const [chartHeight, setChartHeight] = useState(500);
 
-
+  const [size, setSize] = useState({ width: '100%', height: 400 });
   const [views, setViews] = useState(0);
   const [visibility, setVisibility] = useState(true);
   const [color, setColor] = useState('#000000');
@@ -30,7 +31,7 @@ const PostVisualization = ({ selectedFileId }) => {
       title,
       description,
       chart_type: chartType,
-      data_file_id: dataFileId,
+      data_file_id: selectedFileId,
       views,
       visibility,
       color,
@@ -38,7 +39,8 @@ const PostVisualization = ({ selectedFileId }) => {
     };
     let newVis = await dispatch(postVisualization(visualizationData));
     if (newVis) {
-      history.push()
+      history.push(`/visualization/${newVis.id}`)
+      closeModal()
     }
   };
 
@@ -46,15 +48,15 @@ const PostVisualization = ({ selectedFileId }) => {
   const graph = (chartType) => {
     switch (chartType) {
       case 'bar':
-        return <BarGraph file={selectedFileId} color={chartColor} width={chartWidth} height={chartHeight} />
+        return <BarGraph file={selectedFileId} color={color} width={chartWidth} height={chartHeight} />
       case 'line':
-        return <LineGraph file={selectedFileId} color={chartColor} width={chartWidth} height={chartHeight} />
+        return <LineGraph file={selectedFileId} color={color} width={chartWidth} height={chartHeight} />
       case 'area':
-        return <AreaGraph file={selectedFileId} color={chartColor} width={chartWidth} height={chartHeight} />
+        return <AreaGraph file={selectedFileId} color={color} width={chartWidth} height={chartHeight} />
       case 'circle':
-        return <PieGraph file={selectedFileId} color={chartColor} width={chartWidth} height={chartHeight} />
+        return <PieGraph file={selectedFileId} color={color} width={chartWidth} height={chartHeight} />
       case 'radar':
-        return <RadarGraph file={selectedFileId} color={chartColor} width={chartWidth} height={chartHeight} />
+        return <RadarGraph file={selectedFileId} color={color} width={chartWidth} height={chartHeight} />
 
     }
   }
@@ -116,11 +118,19 @@ const PostVisualization = ({ selectedFileId }) => {
         />
       </label>
 
-      <label>
-        Size:
-        <input type="number" value={chartWidth} onChange={(e) => setChartWidth(e.target.value)} placeholder="Width" />
-        <input type="number" value={chartHeight} onChange={(e) => setChartHeight(e.target.value)} placeholder="Height" />
-      </label>
+      <label>Width (%)</label>
+      <input 
+        type="number" 
+        value={size.width} 
+        onChange={(e) => setSize({...size, width: e.target.value + '%'})} 
+      />
+
+      <label>Height (px)</label>
+      <input 
+        type="number" 
+        value={size.height} 
+        onChange={(e) => setSize({...size, height: e.target.value})} 
+      />
 
       <div className="chart-container">
         {graph(chartType)}
@@ -131,4 +141,4 @@ const PostVisualization = ({ selectedFileId }) => {
   );
 };
 
-export default PostVisualization;
+export default PostVisualizationModal;

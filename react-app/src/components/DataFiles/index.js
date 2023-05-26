@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchFile } from '../../store/dataFiles';
 import OpenModalButton from "../OpenModalButton";
 import PostFileModal from '../PostFileModal';
-
+import { useState } from 'react';
+import PostVisualizationModal from '../PostVisualizationModal';
 function DataFiles(){
     const dispatch = useDispatch()
     const allFiles = useSelector((state) => state.fileReducer)
@@ -35,6 +36,12 @@ return(
         buttonText="Add a file"
         modalComponent={
             <PostFileModal />
+        }
+    />
+     <OpenModalButton 
+        buttonText="Graph It!"
+        modalComponent={
+            <PostVisualizationModal />
         }
     />
     </>
