@@ -28,10 +28,14 @@ function App() {
           </Route>
           <Route path="/files">
             <DataFiles />
+      
           </Route>
-          <Route path='/visulazation/new'>
+          <Route path="/graph">
             <PostVisualization />
+      
           </Route>
+          
+          
         </Switch>
       )}
     </>

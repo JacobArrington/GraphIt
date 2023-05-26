@@ -9,7 +9,7 @@ class Visualization(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     data_file_id = db.Column(db.Integer, db.ForeignKey('data_files.id'))
-    #manual_data = db.Column(db.String(1000))
+    chart_data = db.Column(db.JSON)
     visualization_type = db.Column(db.String(64), nullable=False)
     title = db.Column(db.String(256), nullable=False)
     description = db.Column(db.String(500))
@@ -34,7 +34,7 @@ class Visualization(db.Model):
             'id': self.id,
             'user_id': self.user_id,
             'data_file_id': self.data_file_id,
-           # 'manual_data': self.manual_data,
+            'chart_data': self.chart_data,
             'visualization_type': self.visualization_type,
             'title': self.title,
             'description': self.description,

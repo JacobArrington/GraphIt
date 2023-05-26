@@ -8,7 +8,7 @@ import json
 
 visualization_routes = Blueprint('visualizations', __name__)
 
-def convert_to_chart(file_path, file_type, chart_type):
+def convert_to_chart(file_path, file_type):
     # reads file into DataFrame based on the file type
     if file_type == 'csv':
         df = pd.read_csv(file_path)
@@ -40,7 +40,7 @@ def convert_to_chart(file_path, file_type, chart_type):
 
 
 
-@visualization_routes.route('', methods=['GET, POST'])
+@visualization_routes.route('', methods=['GET', 'POST'])
 @login_required
 def get_all_visualizations():
     if request.method =='GET':
@@ -50,7 +50,7 @@ def get_all_visualizations():
     elif request.method == 'POST':
         data = request.get_json()
 
-        file = DataFile.query.get(data['file_id'])
+        file = DataFile.query.get(data['data_file_id'])
 
         if not file:
             return jsonify({"error": "file not found"})

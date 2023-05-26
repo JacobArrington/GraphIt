@@ -6,7 +6,7 @@ import LineGraph from '../Graphs/LineGraph';
 import AreaGraph from '../Graphs/AreaGraph';
 import PieGraph from '../Graphs/CircleGraph';
 import RadarGraph from '../Graphs/RadarGraph';
-import BarGraph from '../Graphs/BarGraphjs';
+import BarGraph from '../Graphs/BarGraph.js';
 import { useModal } from '../../context/Modal';
 
 const PostVisualizationModal = ({ selectedFileId }) => {
@@ -19,7 +19,7 @@ const PostVisualizationModal = ({ selectedFileId }) => {
   const [chartWidth, setChartWidth] = useState(500);
   const [chartHeight, setChartHeight] = useState(500);
 
-  const [size, setSize] = useState({ width: '100%', height: 400 });
+  const [size, setSize] = useState({ width: '100', height: 400 });
   const [views, setViews] = useState(0);
   const [visibility, setVisibility] = useState(true);
   const [color, setColor] = useState('#000000');
@@ -30,7 +30,7 @@ const PostVisualizationModal = ({ selectedFileId }) => {
     const visualizationData = {
       title,
       description,
-      chart_type: chartType,
+      visualization_type: chartType,
       data_file_id: selectedFileId,
       views,
       visibility,
@@ -39,7 +39,7 @@ const PostVisualizationModal = ({ selectedFileId }) => {
     };
     let newVis = await dispatch(postVisualization(visualizationData));
     if (newVis) {
-      history.push(`/visualization/${newVis.id}`)
+      history.push(`/visualizations/`)
       closeModal()
     }
   };
@@ -60,7 +60,7 @@ const PostVisualizationModal = ({ selectedFileId }) => {
 
     }
   }
-
+console.log(selectedFileId,'@@@@@@@@@@@')
 
 
   return (

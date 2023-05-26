@@ -23,7 +23,7 @@ export const fetchFile = () => async (dispatch) => {
 }
 
 export const postFile = (dataFile) => async(dispatch) =>{
-    const response = await fetch('api/files',{
+    const response = await fetch('/api/files',{
         method: "POST",
         headers: {"Content-Type" : "application/json"},
         body: JSON.stringify(dataFile)

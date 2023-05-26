@@ -41,7 +41,7 @@ return(
      <OpenModalButton 
         buttonText="Graph It!"
         modalComponent={
-            <PostVisualizationModal />
+            <PostVisualizationModal selectedFileId={selectedFileId} />
         }
     />
     </>
