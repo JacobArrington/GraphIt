@@ -5,13 +5,7 @@ import { useEffect, useState } from "react";
 const BarGraph = ({file, color, width, height}) =>{
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        // fetch chart data when file is selected
-        fetch(`${process.env.REACT_APP_BASE_URL}/get-data/${file}`)
-            .then(response => response.json())
-            .then(data => setData(data));
-    }, [file]);
-
+    
     return(
         <ResponsiveContainer width={width} height={height}>
             <BarChart

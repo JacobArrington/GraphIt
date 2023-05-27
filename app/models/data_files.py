@@ -9,7 +9,7 @@ class DataFile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     filename = db.Column(db.String(256), nullable=False)
-    file_type = db.Column(db.Enum('csv','json','xlsx', name='filetype_enum'), nullable=False)
+    file_type = db.Column(db.Enum('text/csv','application/json','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', name='filetype_enum'), nullable=False)
     file_path = db.Column(db.String(500), nullable=False)
     #data = db.Column(db.JSON, nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())

@@ -22,15 +22,18 @@ export const fetchFile = () => async (dispatch) => {
     }
 }
 
-export const postFile = (dataFile) => async(dispatch) =>{
+export const postFile = (formData) => async(dispatch) =>{
     const response = await fetch('/api/files',{
         method: "POST",
-        headers: {"Content-Type" : "application/json"},
-        body: JSON.stringify(dataFile)
+        // headers: {"Content-Type" : "application/json"},
+        body: formData
     })
     if(response.ok){
         const file = await response.json()
         dispatch(addFile(file))
+        return null
+    }else{
+        return response.json()
     }
 }
 

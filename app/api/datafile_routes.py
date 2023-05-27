@@ -1,7 +1,10 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, current_app
 from flask_login import login_required, current_user
+from werkzeug.utils import secure_filename
 from app.models import User, DataFile, db
 from datetime import datetime
+from .cloud_storage import upload_file_to_gcs
+import os
 
 datafile_routes = Blueprint('files',__name__)
 
@@ -13,22 +16,45 @@ def get_all_files():
         return jsonify([file.to_dict() for file in files])
     
     elif request.method == 'POST':
-        data = request.get_json()
-        print(f"Request data: {data}")
-        if 'filename' not in data or 'file_type' not in data or 'file_path'not in data:
-            return jsonify({"error": "missing fields"})
-        
-        file = DataFile(
+     if 'file' not in request.files:
+        return jsonify({'error': 'No file in the request'}),400
+    file = request.files['file']
+
+    if file.filename == '':
+        return jsonify({'error': 'No seleceted file'}), 400
+    
+    filename = secure_filename(file.filename)
+
+    upload_dir = current_app.config['UPLOAD_FOLDER']
+
+    if not os.path.exists(upload_dir):
+        os.makedirs(upload_dir)
+
+    
+    file_path = os.path.join(current_app.config['UPLOAD_FOLDER'],filename)
+
+    file.save(file_path)
+    public_url = upload_file_to_gcs(file_path, filename)
+
+    os.remove(file_path)
+    mime_to_type = {
+    'text/csv': 'csv',
+    'application/json': 'json',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx'
+}
+
+    datafile = DataFile(
             user_id=current_user.id,
-            filename=data['filename'],
-            file_type=data['file_type'],
-            file_path=data['file_path'],
+            filename=filename,
+            file_type='text/csv' if file.mimetype == 'csv' else file.mimetype,
+            file_path=public_url,  # we store the public URL instead of local file path
             created_at=datetime.now()
         )
-        db.session.add(file)
-        db.session.commit()
+    print(datafile,'@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    db.session.add(datafile)
+    db.session.commit()
 
-        return jsonify(file.to_dict()) , 201
+    return jsonify(datafile.to_dict()), 201
 
 
 @datafile_routes.route('/<int:id>')

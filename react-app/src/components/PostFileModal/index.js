@@ -11,18 +11,23 @@ function PostFileModal() {
 
   const [filename, setFileName] = useState('')
   const [filetype, setFileType] = useState('')
-  const [filePath, setFilePath] = useState('');
+  const [filepath, setFilepath] = useState(null);
   const [errors, setErrors] = useState([])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const datafile = {
-      filename,
-      filetype,
-      filePath,
-    }
-    const data = await dispatch(postFile(datafile))
+   const formData = new FormData();
+   formData.append('file',filepath);
+   formData.append('filename',filename)
+   formData.append('filetype',filetype)
+
+
+console.log(formData,'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+console.log(Array.from(formData.entries()),'~~~~~~~~~~~~~~~~~~~~~~~');
+
+    const data = await dispatch(postFile(formData))
+    await dispatch(fetchFile())
     if (data) {
       setErrors(data)
     } else {
@@ -31,12 +36,12 @@ function PostFileModal() {
   }
 
   const handleFileUpload = (e) => {
-    setFilePath(e.target.files[0])
+    setFilepath(e.target.files[0])
   }
   return (
     <>
       <h1>Add File</h1>
-      <form onSubmit={handleSubmit} className="add-file-form">
+      <form onSubmit={handleSubmit} className="add-file-form" encType='multipart/form-data'>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
@@ -54,7 +59,7 @@ function PostFileModal() {
         </label>
         <label>
           File Path
-          <input type="file" onChange={handleFileUpload} required />
+          <input type="file" name="file" onChange={handleFileUpload} required />
         </label>
         <label>
           File Type
@@ -66,7 +71,7 @@ function PostFileModal() {
           >
             <option value="">Select a file type...</option>
             <option value="json">JSON</option>
-            <option value="csv">CSV</option>
+            <option value="text/csv">CSV</option>
             <option value="xlsx">XLSX</option>
           </select>
         </label>
