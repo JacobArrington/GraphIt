@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { postVisualization } from '../../store/visulazation';
+import { fetchVisualization, postVisualization } from '../../store/visulazation';
 import { useHistory } from 'react-router-dom';
 import LineGraph from '../Graphs/LineGraph';
 import AreaGraph from '../Graphs/AreaGraph';
@@ -9,20 +9,27 @@ import RadarGraph from '../Graphs/RadarGraph';
 import BarGraph from '../Graphs/BarGraph.js';
 import { useModal } from '../../context/Modal';
 
-const PostVisualizationModal = ({ selectedFileId }) => {
+const PostVisualizationModal = ({ selectedFileId,selectedFileData }) => {
   const dispatch = useDispatch();
   const history = useHistory()
   const { closeModal } = useModal()
   const [chartType, setChartType] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [chartWidth, setChartWidth] = useState(500);
-  const [chartHeight, setChartHeight] = useState(500);
-
-  const [size, setSize] = useState({ width: '100', height: 400 });
+  const [width, setWidth] = useState(100);
+  const [height, setHeight] = useState(500);
   const [views, setViews] = useState(0);
-  const [visibility, setVisibility] = useState(true);
+  const [visibility, setVisibility] = useState('');
   const [color, setColor] = useState('#000000');
+  const [chartData, setChartData] = useState([]);
+  const [xAxisKey, setXAxisKey] = useState('');
+  const [barDataKey, setBarDataKey] = useState('');
+
+  useEffect(() => {
+  setChartData(selectedFileData)
+}, [selectedFileData])
+
+  const previewData = chartData.slice(0, 5);
 
 
   const handleSubmit = async (e) => {
@@ -35,29 +42,34 @@ const PostVisualizationModal = ({ selectedFileId }) => {
       views,
       visibility,
       color,
-      size,
+      width,
+      height,
     };
     let newVis = await dispatch(postVisualization(visualizationData));
+    console.log(newVis)
     if (newVis) {
-      history.push(`/visualizations/`)
+      history.push(`/graph`)
+      await dispatch(fetchVisualization())
       closeModal()
     }
   };
 
+  console.log(chartType)
 
   const graph = (chartType) => {
     switch (chartType) {
       case 'bar':
-        return <BarGraph file={selectedFileId} color={color} width={chartWidth} height={chartHeight} />
+        return <BarGraph file={selectedFileId} color={color} width={width} height={height} />
       case 'line':
-        return <LineGraph file={selectedFileId} color={color} width={chartWidth} height={chartHeight} />
+        return <LineGraph file={selectedFileId} color={color} width={width} height={height} />
       case 'area':
-        return <AreaGraph file={selectedFileId} color={color} width={chartWidth} height={chartHeight} />
+        return <AreaGraph file={selectedFileId} color={color} width={width} height={height} />
       case 'circle':
-        return <PieGraph file={selectedFileId} color={color} width={chartWidth} height={chartHeight} />
+        return <PieGraph file={selectedFileId} color={color} width={width} height={height} />
       case 'radar':
-        return <RadarGraph file={selectedFileId} color={color} width={chartWidth} height={chartHeight} />
-
+        return <RadarGraph file={selectedFileId} color={color} width={width} height={height} />
+        default:
+          return null;
     }
   }
 console.log(selectedFileId,'@@@@@@@@@@@')
@@ -121,19 +133,52 @@ console.log(selectedFileId,'@@@@@@@@@@@')
       <label>Width (%)</label>
       <input 
         type="number" 
-        value={size.width} 
-        onChange={(e) => setSize({...size, width: e.target.value + '%'})} 
+        value={width} 
+        onChange={(e) => setWidth(e.target.value)} 
       />
 
       <label>Height (px)</label>
       <input 
         type="number" 
-        value={size.height} 
-        onChange={(e) => setSize({...size, height: e.target.value})} 
+        value={height} 
+        onChange={(e) => setHeight(e.target.value)} 
       />
 
-      <div className="chart-container">
-        {graph(chartType)}
+<label>
+        X Axis:
+        <input 
+          type="text" 
+          value={xAxisKey} 
+          onChange={(e) => setXAxisKey(e.target.value)}
+          placeholder="Enter field name for X Axis"
+        />
+      </label>
+      <label>
+        Bar Data:
+        <input 
+          type="text" 
+          value={barDataKey} 
+          onChange={(e) => setBarDataKey(e.target.value)}
+          placeholder="Enter field name for Bar Data"
+        />
+      </label>
+
+      <div className='data-preview'>
+        <h3>Data Preview</h3>
+        <table>
+          <thead>
+            <tr>
+              {Object.keys(previewData[0] || {}).map((key, index) => <th key={index}>{key}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {previewData.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {Object.values(row).map((value, valueIndex) => <td key={valueIndex}>{value}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <button type="submit">Submit</button>

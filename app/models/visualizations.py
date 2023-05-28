@@ -16,7 +16,8 @@ class Visualization(db.Model):
     views = db.Column(db.Integer, default=0)
     visibility = db.Column(db.String(64), nullable=False)
     color = db.Column(db.String(64))
-    size = db.Column(db.String(64))
+    width = db.Column(db.Integer, nullable=False)
+    height = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(db.DateTime, onupdate=db.func.current_timestamp())
 
@@ -41,7 +42,8 @@ class Visualization(db.Model):
             'views': self.views,
             'visibility': self.visibility,
             'color': self.color,
-            'size': self.size,
+            'width': self.width,
+            'height': self.height,
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-            'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+           'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S') if self.updated_at else None
     }

@@ -3,10 +3,21 @@ from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from app.models import User, DataFile, db
 from datetime import datetime
-from .cloud_storage import upload_file_to_gcs
+from .visualization_routes import convert_to_chart
+from .cloud_storage import upload_file_to_gcs, download_file_from_gcs
 import os
 
 datafile_routes = Blueprint('files',__name__)
+
+def get_data_from_cloud(file_id):
+    datafile = DataFile.query.get(file_id)
+    if not datafile:
+        return None
+    
+    chart_data = convert_to_chart(datafile.file_path, datafile.file_type)
+
+    return chart_data
+
 
 @datafile_routes.route('',methods=['GET', 'POST'])
 @login_required
@@ -36,6 +47,12 @@ def get_all_files():
     file.save(file_path)
     public_url = upload_file_to_gcs(file_path, filename)
 
+    print(f'Public URL after upload: {public_url}')
+
+    path = public_url.replace(f"https://storage.googleapis.com/{current_app.config['GCS_BUCKET']}/", '')
+
+    print(f'Relative path for GCS: {path}')
+
     os.remove(file_path)
     mime_to_type = {
     'text/csv': 'csv',
@@ -47,7 +64,7 @@ def get_all_files():
             user_id=current_user.id,
             filename=filename,
             file_type='text/csv' if file.mimetype == 'csv' else file.mimetype,
-            file_path=public_url,  # we store the public URL instead of local file path
+            file_path=path , 
             created_at=datetime.now()
         )
     print(datafile,'@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
@@ -61,6 +78,7 @@ def get_all_files():
 @login_required
 def file_by_id(id):
     file = DataFile.query.get(id)
+    print(f'Stored file path in database: {file.file_path}')
 
     if not file:
         return jsonify({"error": "Data file not found"}), 404
@@ -68,4 +86,11 @@ def file_by_id(id):
     if file.user_id != current_user.id:
         return jsonify({"error": "Unauthorized"}), 403
     
-    return jsonify(file.to_dict())
+    file_data = get_data_from_cloud(file.filename)
+
+    response = file.to_dict()
+    response['data'] = file_data
+
+    return jsonify(response)
+    
+   

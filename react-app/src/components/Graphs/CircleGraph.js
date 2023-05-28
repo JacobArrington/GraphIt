@@ -3,11 +3,11 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 const COLORS =['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF']
 
-const CircleGraph = ({ file, color, width, height }) => {
-    <ResponsiveContainer width={width} height={height}>
+const CircleGraph = ({ chartData, color, width, height }) => {
+    <ResponsiveContainer width={width + '%'} height={height + 'px'}>
         <PieChart>
             <Pie
-                file={file}
+                file={chartData}
                 cx='50%'
                 cy='50%'
                 
@@ -18,7 +18,7 @@ const CircleGraph = ({ file, color, width, height }) => {
                 label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
             >
                 {
-                    file.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                    chartData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
                 }
 
             </Pie>

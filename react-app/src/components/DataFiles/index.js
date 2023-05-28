@@ -9,6 +9,7 @@ function DataFiles(){
     const dispatch = useDispatch()
     const allFiles = useSelector((state) => state.fileReducer)
     const [selectedFileId, setSelectedFileId] = useState(null)
+    const [selectedFileData, setSelectedFileData] = useState([]);
 
     
 
@@ -18,6 +19,18 @@ function DataFiles(){
 
     const handleFileClick = (fileId) => {
         setSelectedFileId(fileId);
+
+        fetch(`/api/files/${fileId}`)
+        .then(response => response.json())
+        .then(responseData => {
+          if (Array.isArray(responseData.data)) {
+            setSelectedFileData(responseData.data);
+          } else {
+            console.error('Invalid data: ', responseData);
+          }
+        })
+        .catch(error => console.error(error))
+    
       }
 return(
     <>
@@ -41,7 +54,7 @@ return(
      <OpenModalButton 
         buttonText="Graph It!"
         modalComponent={
-            <PostVisualizationModal selectedFileId={selectedFileId} />
+            <PostVisualizationModal selectedFileId={selectedFileId} selectedFileData={selectedFileData} />
         }
     />
     </>

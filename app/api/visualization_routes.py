@@ -2,29 +2,46 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import User, Visualization, DataFile, db
 from datetime import datetime
+from google.cloud import storage
+from app.config import Config
+import io
 import pandas as pd 
 import json 
 
 
 visualization_routes = Blueprint('visualizations', __name__)
 
-def convert_to_chart(file_path, file_type):
+def convert_to_chart(file_name, file_type):
+    #file Prep
+    storage_client = Config.STORAGE_CLIENT
+
+    bucket_name ='graphit_bucket'
+    blob_name = file_name
+
+    bucket = storage_client.get_bucket(bucket_name)
+    blob = bucket.blob(blob_name)
+    file_as_string = blob.download_as_text()
+
+    
+
+    mime_to_extension = {
+        'text/csv': 'csv',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+        'application/json': 'json'
+    }
+
+    file_extension = mime_to_extension.get(file_type)
     # reads file into DataFrame based on the file type
-    if file_type == 'csv':
-        df = pd.read_csv(file_path)
-    elif file_type == 'xlsx':
-        df = pd.read_excel(file_path)
-    elif file_type == 'json':
-        # handling it with json for more flexabilty of file structure the converting to a dataframe
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-        df = pd.DataFrame(data) 
+    if file_extension == 'csv':
+        df = pd.read_csv(io.StringIO(file_as_string))
+    elif file_extension == 'xlsx':
+        df = pd.read_excel(io.BytesIO(blob.download_as_bytes()))
+    elif file_extension == 'json':
+        df =pd.DataFrame(json.loads(file_as_string))
     else:
         raise ValueError("Unsupported file type")
 
-    #min-max scaling
-    for column in df.select_dtypes(include=['int', 'float']).columns:
-        df[column] =(df[column].min()) / (df[column].max() -df[column].min())
+ 
 
     chart_data = []
 
@@ -62,17 +79,20 @@ def get_all_visualizations():
             data_file_id = data['data_file_id'],
             visualization_type=data['visualization_type'],
             title=data['title'],
+            description=data['description'],
             visibility=data['visibility'],
             color=data.get('color'),
-            size=data.get('size'),
+            width=data.get('width'),
+            height=data.get('height'),
             chart_data=chart_data,
-            created_at = datetime.now()
+            created_at = datetime.now(),
+            updated_at = datetime.now()
 
         )
         db.session.add(visualization)
         db.session.commit()
 
-        return jsonify(visualization.to_dict)
+        return jsonify(visualization.to_dict())
 
        
 @visualization_routes.route('/<int:id>')

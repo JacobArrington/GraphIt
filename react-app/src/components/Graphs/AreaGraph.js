@@ -1,13 +1,13 @@
 import React from 'react';
 import {AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
 
-const AreaGraph = ({ file, color, width, height }) => {
+const AreaGraph = ({ chartData, color, width, height }) => {
     return (
-        <ResponsiveContainer width={width} height={height}>
+        <ResponsiveContainer width={width + '%'} height={height + 'px'}>
             <AreaChart
                 width={500}
                 height={400}
-                file={file}
+                file={chartData}
                 margin={{
                     top: 10, right: 30, left: 0, bottom: 0,
                 }}

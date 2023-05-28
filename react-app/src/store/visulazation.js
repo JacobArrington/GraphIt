@@ -8,7 +8,7 @@ const getVisualizations =(visualizations) =>({
 })
 
 const addVisualizations =(visualization) =>({
-    type: GET_VIS,
+    type: ADD_VIS,
     visualization
 })
 
@@ -30,6 +30,7 @@ export const postVisualization = (visData) => async (dispatch) =>{
     if(response.ok){
         const visualization = await response.json()
         dispatch(addVisualizations(visualization))
+        return visualization
     }
 }
 

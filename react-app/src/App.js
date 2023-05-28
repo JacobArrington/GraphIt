@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import DataFiles from "./components/DataFiles";
 import PostVisualization from "./components/PostVisualizationModal";
+import AllVisualizations from "./components/AllVisulazations";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ function App() {
       
           </Route>
           <Route path="/graph">
-            <PostVisualization />
+            <AllVisualizations />
       
           </Route>
           

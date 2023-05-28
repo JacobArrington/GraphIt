@@ -1,11 +1,11 @@
 import React from "react";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-const LineGraph =({file, color, width, height}) => {
+const LineGraph =({chartData, color, width, height}) => {
     return(
-        <ResponsiveContainer width={width} height={height}>
+        <ResponsiveContainer width={width + '%'} height={height + 'px'}>
             <lineChart
-            file={file}
+            file={chartData}
             margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
             <Line type='monotone' dataKey={'uv'} stroke={color} />
             {/* <CartesianGrid stroke='#ccc' strokeDasharray='5 5' /> */}
