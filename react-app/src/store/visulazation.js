@@ -1,5 +1,7 @@
 const GET_VIS = "visualization/GET_VIS"
 const ADD_VIS = "visualization/ADD_VIS"
+const GET_BY_ID = "visualization/GET_BY_ID"
+const UPDATE_VIS = "visulization/UPDATE_VIS"
 
 
 const getVisualizations =(visualizations) =>({
@@ -8,6 +10,16 @@ const getVisualizations =(visualizations) =>({
 })
 
 const addVisualizations =(visualization) =>({
+    type: ADD_VIS,
+    visualization
+})
+
+const getVisualizationId =(visualization) =>({
+    type: GET_BY_ID,
+    visualization
+})
+
+const updateVisualizations =(visualization) =>({
     type: ADD_VIS,
     visualization
 })
@@ -34,6 +46,29 @@ export const postVisualization = (visData) => async (dispatch) =>{
     }
 }
 
+export const fetchVisualizationById =(id) =>async (dispatch) =>{
+    const response = await fetch(`/api/visualizations/${id}`)
+    if(response.ok){
+        const visualizations = await response.json()
+        dispatch(getVisualizationId(visualizations))
+    }
+}
+
+
+export const editVisualization =(id,visData) => async(dispatch) =>{
+    const response = await fetch(`/api/visualizations/${id}`,{
+        method: 'PUT',
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(visData)  
+    })
+    if(response.ok){
+        const updateVis = await response.json()
+        dispatch(updateVisualizations(updateVis))
+    }
+    
+
+}
+
 const initState ={}
 
 export default function visualizationReducer(state = initState, action){
@@ -48,6 +83,16 @@ export default function visualizationReducer(state = initState, action){
         case ADD_VIS:{
             newState[action.visualization.id] = action.visualization
             return newState
+        }
+        case GET_BY_ID:{
+            newState[action.visualization.id] = action.visualization
+            return newState 
+        }
+        case UPDATE_VIS:{
+            const newState = {...state};
+            newState[action.visualization.id] = action.visualization
+            return newState;
+            
         }
         default:
             return state
