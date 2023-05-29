@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchVisualization } from '../../store/visulazation';
 import LineGraph from '../Graphs/LineGraph';
 import AreaGraph from '../Graphs/AreaGraph';
-import PieGraph from '../Graphs/CircleGraph';
+// import PieGraph from '../Graphs/CircleGraph';
 import RadarGraph from '../Graphs/RadarGraph';
 import BarGraph from '../Graphs/BarGraph';
 
@@ -24,11 +24,11 @@ const AllVisualizations = () => {
       case 'line':
         return <LineGraph file={data_file_id} color={color} width={width} height={height} selectedFileData={chart_data} />;
       case 'area':
-        return <AreaGraph file={data_file_id} color={color} width={width} height={height} />;
-      case 'circle':
-        return <PieGraph file={data_file_id} color={color} width={width} height={height} />;
+        return <AreaGraph file={data_file_id} color={color} width={width} height={height} selectedFileData={chart_data} />;
+      // case 'circle':
+      //   return <PieGraph file={data_file_id} color={color} width={width} height={height} selectedFileData={chart_data} />;
       case 'radar':
-        return <RadarGraph file={data_file_id} color={color} width={width} height={height} />;
+        return <RadarGraph file={data_file_id} color={color} width={width} height={height} selectedFileData={chart_data} />;
       default:
         return null;
     }

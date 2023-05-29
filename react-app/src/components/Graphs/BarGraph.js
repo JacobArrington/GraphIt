@@ -3,8 +3,8 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import { useEffect, useState } from "react";
 
 const BarGraph = ({file, color, width, height, selectedFileData, }) =>{
-    const [xAxisKey, setXAxisKey] = useState( '');
-    const [barDataKey, setBarDataKey] = useState( '');
+    const [xAxisKey, setXAxisKey] = useState('');
+    const [barDataKey, setBarDataKey] = useState('');
 
 
  
@@ -20,9 +20,9 @@ const BarGraph = ({file, color, width, height, selectedFileData, }) =>{
                     setBarDataKey(key);
                 }
             });
-            console.log('selectedFileData:', selectedFileData);
-            console.log('barDataKey:', barDataKey);
-            console.log('xAxisKey:', xAxisKey)
+            // console.log('selectedFileData:', selectedFileData);
+            // console.log('barDataKey:', barDataKey);
+            // console.log('xAxisKey:', xAxisKey)
         }
     }, [selectedFileData]);
     return (

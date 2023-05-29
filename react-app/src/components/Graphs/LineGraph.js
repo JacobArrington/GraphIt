@@ -17,9 +17,9 @@ const LineGraph =({selectedFileData, color, width, height}) => {
                     setLineDataKey(key);
                 }
             });
-            console.log('selectedFileData:', selectedFileData);
-            console.log('lineDataKey:', lineDataKey);
-            console.log('xAxisKey:', xAxisKey)
+            // console.log('selectedFileData:', selectedFileData);
+            // console.log('lineDataKey:', lineDataKey);
+            // console.log('xAxisKey:', xAxisKey)
         }
     }, [selectedFileData]);
 

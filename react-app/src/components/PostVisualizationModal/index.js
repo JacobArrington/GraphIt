@@ -4,7 +4,7 @@ import { fetchVisualization, postVisualization } from '../../store/visulazation'
 import { useHistory } from 'react-router-dom';
 import LineGraph from '../Graphs/LineGraph';
 import AreaGraph from '../Graphs/AreaGraph';
-import PieGraph from '../Graphs/CircleGraph';
+// import PieGraph from '../Graphs/CircleGraph';
 import RadarGraph from '../Graphs/RadarGraph';
 import BarGraph from '../Graphs/BarGraph.js';
 import { useModal } from '../../context/Modal';
@@ -65,8 +65,8 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
         return <LineGraph file={selectedFileId} color={color} width={width} height={height} selectedFileData={selectedFileData} />
       case 'area':
         return <AreaGraph file={selectedFileId} color={color} width={width} height={height} selectedFileData={selectedFileData} />
-      case 'circle':
-        return <PieGraph file={selectedFileId} color={color} width={width} height={height} selectedFileData={selectedFileData}/>
+      // case 'circle':
+      //   return <PieGraph file={selectedFileId} color={color} width={width} height={height} selectedFileData={selectedFileData}/>
       case 'radar':
         return <RadarGraph file={selectedFileId} color={color} width={width} height={height}selectedFileData={selectedFileData} />
       default:
@@ -98,7 +98,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
         <button onClick={() => setChartType('bar')}>Bar</button>
         <button onClick={() => setChartType('line')}>Line</button>
         <button onClick={() => setChartType('area')}>Area</button>
-        <button onClick={() => setChartType('circle')}>Circle</button>
+        
         <button onClick={() => setChartType('radar')}>Radar</button>
 
       </div>
