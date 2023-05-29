@@ -9,7 +9,7 @@ import RadarGraph from '../Graphs/RadarGraph';
 import BarGraph from '../Graphs/BarGraph.js';
 import { useModal } from '../../context/Modal';
 
-const PostVisualizationModal = ({ selectedFileId,selectedFileData }) => {
+const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
   const dispatch = useDispatch();
   const history = useHistory()
   const { closeModal } = useModal()
@@ -22,12 +22,13 @@ const PostVisualizationModal = ({ selectedFileId,selectedFileData }) => {
   const [visibility, setVisibility] = useState('');
   const [color, setColor] = useState('#000000');
   const [chartData, setChartData] = useState([]);
-  const [xAxisKey, setXAxisKey] = useState('');
-  const [barDataKey, setBarDataKey] = useState('');
+
 
   useEffect(() => {
-  setChartData(selectedFileData)
-}, [selectedFileData])
+    setChartData(selectedFileData)
+  }, [selectedFileData])
+
+
 
   const previewData = chartData.slice(0, 5);
 
@@ -59,20 +60,20 @@ const PostVisualizationModal = ({ selectedFileId,selectedFileData }) => {
   const graph = (chartType) => {
     switch (chartType) {
       case 'bar':
-        return <BarGraph file={selectedFileId} color={color} width={width} height={height} />
+        return <BarGraph file={selectedFileId} color={color} width={width} height={height} selectedFileData={selectedFileData} />
       case 'line':
-        return <LineGraph file={selectedFileId} color={color} width={width} height={height} />
+        return <LineGraph file={selectedFileId} color={color} width={width} height={height} selectedFileData={selectedFileData} />
       case 'area':
-        return <AreaGraph file={selectedFileId} color={color} width={width} height={height} />
+        return <AreaGraph file={selectedFileId} color={color} width={width} height={height} selectedFileData={selectedFileData} />
       case 'circle':
-        return <PieGraph file={selectedFileId} color={color} width={width} height={height} />
+        return <PieGraph file={selectedFileId} color={color} width={width} height={height} selectedFileData={selectedFileData}/>
       case 'radar':
-        return <RadarGraph file={selectedFileId} color={color} width={width} height={height} />
-        default:
-          return null;
+        return <RadarGraph file={selectedFileId} color={color} width={width} height={height}selectedFileData={selectedFileData} />
+      default:
+        return null;
     }
   }
-console.log(selectedFileId,'@@@@@@@@@@@')
+  console.log(selectedFileId, '@@@@@@@@@@@')
 
 
   return (
@@ -131,55 +132,22 @@ console.log(selectedFileId,'@@@@@@@@@@@')
       </label>
 
       <label>Width (%)</label>
-      <input 
-        type="number" 
-        value={width} 
-        onChange={(e) => setWidth(e.target.value)} 
+      <input
+        type="number"
+        value={width}
+        onChange={(e) => setWidth(e.target.value)}
       />
 
       <label>Height (px)</label>
-      <input 
-        type="number" 
-        value={height} 
-        onChange={(e) => setHeight(e.target.value)} 
+      <input
+        type="number"
+        value={height}
+        onChange={(e) => setHeight(e.target.value)}
       />
-
-<label>
-        X Axis:
-        <input 
-          type="text" 
-          value={xAxisKey} 
-          onChange={(e) => setXAxisKey(e.target.value)}
-          placeholder="Enter field name for X Axis"
-        />
-      </label>
-      <label>
-        Bar Data:
-        <input 
-          type="text" 
-          value={barDataKey} 
-          onChange={(e) => setBarDataKey(e.target.value)}
-          placeholder="Enter field name for Bar Data"
-        />
-      </label>
-
-      <div className='data-preview'>
-        <h3>Data Preview</h3>
-        <table>
-          <thead>
-            <tr>
-              {Object.keys(previewData[0] || {}).map((key, index) => <th key={index}>{key}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            {previewData.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                {Object.values(row).map((value, valueIndex) => <td key={valueIndex}>{value}</td>)}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div>
+        {graph(chartType)}
       </div>
+
 
       <button type="submit">Submit</button>
     </form>

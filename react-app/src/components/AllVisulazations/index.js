@@ -5,51 +5,44 @@ import LineGraph from '../Graphs/LineGraph';
 import AreaGraph from '../Graphs/AreaGraph';
 import PieGraph from '../Graphs/CircleGraph';
 import RadarGraph from '../Graphs/RadarGraph';
-import BarGraph from '../Graphs/BarGraph.js';
-
+import BarGraph from '../Graphs/BarGraph';
 
 const AllVisualizations = () => {
-    const dispatch = useDispatch();
-    const currentUser = useSelector(state => state.session.user)
-    const allVis = useSelector(state => state.visulizationReducer)
-    const userVis = []
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.session.user);
+  const allVis = useSelector((state) => state.visualizationReducer);
 
-    useEffect(() => {
-      dispatch(fetchVisualization())
-    }, [dispatch, allVis && Object.keys(allVis).length])
+  useEffect(() => {
+    dispatch(fetchVisualization());
+  }, [dispatch]);
 
-
-    for(let id in allVis){
-        if(allVis[id].user_id === currentUser.id){
-            userVis.push(allVis[id])
-        }
+  const getGraphComponent = (visualization) => {
+    const { visualization_type, data_file_id, color, width, height, chart_data } = visualization;
+    switch (visualization_type) {
+      case 'bar':
+        return <BarGraph file={data_file_id} color={color} width={width} height={height} selectedFileData={chart_data} />;
+      case 'line':
+        return <LineGraph file={data_file_id} color={color} width={width} height={height} selectedFileData={chart_data} />;
+      case 'area':
+        return <AreaGraph file={data_file_id} color={color} width={width} height={height} />;
+      case 'circle':
+        return <PieGraph file={data_file_id} color={color} width={width} height={height} />;
+      case 'radar':
+        return <RadarGraph file={data_file_id} color={color} width={width} height={height} />;
+      default:
+        return null;
     }
-    const getGraphComponent = (type, file, color, width, height) => {
-        switch (type) {
-          case 'bar':
-            return <BarGraph file={file} color={color} width={width} height={height} />
-          case 'line':
-            return <LineGraph file={file} color={color} width={width} height={height} />
-          case 'area':
-            return <AreaGraph file={file} color={color} width={width} height={height} />
-          case 'circle':
-            return <PieGraph file={file} color={color} width={width} height={height} />
-          case 'radar':
-            return <RadarGraph file={file} color={color} width={width} height={height} />
-          default:
-            return null;
-        }
-      }
-      
+  };
+
   return (
     <div className='visualization-container'>
       <h2 className='visualization-header'>Your Visualizations</h2>
       <div className='visualization-list'>
-        {userVis.map((visualization, index) => (
-          <div key={index} className='visualization-list-item'>
+        {Object.values(allVis).map((visualization) => (
+          <div key={visualization.id} className='visualization-list-item'>
             <h4 className='title'>{visualization.title}</h4>
             <p className='details'>{visualization.description}</p>
-            {getGraphComponent(visualization.visualization_type, visualization.data_file_id, visualization.color, visualization.width, visualization.height)}
+            {getGraphComponent(visualization)}
           </div>
         ))}
       </div>

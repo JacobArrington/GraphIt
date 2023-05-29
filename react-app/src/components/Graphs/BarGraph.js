@@ -2,65 +2,37 @@ import React from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useEffect, useState } from "react";
 
-const BarGraph = ({file, color, width, height}) =>{
-    const [chartData, setChartData] = useState([]);
-    const [xAxisKey, setXAxisKey] = useState('');
-    const [barDataKey, setBarDataKey] = useState('');
+const BarGraph = ({file, color, width, height, selectedFileData, }) =>{
+    const [xAxisKey, setXAxisKey] = useState( '');
+    const [barDataKey, setBarDataKey] = useState( '');
 
+
+ 
+    
     useEffect(() => {
-        fetch(`/api/files/${file}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Data: ', data)
-            setChartData(data)})
-        .catch(error => console.error(error))
-    },[file])
-
-    const previewData = chartData.slice(0, 5); // Get the first 5 rows for preview
-
+        if (selectedFileData && selectedFileData.length > 0) {
+            const keys = Object.keys(selectedFileData[0]);
+            keys.forEach((key) => {
+                if (typeof selectedFileData[0][key] === "string") {
+                    setXAxisKey(key);
+                }
+                else if (typeof selectedFileData[0][key] === "number") {
+                    setBarDataKey(key);
+                }
+            });
+            console.log('selectedFileData:', selectedFileData);
+            console.log('barDataKey:', barDataKey);
+            console.log('xAxisKey:', xAxisKey)
+        }
+    }, [selectedFileData]);
     return (
         <div>
-            <label>
-                X Axis:
-                <input 
-                    type="text" 
-                    value={xAxisKey} 
-                    onChange={(e) => setXAxisKey(e.target.value)}
-                    placeholder="Enter field name for X Axis"
-                />
-            </label>
-            <label>
-                Bar Data:
-                <input 
-                    type="text" 
-                    value={barDataKey} 
-                    onChange={(e) => setBarDataKey(e.target.value)}
-                    placeholder="Enter field name for Bar Data"
-                />
-            </label>
+            
     
-            <div className='data-preview'>
-                <h3>Data Preview</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            {Object.keys(previewData[0]).map((key, index) => <th key={index}>{key}</th>)}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {previewData.map((row, rowIndex) => (
-                            <tr key={rowIndex}>
-                                {Object.values(row).map((value, valueIndex) => <td key={valueIndex}>{value}</td>)}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-    
-            {chartData.length > 0 &&
+            {selectedFileData.length > 0 && xAxisKey && barDataKey &&
                 <ResponsiveContainer width={width + '%'} height={height}>
                     <BarChart
-                        data={chartData}
+                        data={selectedFileData}
                         margin={{
                             top: 5, right: 30, left: 20, bottom: 5
                         }}
