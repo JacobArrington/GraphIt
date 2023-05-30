@@ -117,14 +117,15 @@ def update_visualization(id):
         return jsonify({'error': 'Unauthorized'})
     
     data = request.get_json()
+    # file = None
     
-    if 'date_file_id' in data:
-        file = DataFile.query.get(data['data_file_id'])
+    # if 'date_file_id' in data:
+    #     file = DataFile.query.get(data['data_file_id'])
 
-    if not file:
-        return jsonify({'error': 'file not found'})
+    # if not file:
+    #     return jsonify({'error': 'file not found'})
     
-    chart_data = convert_to_chart(file.file_path, file.file_type)
+    chart_data = visualization.chart_data
     visualization.chart_data = chart_data
 
     visualization.visualization_type = data.get('visualization_type',visualization.visualization_type)
@@ -141,4 +142,16 @@ def update_visualization(id):
     return jsonify(visualization.to_dict())
     
 
+@visualization_routes.route('/<int:id>', methods=['DELETE']) 
+@login_required
+def delete_visualization(id):
+    visualization = Visualization.query.get(id)
+
+    if visualization.user_id != current_user.id:
+        return jsonify({'error':'Unauthorized'})  
     
+
+    db.session.delete(visualization)
+    db.session.commit()
+
+    return jsonify({'message': 'Graph deleted successfully'})

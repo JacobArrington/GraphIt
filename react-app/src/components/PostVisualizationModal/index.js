@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchVisualization, postVisualization } from '../../store/visulazation';
+import { fetchVisualization, postVisualization } from '../../store/visualization';
 import { useHistory } from 'react-router-dom';
 import LineGraph from '../Graphs/LineGraph';
 import AreaGraph from '../Graphs/AreaGraph';
@@ -68,7 +68,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
       // case 'circle':
       //   return <PieGraph file={selectedFileId} color={color} width={width} height={height} selectedFileData={selectedFileData}/>
       case 'radar':
-        return <RadarGraph file={selectedFileId} color={color} width={width} height={height}selectedFileData={selectedFileData} />
+        return <RadarGraph file={selectedFileId} color={color} width={width} height={height} selectedFileData={selectedFileData} />
       default:
         return null;
     }
@@ -98,7 +98,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
         <button onClick={() => setChartType('bar')}>Bar</button>
         <button onClick={() => setChartType('line')}>Line</button>
         <button onClick={() => setChartType('area')}>Area</button>
-        
+
         <button onClick={() => setChartType('radar')}>Radar</button>
 
       </div>
