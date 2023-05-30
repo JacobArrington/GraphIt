@@ -2,12 +2,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
 import fileReducer from './dataFiles';
-import visualizationReducer from './visulazation';
+import visualizationReducer from './visualization';
+import commentReducer from './comments';
 
 const rootReducer = combineReducers({
   session,
   fileReducer,
-  visualizationReducer
+  visualizationReducer,
+  commentReducer
 });
 
 

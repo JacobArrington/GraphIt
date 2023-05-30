@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import DataFiles from "./components/DataFiles";
 import PostVisualization from "./components/PostVisualizationModal";
 import AllVisualizations from "./components/AllVisulazations";
+import VisualizationDetail from "./components/VisualizationDetail";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,13 +30,17 @@ function App() {
           </Route>
           <Route path="/files">
             <DataFiles />
-      
+            </Route>
+            <Route path="/graph/:id" exact={true}>
+            <VisualizationDetail />
           </Route>
+          
+          
           <Route path="/graph">
             <AllVisualizations />
       
           </Route>
-          
+         
           
         </Switch>
       )}

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchVisualization } from '../../store/visulazation';
+import { useHistory } from 'react-router-dom'
+import { fetchVisualization } from '../../store/visualization';
 import LineGraph from '../Graphs/LineGraph';
 import AreaGraph from '../Graphs/AreaGraph';
 // import PieGraph from '../Graphs/CircleGraph';
@@ -9,12 +10,17 @@ import BarGraph from '../Graphs/BarGraph';
 
 const AllVisualizations = () => {
   const dispatch = useDispatch();
+  const history = useHistory()
   const currentUser = useSelector((state) => state.session.user);
   const allVis = useSelector((state) => state.visualizationReducer);
 
   useEffect(() => {
     dispatch(fetchVisualization());
   }, [dispatch]);
+
+  const handleVisualizationClick = (id) => {
+    history.push(`/graph/${id}`)
+  }
 
   const getGraphComponent = (visualization) => {
     const { visualization_type, data_file_id, color, width, height, chart_data } = visualization;
@@ -39,7 +45,7 @@ const AllVisualizations = () => {
       <h2 className='visualization-header'>Your Visualizations</h2>
       <div className='visualization-list'>
         {Object.values(allVis).map((visualization) => (
-          <div key={visualization.id} className='visualization-list-item'>
+          <div key={visualization.id} className='visualization-list-item' onClick={() => handleVisualizationClick(visualization.id)}>
             <h4 className='title'>{visualization.title}</h4>
             <p className='details'>{visualization.description}</p>
             {getGraphComponent(visualization)}

@@ -14,6 +14,7 @@ class Visualization(db.Model):
     title = db.Column(db.String(256), nullable=False)
     description = db.Column(db.String(500))
     views = db.Column(db.Integer, default=0)
+    owner_viewed = db.Column(db.Boolean, default=False)
     visibility = db.Column(db.String(64), nullable=False)
     color = db.Column(db.String(64))
     width = db.Column(db.Integer, nullable=False)

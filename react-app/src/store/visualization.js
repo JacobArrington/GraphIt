@@ -1,8 +1,8 @@
 const GET_VIS = "visualization/GET_VIS"
 const ADD_VIS = "visualization/ADD_VIS"
 const GET_BY_ID = "visualization/GET_BY_ID"
-const UPDATE_VIS = "visulization/UPDATE_VIS"
-
+const UPDATE_VIS = "visualization/UPDATE_VIS";
+const DELETE_VIS = "visualization/DELETE_VIS";
 
 const getVisualizations =(visualizations) =>({
     type: GET_VIS,
@@ -20,8 +20,13 @@ const getVisualizationId =(visualization) =>({
 })
 
 const updateVisualizations =(visualization) =>({
-    type: ADD_VIS,
+    type: UPDATE_VIS,
     visualization
+})
+
+const deleteVisualizations =(id) =>({
+    type: DELETE_VIS,
+    id
 })
 
 export const fetchVisualization = () => async (dispatch) =>{
@@ -51,6 +56,7 @@ export const fetchVisualizationById =(id) =>async (dispatch) =>{
     if(response.ok){
         const visualizations = await response.json()
         dispatch(getVisualizationId(visualizations))
+        return visualizations
     }
 }
 
@@ -69,6 +75,15 @@ export const editVisualization =(id,visData) => async(dispatch) =>{
 
 }
 
+export const destroyVisualization=(id)=> async(dispatch) =>{
+    const response = await fetch(`/api/visualizations/${id}`,{
+        method:'DELETE'
+    })
+    if(response.ok){
+       return dispatch(deleteVisualizations(id))
+    }
+}
+
 const initState ={}
 
 export default function visualizationReducer(state = initState, action){
@@ -85,7 +100,7 @@ export default function visualizationReducer(state = initState, action){
             return newState
         }
         case GET_BY_ID:{
-            newState[action.visualization.id] = action.visualization
+            newState= {[action.visualization.id]: action.visualization }
             return newState 
         }
         case UPDATE_VIS:{
@@ -93,6 +108,11 @@ export default function visualizationReducer(state = initState, action){
             newState[action.visualization.id] = action.visualization
             return newState;
             
+        }
+        case DELETE_VIS:{
+            const newState = {...state}
+            delete newState[action.id]
+            return newState
         }
         default:
             return state

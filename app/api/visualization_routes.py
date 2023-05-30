@@ -61,8 +61,10 @@ def convert_to_chart(file_name, file_type):
 @login_required
 def get_all_visualizations():
     if request.method =='GET':
-        visualizations = Visualization.query.filter(Visualization.user_id == current_user.id).all()
-        return jsonify([visualization.to_dict() for visualization in visualizations])
+        user_id =current_user.id
+        visualizations = Visualization.query.filter(Visualization.user_id).all()
+        vis_list = [visualization.to_dict() for visualization in visualizations if not(visualization.visibility == 'private' and visualization.user_id != user_id)]
+        return jsonify(vis_list)
     
     elif request.method == 'POST':
         data = request.get_json()
@@ -81,6 +83,7 @@ def get_all_visualizations():
             title=data['title'],
             description=data['description'],
             visibility=data['visibility'],
+            views=data.get('views'),
             color=data.get('color'),
             width=data.get('width'),
             height=data.get('height'),
@@ -100,9 +103,18 @@ def get_all_visualizations():
 def visualization_by_id(id):
     visualization = Visualization.query.get(id)
 
-    if visualization.user_id != current_user.id:
-        return jsonify({'error': 'Unauthorized'})
-    
+    if visualization.visibility == 'private' and visualization.user_id != current_user.id:
+        return jsonify({'error': 'Not authorized'}), 403
+
+    if visualization.user_id == current_user.id and not visualization.owner_viewed:
+        visualization.views += 1
+        visualization.owner_viewed = True
+
+    elif visualization.user_id != current_user.id:
+        visualization.views += 1
+
+
+    db.session.commit()
 
     return jsonify(visualization.to_dict())
 
@@ -117,14 +129,15 @@ def update_visualization(id):
         return jsonify({'error': 'Unauthorized'})
     
     data = request.get_json()
+    # file = None
     
-    if 'date_file_id' in data:
-        file = DataFile.query.get(data['data_file_id'])
+    # if 'date_file_id' in data:
+    #     file = DataFile.query.get(data['data_file_id'])
 
-    if not file:
-        return jsonify({'error': 'file not found'})
+    # if not file:
+    #     return jsonify({'error': 'file not found'})
     
-    chart_data = convert_to_chart(file.file_path, file.file_type)
+    chart_data = visualization.chart_data
     visualization.chart_data = chart_data
 
     visualization.visualization_type = data.get('visualization_type',visualization.visualization_type)
@@ -141,4 +154,16 @@ def update_visualization(id):
     return jsonify(visualization.to_dict())
     
 
+@visualization_routes.route('/<int:id>', methods=['DELETE']) 
+@login_required
+def delete_visualization(id):
+    visualization = Visualization.query.get(id)
+
+    if visualization.user_id != current_user.id:
+        return jsonify({'error':'Unauthorized'})  
     
+
+    db.session.delete(visualization)
+    db.session.commit()
+
+    return jsonify({'message': 'Graph deleted successfully'})
