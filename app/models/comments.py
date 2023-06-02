@@ -7,8 +7,8 @@ class Comment(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    visualization_id = db.Column(db.Integer, db.ForeignKey('visualizations.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
+    visualization_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('visualizations.id')))
     content = db.Column(db.String(500), nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(db.DateTime, default=db.func.current_timestamp())

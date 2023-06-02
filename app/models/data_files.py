@@ -7,7 +7,7 @@ class DataFile(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     filename = db.Column(db.String(256), nullable=False)
     file_type = db.Column(db.Enum('text/csv','application/json','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', name='filetype_enum'), nullable=False)
     file_path = db.Column(db.String(500), nullable=False)
