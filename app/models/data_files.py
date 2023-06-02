@@ -9,7 +9,7 @@ class DataFile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     filename = db.Column(db.String(256), nullable=False)
-    file_type = db.Column(db.String(255),nullable=False
+    file_type = db.Column(db.String(255),nullable=False)
     file_path = db.Column(db.String(500), nullable=False)
     #data = db.Column(db.JSON, nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
