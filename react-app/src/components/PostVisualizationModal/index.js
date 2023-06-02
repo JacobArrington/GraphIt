@@ -19,7 +19,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
   const [width, setWidth] = useState(100);
   const [height, setHeight] = useState(500);
   const [views, setViews] = useState(0);
-  const [visibility, setVisibility] = useState('');
+  const [visibility, setVisibility] = useState('public');
   const [color, setColor] = useState('#000000');
   const [chartData, setChartData] = useState([]);
 
@@ -115,11 +115,14 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
 
       <label>
         Visibility:
-        <input
-          type="checkbox"
+        <select
+          
           checked={visibility}
           onChange={(e) => setVisibility(e.target.checked)}
-        />
+        >
+          <option value="private">Private</option>
+          <option value="public">Public</option>
+        </select>
       </label>
 
       <label>

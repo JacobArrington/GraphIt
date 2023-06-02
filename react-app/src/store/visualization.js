@@ -3,6 +3,9 @@ const ADD_VIS = "visualization/ADD_VIS"
 const GET_BY_ID = "visualization/GET_BY_ID"
 const UPDATE_VIS = "visualization/UPDATE_VIS";
 const DELETE_VIS = "visualization/DELETE_VIS";
+const SET_VIS_ERROR = 'visualization/SET_VISUALIZATION_ERROR'
+
+
 
 const getVisualizations =(visualizations) =>({
     type: GET_VIS,
@@ -29,6 +32,11 @@ const deleteVisualizations =(id) =>({
     id
 })
 
+export const setVisualizationError = (error) => ({
+    type: SET_VIS_ERROR,
+    error,
+  });
+
 export const fetchVisualization = () => async (dispatch) =>{
     const response = await fetch('/api/visualizations')
     if(response.ok){
@@ -52,11 +60,16 @@ export const postVisualization = (visData) => async (dispatch) =>{
 }
 
 export const fetchVisualizationById =(id) =>async (dispatch) =>{
+    
     const response = await fetch(`/api/visualizations/${id}`)
     if(response.ok){
         const visualizations = await response.json()
         dispatch(getVisualizationId(visualizations))
         return visualizations
+    }else if(response.status === 403){
+        dispatch(setVisualizationError('You do not have premission to view this graph'))
+    }else{
+        dispatch(setVisualizationError('an error has a occured while fetching this graph'))
     }
 }
 
@@ -112,6 +125,11 @@ export default function visualizationReducer(state = initState, action){
         case DELETE_VIS:{
             const newState = {...state}
             delete newState[action.id]
+            return newState
+        }
+        case SET_VIS_ERROR:{
+            
+            newState.error = action.error
             return newState
         }
         default:

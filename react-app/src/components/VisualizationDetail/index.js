@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { destroyVisualization, fetchVisualizationById } from '../../store/visualization';
+import { destroyVisualization, fetchVisualizationById, setVisualizationError} from '../../store/visualization';
 import LineGraph from '../Graphs/LineGraph';
 import AreaGraph from '../Graphs/AreaGraph';
 import RadarGraph from '../Graphs/RadarGraph';
@@ -23,16 +23,23 @@ const VisualizationDetail = () => {
     const currentUser = useSelector((state) => state.session?.user)
     const comments = useSelector((state) => state.commentReducer);
     const visualization = useSelector((state) => state.visualizationReducer[visId])
+    const visualizationError = useSelector((state) => state.visualizationReducer.error)
 
    
 
     useEffect(() => {
+        console.log('fetching visualization...');
         dispatch(fetchVisualizationById(visId))
+        .catch((error)=>{
+            dispatch(setVisualizationError(error.toString()))
+        })
         dispatch(fetchComments(visId))
        
             
         
     }, [dispatch, visId, ])
+
+
 
     const handleDelete = async () =>{
         const confrim = window.confirm('Are you sure you want to delete this this action cant be undone')
@@ -70,9 +77,18 @@ const VisualizationDetail = () => {
                 return null;
         }
     };
+    console.log('visualization: ', visualization);
+
+    if (visualizationError) {
+        return <p>{visualizationError}</p>;
+    }
 
     if (!visualization) {
         return <p>Loading Graph</p>
+    }
+
+    if (visualization.visibility === 'private'&& currentUser.id !== visualization.user_id) {
+        return <p>This graph is private.</p>
     }
 
     return (
@@ -81,6 +97,8 @@ const VisualizationDetail = () => {
             {getGraphComponent(visualization)}
             <p>{visualization.description}</p>
             <p>{visualization.views}</p>
+            {currentUser.id === visualization.user_id &&(
+                <div>
             <OpenModalButton
         buttonText="Update Visualization"
         modalComponent={
@@ -88,6 +106,8 @@ const VisualizationDetail = () => {
         }
       />
       <button onClick={handleDelete}>Delete</button>
+      </div>
+            )}
       <OpenModalButton
       buttonText='Post Comment'
       modalComponent={

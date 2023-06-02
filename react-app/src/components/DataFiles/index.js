@@ -25,11 +25,9 @@ function DataFiles(){
         .then(responseData => {
           if (Array.isArray(responseData.data)) {
             setSelectedFileData(responseData.data);
-          } else {
-            console.error('Invalid data: ', responseData);
-          }
-        })
-        .catch(error => console.error(error))
+          } ;
+          })
+        
     
       }
 return(
@@ -51,12 +49,14 @@ return(
             <PostFileModal />
         }
     />
+    {selectedFileId &&
      <OpenModalButton 
         buttonText="Graph It!"
         modalComponent={
             <PostVisualizationModal selectedFileId={selectedFileId} selectedFileData={selectedFileData} />
         }
     />
+}
     </>
 )
 

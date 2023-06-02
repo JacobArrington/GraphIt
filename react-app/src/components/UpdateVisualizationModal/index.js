@@ -13,7 +13,7 @@ const UpdateVisualizationModal = ({ visualization }) => {
   const [width, setWidth] = useState(visualization.width);
   const [height, setHeight] = useState(visualization.height);
   const [color, setColor] = useState(visualization.color);
-
+  const [visibility, setVisibility] = useState(visualization.visibility);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedVisualizationData = {
@@ -22,7 +22,7 @@ const UpdateVisualizationModal = ({ visualization }) => {
       visualization_type: visualization.visualization_type,
       data_file_id: visualization.data_file_id,
       views: visualization.views,
-      visibility: visualization.visibility,
+      visibility,
       color,
       width,
       height,
@@ -50,6 +50,16 @@ const UpdateVisualizationModal = ({ visualization }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+      </label>
+      <label>
+        Visibility:
+        <select
+          value={visibility}
+          onChange={(e) => setVisibility(e.target.value)}
+        >
+          <option value="private">Private</option>
+          <option value="public">Public</option>
+        </select>
       </label>
 
       <label>
