@@ -1,8 +1,8 @@
-"""getting render ready
+"""redo migrations
 
-Revision ID: f9c8aedf63f1
+Revision ID: 27de4830f95a
 Revises: 
-Create Date: 2023-06-01 20:09:53.999369
+Create Date: 2023-06-01 21:48:42.821530
 
 """
 from alembic import op
@@ -14,7 +14,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = 'f9c8aedf63f1'
+revision = '27de4830f95a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,12 +33,11 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-
     op.create_table('data_files',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('filename', sa.String(length=256), nullable=False),
-    sa.Column('file_type', sa.Enum('text/csv', 'application/json', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', name='filetype_enum'), nullable=False),
+    sa.Column('file_type', sa.String(length=255), nullable=False),
     sa.Column('file_path', sa.String(length=500), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
@@ -46,10 +45,9 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE data_files SET SCHEMA {SCHEMA};")
-
     op.create_table('visualizations',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('data_file_id', sa.Integer(), nullable=True),
     sa.Column('chart_data', sa.JSON(), nullable=True),
     sa.Column('visualization_type', sa.String(length=64), nullable=False),
@@ -69,11 +67,10 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE visualizations SET SCHEMA {SCHEMA};")
-
     op.create_table('comments',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('visualization_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('visualization_id', sa.Integer(), nullable=True),
     sa.Column('content', sa.String(length=500), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
@@ -83,11 +80,10 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
-
     op.create_table('favorites',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('visualization_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('visualization_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['visualization_id'], ['visualizations.id'], ),
