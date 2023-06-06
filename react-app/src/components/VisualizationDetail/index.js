@@ -11,6 +11,7 @@ import UpdateVisualizationModal from '../UpdateVisualizationModal';
 import PostCommentModal from '../PostCommentModal';
 import { destroyComment, fetchComments } from '../../store/comments';
 import EditCommentModal from '../EditComponentModal';
+import { createFavorite } from '../../store/favorites';
 
 
 const VisualizationDetail = () => {
@@ -38,6 +39,10 @@ const VisualizationDetail = () => {
             
         
     }, [dispatch, visId, ])
+
+    const addToFavs = async () =>{
+        await dispatch(createFavorite(visualization.id))
+    }
 
 
 
@@ -108,6 +113,9 @@ const VisualizationDetail = () => {
       <button onClick={handleDelete}>Delete</button>
       </div>
             )}
+            {currentUser.id !== visualization.user_id && (
+        <button onClick={addToFavs}>Add to Favorites</button>
+      )}
       <OpenModalButton
       buttonText='Post Comment'
       modalComponent={
@@ -132,6 +140,7 @@ const VisualizationDetail = () => {
     }
   </div>
 ))}
+ 
       
         </div>
     )

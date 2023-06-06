@@ -5,6 +5,7 @@ import OpenModalButton from "../OpenModalButton";
 import PostFileModal from '../PostFileModal';
 import { useState } from 'react';
 import PostVisualizationModal from '../PostVisualizationModal';
+import Favorites from '../Favorites';
 function DataFiles(){
     const dispatch = useDispatch()
     const allFiles = useSelector((state) => state.fileReducer)
@@ -57,6 +58,7 @@ return(
         }
     />
 }
+<Favorites />
     </>
 )
 

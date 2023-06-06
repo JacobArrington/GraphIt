@@ -4,12 +4,14 @@ import session from './session'
 import fileReducer from './dataFiles';
 import visualizationReducer from './visualization';
 import commentReducer from './comments';
+import favoritesReducer from './favorites';
 
 const rootReducer = combineReducers({
   session,
   fileReducer,
   visualizationReducer,
-  commentReducer
+  commentReducer,
+  favoritesReducer
 });
 
 

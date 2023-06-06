@@ -20,7 +20,7 @@ def convert_to_chart(file_name, file_type):
 
     bucket = storage_client.get_bucket(bucket_name)
     blob = bucket.blob(blob_name)
-    file_as_string = blob.download_as_text()
+    
 
     
 
@@ -32,16 +32,21 @@ def convert_to_chart(file_name, file_type):
 
     file_extension = mime_to_extension.get(file_type)
     # reads file into DataFrame based on the file type
+    df = None
     if file_extension == 'csv':
+        file_as_string = blob.download_as_text()
         df = pd.read_csv(io.StringIO(file_as_string))
     elif file_extension == 'xlsx':
         df = pd.read_excel(io.BytesIO(blob.download_as_bytes()))
     elif file_extension == 'json':
+        file_as_string = blob.download_as_text()
         df =pd.DataFrame(json.loads(file_as_string))
     else:
         raise ValueError("Unsupported file type")
 
  
+    if df is not None:
+        print(df.head)
 
     chart_data = []
 
@@ -49,6 +54,9 @@ def convert_to_chart(file_name, file_type):
     for index, row in df.iterrows():
         row_dict = row.to_dict()
         chart_data.append(row_dict)
+
+
+    print(chart_data[:5])
 
     return chart_data
 
