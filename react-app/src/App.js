@@ -28,7 +28,7 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/files">
+          <Route path="/libary">
             <DataFiles />
             </Route>
             <Route path="/graph/:id" exact={true}>
