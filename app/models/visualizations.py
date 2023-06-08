@@ -25,8 +25,8 @@ class Visualization(db.Model):
 
     user = db.relationship('User', back_populates='visualizations')
     data_file = db.relationship('DataFile', back_populates='visualizations')
-    comments = db.relationship('Comment', back_populates='visualization')
-    favorites = db.relationship('Favorite', back_populates='visualization')
+    comments = db.relationship('Comment', back_populates='visualization', cascade="all, delete-orphan")
+    favorites = db.relationship('Favorite', back_populates='visualization', cascade="all, delete-orphan")
 
 
 

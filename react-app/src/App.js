@@ -9,6 +9,7 @@ import DataFiles from "./components/DataFiles";
 import PostVisualization from "./components/PostVisualizationModal";
 import AllVisualizations from "./components/AllVisulazations";
 import VisualizationDetail from "./components/VisualizationDetail";
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path ="/">
+            <LandingPage />
+          </Route>
           <Route path="/login" >
             <LoginFormPage />
           </Route>

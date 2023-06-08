@@ -2,6 +2,7 @@ const GET_COMMENTS = "comments/GET_COMMENTS"
 const ADD_COMMENT = "comments/ADD_COMMENT"
 const UPDATE_COMMENT = "comments/UPDATE_COMMENT"
 const DELETE_COMMENT = "comments/DELETE_COMMENT"
+const DELETE_ALL_COMMENTS = "comments/DESTROY_ALL_COMMENTS"
 
 const getComments =(comments) =>({
     type: GET_COMMENTS,
@@ -21,6 +22,11 @@ const updateComment =(comment) =>({
 const deleteComment =(id) => ({
     type: DELETE_COMMENT,
     id
+})
+
+export const destroyAllComments = (vis_id) => ({ 
+    type: DELETE_ALL_COMMENTS, 
+    vis_id 
 })
 
 export const fetchComments =(vis_id) => async(dispatch) =>{
@@ -68,6 +74,7 @@ export const destroyComment=(id) => async(dispatch) =>{
         method: "DELETE"
     })
     if(response.ok){
+        await response.json()
         return dispatch(deleteComment(id))
     }
 }
@@ -96,6 +103,15 @@ export default function commentReducer(state = initState, action){
             const newState = {...state}
             delete newState[action.id]
             return newState
+        }
+        case DELETE_ALL_COMMENTS:{
+            const newState = {...state}
+            for(let commentId in newState) {
+                if(newState[commentId].visualization_id === action.vis_id) {
+                    delete newState[commentId]
+                }
+            }
+            return newState 
         }
         default:
             return state

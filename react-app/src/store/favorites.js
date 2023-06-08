@@ -45,6 +45,7 @@ export const deleteFavorite = (id) => async (dispatch) => {
         method: 'DELETE',
     });
     if (response.ok) {
+        await response.json()
         dispatch(removeFavorite(id));
     }
 };

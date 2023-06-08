@@ -1,8 +1,8 @@
-"""redo migrations
+"""added cascade delete commands
 
-Revision ID: 27de4830f95a
+Revision ID: ee3cf5be98e3
 Revises: 
-Create Date: 2023-06-01 21:48:42.821530
+Create Date: 2023-06-06 19:03:22.893804
 
 """
 from alembic import op
@@ -14,7 +14,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '27de4830f95a'
+revision = 'ee3cf5be98e3'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,6 +33,7 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('data_files',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
@@ -45,6 +46,7 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE data_files SET SCHEMA {SCHEMA};")
+
     op.create_table('visualizations',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
@@ -67,6 +69,7 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE visualizations SET SCHEMA {SCHEMA};")
+
     op.create_table('comments',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
@@ -90,7 +93,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     if environment == "production":
-        op.execute(f"ALTER TABLE favorites SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE favorits SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 

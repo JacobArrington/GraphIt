@@ -50,8 +50,8 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
     console.log(newVis)
     if (newVis) {
       history.push(`/graph`)
-      await dispatch(fetchVisualization())
       closeModal()
+      await dispatch(fetchVisualization())
     }
   };
 
@@ -95,11 +95,11 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
         />
       </label>
       <div>
-        <button onClick={() => setChartType('bar')}>Bar</button>
-        <button onClick={() => setChartType('line')}>Line</button>
-        <button onClick={() => setChartType('area')}>Area</button>
+        <button type="button" onClick={() => setChartType('bar')}>Bar</button>
+        <button type="button" onClick={() => setChartType('line')}>Line</button>
+        <button type="button" onClick={() => setChartType('area')}>Area</button>
 
-        <button onClick={() => setChartType('radar')}>Radar</button>
+        <button type="button" onClick={() => setChartType('radar')}>Radar</button>
 
       </div>
 

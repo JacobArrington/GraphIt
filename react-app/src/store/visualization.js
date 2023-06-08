@@ -1,3 +1,5 @@
+import { destroyAllComments } from "./comments";
+
 const GET_VIS = "visualization/GET_VIS"
 const ADD_VIS = "visualization/ADD_VIS"
 const GET_BY_ID = "visualization/GET_BY_ID"
@@ -93,8 +95,12 @@ export const destroyVisualization=(id)=> async(dispatch) =>{
         method:'DELETE'
     })
     if(response.ok){
-       return dispatch(deleteVisualizations(id))
+        await response.json()
+        dispatch(deleteVisualizations(id))
+        dispatch(destroyAllComments(id))
+        return true
     }
+    return false
 }
 
 const initState ={}

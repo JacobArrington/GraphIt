@@ -1,66 +1,51 @@
 from app.models import db, DataFile,User, environment, SCHEMA
+from google.cloud import storage
 from sqlalchemy.sql import text
 from datetime import datetime
+from app.config import Config
+import os
 
 def seed_datafiles():
+   
+    bucket =Config.STORAGE_CLIENT.get_bucket('graphit_bucket')
+    folder ="Seeders/"
+
+    ext_to_mime = {
+        '.csv': 'text/csv',
+        '.json': 'application/json'
+    }
     users = User.query.all()
+    blobs = bucket.list_blobs(prefix=folder)
+    
+    files = []
+    for blob in blobs:
+        #checking if it is a file and not a sub folder
+        if not blob.name.endswith('/'):
+
+            #grabing filename without folder prefix
+            filename = blob.name.split('/')[-1]
+
+            #geting file ext
+            file_ext = os.path.splitext(filename)[1]
+
+            #sets the mime type
+            file_type = ext_to_mime.get(file_ext)
+
+            #sets file path
+            file_path = blob.name
+            files.append((filename, file_type, file_path))
+         
     for user in users:
-        datafile1 = DataFile(
-            user_id=user.id,
-            filename="sales",
-            file_type="text/csv",
-            file_path="https://drive.google.com/file/d/1khnf6dyveLC2aeXYuDfj-1K79fi0UM9C/view?usp=share_link",
-            created_at=datetime.now(),
-           
-        )
-        datafile2 = DataFile(
-            user_id=user.id,
-            filename="weather",
-            file_type="application/json",
-            file_path="https://drive.google.com/file/d/1Dsirw5YHyDVvsjsr6p8Mes39W5Tv6Cip/view?usp=share_link",
-            created_at=datetime.now(),
-            
-        )
-        datafile3 = DataFile(
-            user_id=user.id,
-            filename="studentscores",
-            file_type="text/csv",
-            file_path="https://drive.google.com/file/d/1A0CvAgTSM1HWWrZrftreF52KVBJOPfKS/view?usp=share_link",
-            created_at=datetime.now(),
-           
-        )
-        datafile4 = DataFile(
-            user_id=user.id,
-            filename="sales",
-            file_type="application/json",
-            file_path="https://drive.google.com/file/d/1J6pkEIIen5_SbNkquazfb_l0vcMDPQ0c/view?usp=sharing",
-            created_at=datetime.now(),
-           
-        )
-        datafile5 = DataFile(
-            user_id=user.id,
-            filename="movies",
-            file_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            file_path="https://docs.google.com/spreadsheets/d/1889Oxyo7kEYlGjVZjHtkwvL3pK5snEeO/edit?usp=share_link&ouid=100988712670363741152&rtpof=true&sd=true",
-            created_at=datetime.now(),
-            
-        )
-        datafile6 = DataFile(
-            user_id=user.id,
-            filename="prodSales",
-            file_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            file_path="https://docs.google.com/spreadsheets/d/1QhjLwhNxXP6ifRaE8AB7pBu4-6LejlAs/edit?usp=share_link&ouid=100988712670363741152&rtpof=true&sd=true",
-            created_at=datetime.now(),
-            
-        )
-
-        db.session.add(datafile1)
-        db.session.add(datafile2)
-        db.session.add(datafile3)
-        db.session.add(datafile4)
-        db.session.add(datafile5)
-        db.session.add(datafile6)
-
+        for filename, file_type, file_path in files:
+            datafile = DataFile(
+                user_id=user.id,
+                filename=filename,
+                file_type=file_type,
+                file_path=file_path,
+                created_at=datetime.now(),
+            )
+            db.session.add(datafile)
+    
     db.session.commit()
 
 def undo_datafiles():
