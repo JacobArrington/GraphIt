@@ -10,6 +10,7 @@ import PostVisualization from "./components/PostVisualizationModal";
 import AllVisualizations from "./components/AllVisulazations";
 import VisualizationDetail from "./components/VisualizationDetail";
 import LandingPage from "./components/LandingPage";
+import UserVisualizations from "./components/UserVisualizations";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,8 +33,9 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/libary">
+          <Route path="/library">
             <DataFiles />
+            <UserVisualizations />
             </Route>
             <Route path="/graph/:id" exact={true}>
             <VisualizationDetail />

@@ -5,13 +5,13 @@ import { ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, L
 import { demoLogin } from '../../store/session';
 
 const initData = [
-  {name: 'G', uv: 50, amt: 20, x:10},
-  {name: 'R', uv: 100, amt: 40, x:20},
-  {name: 'A', uv: 150, amt: 60, x:30},
-  {name: 'P', uv: 50, amt: 80, x:40},
-  {name: 'H', uv: 200, amt: 100, x:50},
-  {name: 'I', uv: 250, amt: 120, x:60},
-  {name: 'T', uv: 100, amt: 140, x:70},
+  {name: 'G', uv: 50, amt: 20, x:20},
+  {name: 'R', uv: 100, amt: 40, x:60},
+  {name: 'A', uv: 150, amt: 60, x:100},
+  {name: 'P', uv: 50, amt: 80, x:140},
+  {name: 'H', uv: 90, amt: 100, x:180},
+  {name: 'I', uv: 250, amt: 120, x:220},
+  {name: 'T', uv: 100, amt: 140, x:260},
 ];
 
 const VerticalLabel = ({ viewBox, value }) => {

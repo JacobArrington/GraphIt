@@ -69,10 +69,18 @@ def convert_to_chart(file_name, file_type):
 @login_required
 def get_all_visualizations():
     if request.method =='GET':
-        user_id =current_user.id
-        visualizations = Visualization.query.filter(Visualization.user_id).all()
-        vis_list = [visualization.to_dict() for visualization in visualizations if not(visualization.visibility == 'private' and visualization.user_id != user_id)]
-        return jsonify(vis_list)
+        user_id = current_user.id
+    
+        
+        public_visualizations = Visualization.query.filter(Visualization.visibility == 'public').all()
+        public_vis_list = [{'type': 'public', **visualization.to_dict()} for visualization in public_visualizations]
+        
+        
+        user_visualizations = Visualization.query.filter(Visualization.user_id == user_id).all()
+        user_vis_list = [{'type': 'user', **visualization.to_dict()} for visualization in user_visualizations]
+        
+        
+        return jsonify(public_vis_list + user_vis_list)
     
     elif request.method == 'POST':
         data = request.get_json()

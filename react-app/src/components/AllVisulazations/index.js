@@ -44,13 +44,15 @@ const AllVisualizations = () => {
     <div className='visualization-container'>
       <h2 className='visualization-header'>Your Visualizations</h2>
       <div className='visualization-list'>
-        {Object.values(allVis).map((visualization) => (
-          <div key={visualization.id} className='visualization-list-item' onClick={() => handleVisualizationClick(visualization.id)}>
-            <h4 className='title'>{visualization.title}</h4>
-            <p className='details'>{visualization.description}</p>
-            {getGraphComponent(visualization)}
-          </div>
-        ))}
+        {Object.values(allVis)
+          .filter(visualization => visualization.type === 'public')
+          .map((visualization) => (
+            <div key={visualization.id} className='visualization-list-item' onClick={() => handleVisualizationClick(visualization.id)}>
+              <h4 className='title'>{visualization.title}</h4>
+              <p className='details'>{visualization.description}</p>
+              {getGraphComponent(visualization)}
+            </div>
+          ))}
       </div>
     </div>
   );

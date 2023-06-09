@@ -49,7 +49,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
     let newVis = await dispatch(postVisualization(visualizationData));
     console.log(newVis)
     if (newVis) {
-      history.push(`/graph`)
+      history.push(`/library`)
       closeModal()
       await dispatch(fetchVisualization())
     }
