@@ -1,16 +1,16 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Comment, db
+from app.models import Comment, User, db
 
 comment_routes = Blueprint('comments', __name__)
 
 @comment_routes.route('<int:vis_id>', methods=['GET', 'POST'])
 @login_required
 def comments(vis_id):
-    if request.method == 'GET':
-        comments = Comment.query.filter_by(visualization_id=vis_id).all()
-        return{"comments": [comment.to_dict() for comment in comments]}
-    elif request.method == 'POST':
+     if request.method == 'GET':
+        comments = Comment.query.filter(Comment.visualization_id == vis_id).all()
+        return {"comments": [comment.to_dict() for comment in comments]}
+     elif request.method == 'POST':
         data = request.get_json()
 
         new_comment = Comment(

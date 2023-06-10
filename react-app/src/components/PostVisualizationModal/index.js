@@ -7,6 +7,7 @@ import AreaGraph from '../Graphs/AreaGraph';
 // import PieGraph from '../Graphs/CircleGraph';
 import RadarGraph from '../Graphs/RadarGraph';
 import BarGraph from '../Graphs/BarGraph.js';
+import './post.css'
 import { useModal } from '../../context/Modal';
 
 const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
@@ -77,84 +78,91 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Title:
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </label>
-
-      <label>
-        Description:
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </label>
-      <div>
+    <form onSubmit={handleSubmit} className="form-container">
+      <div className="form-group">
+        <label>
+          Title:
+          <input
+            type="text"
+            value={title}
+            className="form-input"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </label>
+      </div>
+  
+      <div className="form-group">
+        <label>
+          Description:
+          <textarea
+            value={description}
+            className="form-input"
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </label>
+      </div>
+  
+      <div className="chart-type-group">
         <button type="button" onClick={() => setChartType('bar')}>Bar</button>
         <button type="button" onClick={() => setChartType('line')}>Line</button>
         <button type="button" onClick={() => setChartType('area')}>Area</button>
-
         <button type="button" onClick={() => setChartType('radar')}>Radar</button>
-
       </div>
-
-
-      {/* <label>
-        Views:
+  
+      <div className="form-group">
+        <label>
+          Visibility:
+          <select
+            checked={visibility}
+            className="form-input"
+            onChange={(e) => setVisibility(e.target.checked)}
+          >
+            <option value="private">Private</option>
+            <option value="public">Public</option>
+          </select>
+        </label>
+      </div>
+  
+      <div className="form-group">
+        <label>
+          Color:
+          <input
+            type="color"
+            value={color}
+            className="form-input"
+            onChange={(e) => setColor(e.target.value)}
+          />
+        </label>
+      </div>
+  
+      <div className="form-group">
+        <label>Width (%)</label>
         <input
           type="number"
-          value={views}
-          onChange={(e) => setViews(e.target.value)}
+          value={width}
+          className="form-input"
+          onChange={(e) => setWidth(e.target.value)}
         />
-      </label> */}
-
-      <label>
-        Visibility:
-        <select
-          
-          checked={visibility}
-          onChange={(e) => setVisibility(e.target.checked)}
-        >
-          <option value="private">Private</option>
-          <option value="public">Public</option>
-        </select>
-      </label>
-
-      <label>
-        Color:
+      </div>
+  
+      <div className="form-group">
+        <label>Height (px)</label>
         <input
-          type="color"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
+          type="number"
+          value={height}
+          className="form-input"
+          onChange={(e) => setHeight(e.target.value)}
         />
-      </label>
-
-      <label>Width (%)</label>
-      <input
-        type="number"
-        value={width}
-        onChange={(e) => setWidth(e.target.value)}
-      />
-
-      <label>Height (px)</label>
-      <input
-        type="number"
-        value={height}
-        onChange={(e) => setHeight(e.target.value)}
-      />
-      <div>
+      </div>
+  
+      <div className="graph-container">
         {graph(chartType)}
       </div>
-
-
-      <button type="submit">Submit</button>
+  
+      <div className="form-group">
+        <button type="submit" className="form-submit">Submit</button>
+      </div>
     </form>
-  );
-};
+  )}
 
 export default PostVisualizationModal;

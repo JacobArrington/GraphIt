@@ -1,0 +1,47 @@
+.modal-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.signup-input {
+    width: 100%;
+    margin: 0.5em 0;
+}
+
+.signup-button {
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    background: linear-gradient(to left, #0072ff 0%, #800080 100%);
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signup-button:hover{
+    background: #700c63;
+}

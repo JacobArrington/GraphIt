@@ -46,7 +46,7 @@ const UserVisualizations = () => {
       <h2 className='visualization-header'>My Visualizations</h2>
       <div className='visualization-list'>
         {Object.values(userVis)
-        .filter(visualization => visualization.user_id === currentUser.id)
+        .filter(visualization => currentUser && visualization.user_id === currentUser.id)
         .map((visualization) => (
           <div key={visualization.id} className='visualization-list-item' onClick={() => handleVisualizationClick(visualization.id)}>
             <h4 className='title'>{visualization.title}</h4>

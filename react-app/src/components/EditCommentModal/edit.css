@@ -1,4 +1,4 @@
-.modal-content-container {
+.editCommentModal {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,29 +6,27 @@
     width: 80%;
     margin: 0 auto;
 }
-
-.login-form {
+.editCommentModal form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 95%;
+    
 }
-
-.input-container {
+.editCommentModal textarea,
+.editCommentModal input{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-}
-
-.login-input {
     width: 100%;
     margin: 0.5em 0;
 }
 
-.login-button {
+
+
+.editCommentModal form button{
     display: block;
     margin-top: 10px;
     padding: 10px;
@@ -39,9 +37,8 @@
     border-radius: 4px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;   
 }
-
-.login-button:hover{
+.editCommentModal form button:hover{
     background: #700c63;
 }

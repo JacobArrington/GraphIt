@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { editVisualization, fetchVisualization } from '../../store/visualization';
 import { useModal } from '../../context/Modal';
+import './update.css'
 
 const UpdateVisualizationModal = ({ visualization }) => {
   const dispatch = useDispatch();
@@ -32,27 +33,27 @@ const UpdateVisualizationModal = ({ visualization }) => {
     await dispatch(fetchVisualization());
     closeModal();
   };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Title:
+    <form onSubmit={handleSubmit} className="form-container">
+      <div className="form-input">
+        <label>Title:</label>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-      </label>
+      </div>
 
-      <label>
-        Description:
+      <div className="form-input">
+        <label>Description:</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-      </label>
-      <label>
-        Visibility:
+      </div>
+      
+      <div className="form-input">
+        <label>Visibility:</label>
         <select
           value={visibility}
           onChange={(e) => setVisibility(e.target.value)}
@@ -60,34 +61,40 @@ const UpdateVisualizationModal = ({ visualization }) => {
           <option value="private">Private</option>
           <option value="public">Public</option>
         </select>
-      </label>
+      </div>
 
-      <label>
-        Color:
+      <div className="form-input">
+        <label>Color:</label>
         <input
           type="color"
           value={color}
           onChange={(e) => setColor(e.target.value)}
         />
-      </label>
+      </div>
 
-      <label>Width (%)</label>
-      <input
-        type="number"
-        value={width}
-        onChange={(e) => setWidth(e.target.value)}
-      />
+      <div className="form-input">
+        <label>Width (%)</label>
+        <input
+          type="number"
+          value={width}
+          onChange={(e) => setWidth(e.target.value)}
+        />
+      </div>
 
-      <label>Height (px)</label>
-      <input
-        type="number"
-        value={height}
-        onChange={(e) => setHeight(e.target.value)}
-      />
+      <div className="form-input">
+        <label>Height (px)</label>
+        <input
+          type="number"
+          value={height}
+          onChange={(e) => setHeight(e.target.value)}
+        />
+      </div>
 
-      <button type="submit">Update Visualization</button>
+      <button className="form-submit" type="submit">Update Visualization</button>
     </form>
   );
 };
+
+
 
 export default UpdateVisualizationModal;

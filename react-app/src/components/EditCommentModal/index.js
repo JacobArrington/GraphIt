@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { editComment, fetchComments } from '../../store/comments';
 import { useModal } from '../../context/Modal';
 import { useEffect } from 'react';
+import './edit.css'
 
 const EditCommentModal = ({ comment }) => {
     const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const EditCommentModal = ({ comment }) => {
     }
 
     return (
-        <div>
+        <div className="editCommentModal">
             <h2>Edit Comment</h2>
             <form onSubmit={handleCommentUpdate}>
                 <label htmlFor='content'>Comment</label>

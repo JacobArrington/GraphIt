@@ -5,30 +5,30 @@
     justify-content: center;
     width: 80%;
     margin: 0 auto;
-}
-
-.login-form {
+  }
+  
+  .comment-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-}
-
-.input-container {
+  }
+  
+  .input-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-}
-
-.login-input {
+  }
+  
+  .comment-input {
     width: 100%;
     margin: 0.5em 0;
-}
-
-.login-button {
+  }
+  
+  .comment-button {
     display: block;
     margin-top: 10px;
     padding: 10px;
@@ -40,8 +40,8 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
+  }
 
-.login-button:hover{
+  .comment-button:hover{
     background: #700c63;
-}
+  }

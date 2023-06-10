@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchFile, postFile } from '../../store/dataFiles';
 
 import { useModal } from '../../context/Modal';
+import './postfile.css'
 
 
 function PostFileModal() {
@@ -17,14 +18,14 @@ function PostFileModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-   const formData = new FormData();
-   formData.append('file',filepath);
-   formData.append('filename',filename)
-   formData.append('filetype',filetype)
+    const formData = new FormData();
+    formData.append('file', filepath);
+    formData.append('filename', filename)
+    formData.append('filetype', filetype)
 
 
-console.log(formData,'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-console.log(Array.from(formData.entries()),'~~~~~~~~~~~~~~~~~~~~~~~');
+    console.log(formData, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    console.log(Array.from(formData.entries()), '~~~~~~~~~~~~~~~~~~~~~~~');
 
     const data = await dispatch(postFile(formData))
     await dispatch(fetchFile())
@@ -39,7 +40,7 @@ console.log(Array.from(formData.entries()),'~~~~~~~~~~~~~~~~~~~~~~~');
     setFilepath(e.target.files[0])
   }
   return (
-    <>
+    <div className="modal-content-container"> {/* Outer Container */}
       <h1>Add File</h1>
       <form onSubmit={handleSubmit} className="add-file-form" encType='multipart/form-data'>
         <ul>
@@ -47,38 +48,40 @@ console.log(Array.from(formData.entries()),'~~~~~~~~~~~~~~~~~~~~~~~');
             <li key={idx}>{error}</li>
           ))}
         </ul>
-        <label>
-          File Name
-          <input
-            type="text"
-            value={filename}
-            onChange={(e) => setFileName(e.target.value)}
-            required
-            className="add-file-input"
-          />
-        </label>
-        <label>
-          File Path
-          <input type="file" name="file" onChange={handleFileUpload} required />
-        </label>
-        <label>
-          File Type
-          <select
-            value={filetype}
-            onChange={(e) => setFileType(e.target.value)}
-            required
-            className="add-file-select"
-          >
-            <option value="">Select a file type...</option>
-            <option value="json">JSON</option>
-            <option value="text/csv">CSV</option>
-            <option value="xlsx">XLSX</option>
-          </select>
-        </label>
+        <div className="input-container"> {/* Input Container */}
+          <label>
+            File Name
+            <input
+              type="text"
+              value={filename}
+              onChange={(e) => setFileName(e.target.value)}
+              required
+              className="add-file-input"
+            />
+          </label>
+          <label className="custom-file-upload">
+            <input type="file" style={{ display: "none" }} onChange={handleFileUpload} required />
+            {filepath ? filepath.name : "No file chosen yet..."}
+            <div className="upload-btn">Upload File</div>
+          </label>
+          <label>
+            File Type
+            <select
+              value={filetype}
+              onChange={(e) => setFileType(e.target.value)}
+              required
+              className="add-file-select"
+            >
+              <option value="">Select a file type...</option>
+              <option value="json">JSON</option>
+              <option value="text/csv">CSV</option>
+
+            </select>
+          </label>
+        </div>
         <button type="submit" className="add-file-button">Add File</button>
       </form>
-    </>
+    </div>
   );
 }
-
 export default PostFileModal;

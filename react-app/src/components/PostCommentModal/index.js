@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchComments, postComment } from '../../store/comments';
-import {useModal} from '../../context/Modal';
+import { useModal } from '../../context/Modal';
+import './postcom.css'
 import { fetchVisualizationById } from '../../store/visualization';
 
-const PostCommentModal =({visualizationId}) =>{
+const PostCommentModal =({visualizationId, username}) =>{
     const dispatch = useDispatch();
     const [content, setContent] = useState("");
     const {closeModal} =useModal()
     const [isCommentPosted, setCommentPosted] = useState(false)
+    const currentUser = useSelector(state => state.session.user);
 
     useEffect(()=>{
         if(isCommentPosted){
@@ -25,24 +27,25 @@ const PostCommentModal =({visualizationId}) =>{
         }
        let newComment = await dispatch(postComment(comment,visualizationId));
         if(newComment){
-            
            setCommentPosted(true)
             closeModal()
         }
     }
     return(
-        <div>
+        <div className="modal-content-container"> {/* Use the same CSS class */}
             <h2>Post a Comment</h2>
-            <form onSubmit={handleCommentSubmit}>
-                <label htmlFor='content'>Comment</label>
-                <textarea 
-                id='content'
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                required
-                
-                />
-                <button type='submit'>Submit Comment</button>
+            <form onSubmit={handleCommentSubmit} className="comment-form">
+                <div className="input-container">
+                  <label htmlFor='content'>Comment as {currentUser.username}</label>
+                  <textarea 
+                    id='content'
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    required
+                    className="comment-input"
+                  />
+                  <button type='submit' className="comment-button">Submit Comment</button>
+                </div>
             </form>
         </div>
     )

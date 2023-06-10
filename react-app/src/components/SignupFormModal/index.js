@@ -30,54 +30,58 @@ function SignupFormModal() {
 	};
 
 	return (
-		<>
+		<div className="modal-content-container">
 			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} className="signup-form">
 				<ul>
 					{errors.map((error, idx) => (
 						<li key={idx}>{error}</li>
 					))}
 				</ul>
-				<label>
-					Email
+				<div className="input-container">
+					<label>Email</label>
 					<input
 						type="text"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						required
+						className="signup-input"
 					/>
-				</label>
-				<label>
-					Username
+				</div>
+				<div className="input-container">
+					<label>Username</label>
 					<input
 						type="text"
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
 						required
+						className="signup-input"
 					/>
-				</label>
-				<label>
-					Password
+				</div>
+				<div className="input-container">
+					<label>Password</label>
 					<input
 						type="password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
+						className="comment-input"
 					/>
-				</label>
-				<label>
-					Confirm Password
+				</div>
+				<div className="input-container">
+					<label>Confirm Password</label>
 					<input
 						type="password"
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
 						required
+						className="signup-input"
 					/>
-				</label>
-				<button type="submit">Sign Up</button>
+				</div>
+				<button type="submit" className="signup-button">Sign Up</button>
 			</form>
-		</>
+		</div>
 	);
-}
+	}
 
 export default SignupFormModal;

@@ -21,6 +21,7 @@ class Comment(db.Model):
      return {
             'id': self.id,
             'user_id': self.user_id,
+            'username': self.user.username,
             'visualization_id': self.visualization_id,
             'content': self.content,
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
