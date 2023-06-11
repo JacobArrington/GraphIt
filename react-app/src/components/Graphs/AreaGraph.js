@@ -23,7 +23,8 @@ const AreaGraph = ({ chartData, color, width, height, selectedFileData}) => {
     }, [selectedFileData]);
 
     return (
-        <ResponsiveContainer width={width + '%'} height={height}>
+        <div style={{ width: `${width}%`, height: `${height}px` }}>
+        <ResponsiveContainer >
             <AreaChart
                
                 data={selectedFileData}
@@ -38,6 +39,7 @@ const AreaGraph = ({ chartData, color, width, height, selectedFileData}) => {
                 <Area type="monotone" dataKey={areaGraphKey} stroke={color} fill={color} />
             </AreaChart>
         </ResponsiveContainer>
+        </div>
     );
 }
 

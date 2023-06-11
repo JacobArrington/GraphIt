@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label, LabelList } from 'recharts';
 import { demoLogin } from '../../store/session';
+import './landing.css'
 
 const initData = [
   {name: 'G', uv: 50, amt: 20, x:20},
@@ -28,7 +29,7 @@ const VerticalLabel = ({ viewBox, value }) => {
       textAnchor="middle"
       dominantBaseline="central"
       style={{fontSize: 24, fontWeight: 'bold', letterSpacing:'2.8rem'}}
-      dx={35} 
+      dx={20} 
       dy={-50}
     >
       {letter}
@@ -61,24 +62,41 @@ const LandingPage = () => {
   }
 
   return (
-    <div>
-      <header>
+    <div className='landing-container'>
+      <div className='wlcm'>
         <h2>Welcome to Graph It!</h2>
-      </header>
+      </div>
 
-      <ResponsiveContainer width="80%" height={800}>
+      <div className='demo-container'>
+        <button className='demo-btn'onClick={demoSubmit}>Demo Login</button>
+        
+      </div>
+
+      
+      <div className='landing-graph-container'>
+      <ResponsiveContainer width="80%" height={780}>
         <ComposedChart data={data} margin={{top: 0, right: 0, left: 0, bottom: 0}}>
-          <CartesianGrid strokeDasharray="3 3" />
+        <defs>
+    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stopColor=" #0072ff " stopOpacity={1}/>
+      <stop offset="100%" stopColor="#800080" stopOpacity={1}/>
+    </linearGradient>
+    <linearGradient id="colorAmt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stopColor="#800080" stopOpacity={1}/>
+      <stop offset="100%" stopColor="#0072ff" stopOpacity={1}/>
+    </linearGradient>
+  </defs>
+          
           <XAxis dataKey="name" tick={false}>
-            <Label value='B E L O N G S H E R E' offset={0} position='insideBottom' style={{fontSize: '24px', fontWeight: 'bold',fill: '#000', letterSpacing:'2.8rem', textTransform: 'uppercase'}} />
+            <Label value='B E L O N G S H E R E' offset={0} position='insideBottom' style={{fontSize: '24px', fontWeight: 'bold',fill: '#000', letterSpacing:'2.5rem', textTransform: 'uppercase'}} />
           </XAxis>
           <YAxis tick={false}>
-            <Label content={<VerticalLabel />} value='A T A D R U O Y' position='insideLeft' offset={-1} style={{fontSize: '24px',fontWeight: 'bold',fill: '#000',letterSpacing:'2.0rem', textTransform: 'uppercase',}} />
+            <Label content={<VerticalLabel />} value='A T A D R U O Y' position='insideLeft' offset={-1} style={{fontSize: '24px',fontWeight: 'bold',fill: '#000',letterSpacing:'2.1rem', textTransform: 'uppercase',}} />
           </YAxis>
           <Tooltip />
           <Legend />
-          <Area type="monotone" dataKey="uv" areaSize={100} fill="#540d6e" stroke="#2e2157"/>
-          <Bar dataKey="amt" barSize={100} fill="#2e2157">
+          <Area type="monotone" dataKey="uv" areaSize={100} fill="url(#colorUv)" stroke="#2e2157"/>
+          <Bar dataKey="amt" barSize={100} fill="url(#colorAmt)">
           
           </Bar>
             
@@ -88,9 +106,8 @@ const LandingPage = () => {
           
         </ComposedChart>
       </ResponsiveContainer>
-      <div>
-        <button onClick={demoSubmit}>Demo Login</button>
       </div>
+     
     </div>
   );
 }

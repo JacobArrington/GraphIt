@@ -26,6 +26,7 @@ const RadarGraph =({selectedFileData, color, width, height}) =>{
     }, [selectedFileData]);
     
     return(
+        <div style={{ width: `${width}%`, height: `${height}px` }}>
         <ResponsiveContainer width={width + '%'} height={height}>
             <RadarChart cx="50%" cy='50%' outerRadius='80%' data={selectedFileData}>
                 <PolarGrid />
@@ -35,6 +36,7 @@ const RadarGraph =({selectedFileData, color, width, height}) =>{
 
             </RadarChart>
         </ResponsiveContainer>
+        </div>
     )
 }
 export default RadarGraph;

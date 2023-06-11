@@ -7,13 +7,14 @@ import AreaGraph from '../Graphs/AreaGraph';
 // import PieGraph from '../Graphs/CircleGraph';
 import RadarGraph from '../Graphs/RadarGraph';
 import BarGraph from '../Graphs/BarGraph';
+import './uvis.css'
 
 const UserVisualizations = () => {
   const dispatch = useDispatch();
   const history = useHistory()
   const currentUser = useSelector((state) => state.session.user);
   const userVis = useSelector((state) => state.visualizationReducer);
-  const [graphSize, setGraphSize] = useState({width: 50, height: 200});
+  const [graphSize, setGraphSize] = useState({width: 80, height: 300});
 
   useEffect(() => {
     dispatch(fetchVisualization());
@@ -48,7 +49,7 @@ const UserVisualizations = () => {
         {Object.values(userVis)
         .filter(visualization => currentUser && visualization.user_id === currentUser.id)
         .map((visualization) => (
-          <div key={visualization.id} className='visualization-list-item' onClick={() => handleVisualizationClick(visualization.id)}>
+          <div key={visualization.id} className='visualization-item' onClick={() => handleVisualizationClick(visualization.id)}>
             <h4 className='title'>{visualization.title}</h4>
             <p className='details'>{visualization.description}</p>
             {getGraphComponent(visualization)}
@@ -57,6 +58,6 @@ const UserVisualizations = () => {
       </div>
     </div>
   );
-};
+        }
 
 export default UserVisualizations;

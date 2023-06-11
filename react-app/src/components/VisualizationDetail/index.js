@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { destroyVisualization, fetchVisualizationById, setVisualizationError } from '../../store/visualization';
@@ -12,7 +12,7 @@ import PostCommentModal from '../PostCommentModal';
 import { destroyComment, fetchComments } from '../../store/comments';
 import EditCommentModal from '../EditCommentModal';
 import { createFavorite } from '../../store/favorites';
-
+import './detail.css'
 
 const VisualizationDetail = () => {
     const { id } = useParams();
@@ -25,6 +25,7 @@ const VisualizationDetail = () => {
     const comments = useSelector((state) => state.commentReducer);
     const visualization = useSelector((state) => state.visualizationReducer[visId])
     const visualizationError = useSelector((state) => state.visualizationReducer.error)
+    const [graphSize, setGraphSize] = useState({width:99 , height: 500});
 
 
 
@@ -66,18 +67,18 @@ const VisualizationDetail = () => {
 
 
     const getGraphComponent = (visualization) => {
-        const { visualization_type, data_file_id, color, width, height, chart_data } = visualization;
+        const { visualization_type, data_file_id, color,  chart_data } = visualization;
         switch (visualization_type) {
             case 'bar':
-                return <BarGraph file={data_file_id} color={color} width={width} height={height} selectedFileData={chart_data} />;
+                return <BarGraph file={data_file_id} color={color} width={graphSize.width} height={graphSize.height} selectedFileData={chart_data} />;
             case 'line':
-                return <LineGraph file={data_file_id} color={color} width={width} height={height} selectedFileData={chart_data} />;
+                return <LineGraph file={data_file_id} color={color} width={graphSize.width} height={graphSize.height} selectedFileData={chart_data} />;
             case 'area':
-                return <AreaGraph file={data_file_id} color={color} width={width} height={height} selectedFileData={chart_data} />;
+                return <AreaGraph file={data_file_id} color={color} width={graphSize.width} height={graphSize.height} selectedFileData={chart_data} />;
             // case 'circle':
             //   return <PieGraph file={data_file_id} color={color} width={width} height={height} selectedFileData={chart_data} />;
             case 'radar':
-                return <RadarGraph file={data_file_id} color={color} width={width} height={height} selectedFileData={chart_data} />;
+                return <RadarGraph file={data_file_id} color={color} width={graphSize.width} height={graphSize.height} selectedFileData={chart_data} />;
             default:
                 return null;
         }
@@ -97,32 +98,37 @@ const VisualizationDetail = () => {
     }
 
     return (
-        <div>
-            <h2>{visualization.title}</h2>
-            {getGraphComponent(visualization)}
-            <p>{visualization.description}</p>
-            <p>{visualization.views}</p>
-            {currentUser.id === visualization.user_id && (
-                <div>
-                    <OpenModalButton
-                        buttonText="Update Visualization"
-                        modalComponent={
-                            <UpdateVisualizationModal visualization={visualization} />
-                        }
-                    />
-                    <button onClick={handleDelete}>Delete</button>
-                </div>
-            )}
-            {currentUser.id !== visualization.user_id && (
-                <button onClick={addToFavs}>Add to Favorites</button>
-            )}
-            <OpenModalButton
-                buttonText='Post Comment'
-                modalComponent={
-                    <PostCommentModal visualizationId={visualization.id} />
-                }
-
-            />
+        <div className='container'>
+            <h2 className='title'>{visualization.title}</h2>
+            <div className='graph-container'>
+    {getGraphComponent(visualization)}
+</div>
+            <p className='description'>{visualization.description}</p>
+            <p className='views'>{visualization.views}</p>
+            <div className='controls'>
+                {currentUser.id === visualization.user_id && (
+                    <div>
+                        <OpenModalButton
+                            buttonText="Update Visualization"
+                            modalComponent={
+                                <UpdateVisualizationModal visualization={visualization} />
+                            }
+                            buttonClass='btn'
+                        />
+                        <button className='btn' onClick={handleDelete}>Delete</button>
+                    </div>
+                )}
+                {currentUser.id !== visualization.user_id && (
+                    <button className='btn' onClick={addToFavs}>Add to Favorites</button>
+                )}
+                <OpenModalButton
+                    buttonText='Post Comment'
+                    modalComponent={
+                        <PostCommentModal visualizationId={visualization.id} />
+                    }
+                    buttonClass='btn'
+                />
+            </div>
             {Object.values(comments).map((comment) => (
                 <div key={comment.id}>
                     <p><strong>{comment.username}:</strong> {comment.content}</p>
@@ -133,15 +139,13 @@ const VisualizationDetail = () => {
                                 modalComponent={
                                     <EditCommentModal comment={comment} />
                                 }
-
+                                buttonClass='btn'
                             />
-                            <button onClick={() => handleCommentDelete(comment.id)}>Delete</button>
+                            <button className='btn' onClick={() => handleCommentDelete(comment.id)}>Delete</button>
                         </div>
                     }
                 </div>
             ))}
-
-
         </div>
     )
 }

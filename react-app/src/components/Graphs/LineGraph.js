@@ -24,7 +24,8 @@ const LineGraph =({selectedFileData, color, width, height}) => {
     }, [selectedFileData]);
 
     return(
-        <ResponsiveContainer width={width + '%'} height={height}>
+        <div style={{ width: `${width}%`, height: `${height}px` }}>
+        <ResponsiveContainer >
             <LineChart
             data={selectedFileData}
             margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
@@ -36,6 +37,7 @@ const LineGraph =({selectedFileData, color, width, height}) => {
 
             </LineChart>
         </ResponsiveContainer>
+        </div>
     )
 }
 

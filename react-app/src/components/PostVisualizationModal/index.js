@@ -115,7 +115,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
           <select
             checked={visibility}
             className="form-input"
-            onChange={(e) => setVisibility(e.target.checked)}
+            onChange={(e) => setVisibility(e.target.value)}
           >
             <option value="private">Private</option>
             <option value="public">Public</option>
@@ -155,9 +155,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
         />
       </div>
   
-      <div className="graph-container">
-        {graph(chartType)}
-      </div>
+   
   
       <div className="form-group">
         <button type="submit" className="form-submit">Submit</button>

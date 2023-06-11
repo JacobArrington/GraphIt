@@ -26,11 +26,9 @@ const BarGraph = ({file, color, width, height, selectedFileData, }) =>{
         }
     }, [selectedFileData]);
     return (
-        <div>
-            
-    
+        <div style={{ width: `${width}%`, height: `${height}px` }}>
             {selectedFileData.length > 0 && xAxisKey && barDataKey &&
-                <ResponsiveContainer width={width + '%'} height={height}>
+                <ResponsiveContainer>
                     <BarChart
                         data={selectedFileData}
                         margin={{
@@ -48,5 +46,6 @@ const BarGraph = ({file, color, width, height, selectedFileData, }) =>{
             }
         </div>
     )
-        }  
+}
+
 export default BarGraph
