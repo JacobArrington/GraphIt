@@ -25,7 +25,13 @@ const VisualizationDetail = () => {
     const comments = useSelector((state) => state.commentReducer);
     const visualization = useSelector((state) => state.visualizationReducer[visId])
     const visualizationError = useSelector((state) => state.visualizationReducer.error)
-    const [graphSize, setGraphSize] = useState({width:99 , height: 500});
+    const [graphSize, setGraphSize] = useState({ width: 0, height: 0 });
+
+    useEffect(() => {
+      if (visualization) {
+        setGraphSize({ width: visualization.width, height: visualization.height });
+      }
+    }, [visualization]);
 
 
 
@@ -51,7 +57,7 @@ const VisualizationDetail = () => {
         const confrim = window.confirm('Are you sure you want to delete this this action cant be undone')
         if (confrim) {
             await dispatch(destroyVisualization(visualization.id))
-            history.push('/graph')
+            history.push('/library')
         }
     }
 

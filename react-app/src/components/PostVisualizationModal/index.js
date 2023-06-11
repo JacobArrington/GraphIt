@@ -27,6 +27,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
 
   useEffect(() => {
     setChartData(selectedFileData)
+    console.log(selectedFileData);
   }, [selectedFileData])
 
 

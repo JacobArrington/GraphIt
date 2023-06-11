@@ -27,7 +27,7 @@ const RadarGraph =({selectedFileData, color, width, height}) =>{
     
     return(
         <div style={{ width: `${width}%`, height: `${height}px` }}>
-        <ResponsiveContainer width={width + '%'} height={height}>
+        <ResponsiveContainer >
             <RadarChart cx="50%" cy='50%' outerRadius='80%' data={selectedFileData}>
                 <PolarGrid />
                 <PolarAngleAxis dataKey={axisKey} />
