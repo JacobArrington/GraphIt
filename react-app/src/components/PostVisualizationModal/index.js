@@ -14,7 +14,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
   const dispatch = useDispatch();
   const history = useHistory()
   const { closeModal } = useModal()
-  const [chartType, setChartType] = useState('');
+  const [chartType, setChartType] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [width, setWidth] = useState(100);
@@ -23,6 +23,8 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
   const [visibility, setVisibility] = useState('public');
   const [color, setColor] = useState('#000000');
   const [chartData, setChartData] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  
 
 
   useEffect(() => {
@@ -37,6 +39,10 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!chartType) {
+      setErrorMessage('Please select a chart type.');
+      return;
+    }
     const visualizationData = {
       title,
       description,
@@ -48,6 +54,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
       width,
       height,
     };
+  
     let newVis = await dispatch(postVisualization(visualizationData));
     console.log(newVis)
     if (newVis) {
@@ -88,6 +95,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
             value={title}
             className="form-input"
             onChange={(e) => setTitle(e.target.value)}
+            required
           />
         </label>
       </div>
@@ -99,6 +107,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
             value={description}
             className="form-input"
             onChange={(e) => setDescription(e.target.value)}
+            required
           />
         </label>
       </div>
@@ -108,6 +117,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
         <button className="chart-type-button" type="button" onClick={() => setChartType('line')}>Line</button>
         <button className="chart-type-button" type="button" onClick={() => setChartType('area')}>Area</button>
         <button className="chart-type-button" type="button" onClick={() => setChartType('radar')}>Radar</button>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </div>
   
       <div className="form-group">
@@ -117,6 +127,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
             checked={visibility}
             className="form-input"
             onChange={(e) => setVisibility(e.target.value)}
+            required
           >
             <option value="private">Private</option>
             <option value="public">Public</option>
@@ -132,6 +143,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
             value={color}
             className="form-input"
             onChange={(e) => setColor(e.target.value)}
+            required
           />
         </label>
       </div>
@@ -143,6 +155,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
           value={width}
           className="form-input"
           onChange={(e) => setWidth(e.target.value)}
+          required
         />
       </div>
   
@@ -153,6 +166,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
           value={height}
           className="form-input"
           onChange={(e) => setHeight(e.target.value)}
+          required
         />
       </div>
   

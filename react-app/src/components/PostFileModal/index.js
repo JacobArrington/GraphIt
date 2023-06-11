@@ -37,7 +37,10 @@ function PostFileModal() {
   }
 
   const handleFileUpload = (e) => {
-    setFilepath(e.target.files[0])
+    const file = e.target.files[0];
+    setFilepath(file);
+    setFileName(file.name.split('.').slice(0, -1).join('.')); // Extracts the name without extension
+    setFileType(file.type);
   }
   return (
     <div className="modal-content-container"> {/* Outer Container */}
@@ -49,7 +52,7 @@ function PostFileModal() {
           ))}
         </ul>
         <div className="input-container"> {/* Input Container */}
-          <label>
+          {/* <label>
             File Name
             <input
               type="text"
@@ -58,13 +61,13 @@ function PostFileModal() {
               required
               className="add-file-input"
             />
-          </label>
+          </label> */}
           <label className="custom-file-upload">
             <input type="file" style={{ display: "none" }} onChange={handleFileUpload} required />
             {filepath ? filepath.name : "No file chosen yet..."}
             <div className="upload-btn">Upload File</div>
           </label>
-          <label>
+          {/* <label>
             File Type
             <select
               value={filetype}
@@ -77,7 +80,7 @@ function PostFileModal() {
               <option value="text/csv">CSV</option>
 
             </select>
-          </label>
+          </label> */}
         </div>
         <button type="submit" className="add-file-button">Add File</button>
       </form>

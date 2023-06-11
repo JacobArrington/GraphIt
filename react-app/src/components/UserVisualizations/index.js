@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
-import { fetchVisualization } from '../../store/visualization';
+import { fetchVisualization, destroyVisualization } from '../../store/visualization';
 import LineGraph from '../Graphs/LineGraph';
 import AreaGraph from '../Graphs/AreaGraph';
 // import PieGraph from '../Graphs/CircleGraph';
@@ -15,6 +15,10 @@ const UserVisualizations = () => {
   const currentUser = useSelector((state) => state.session.user);
   const userVis = useSelector((state) => state.visualizationReducer);
   const [graphSize, setGraphSize] = useState({width: 80, height: 300});
+  const [contextMenuState, setContextMenuState] = useState({ visibility: false, x: '0px', y: '0px', data: null });
+
+
+
 
   useEffect(() => {
     dispatch(fetchVisualization());

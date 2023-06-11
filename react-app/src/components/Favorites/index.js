@@ -33,7 +33,7 @@ const Favorites = () => {
                                 {visualization?.title} - {visualization?.visualization_type}
                             </Link>
                             <button onClick={() => handleDeleteFavorite(favorite.id)} className='favorite-button'>
-                                Remove from Favorites
+                                -
                             </button>
                         </div>
                     );

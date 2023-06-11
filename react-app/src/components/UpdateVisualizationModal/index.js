@@ -41,6 +41,7 @@ const UpdateVisualizationModal = ({ visualization }) => {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required
         />
       </div>
 
@@ -49,6 +50,7 @@ const UpdateVisualizationModal = ({ visualization }) => {
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          required
         />
       </div>
       
@@ -57,6 +59,7 @@ const UpdateVisualizationModal = ({ visualization }) => {
         <select
           value={visibility}
           onChange={(e) => setVisibility(e.target.value)}
+          required
         >
           <option value="private">Private</option>
           <option value="public">Public</option>
@@ -69,6 +72,7 @@ const UpdateVisualizationModal = ({ visualization }) => {
           type="color"
           value={color}
           onChange={(e) => setColor(e.target.value)}
+          required
         />
       </div>
 
@@ -78,6 +82,7 @@ const UpdateVisualizationModal = ({ visualization }) => {
           type="number"
           value={width}
           onChange={(e) => setWidth(e.target.value)}
+          required
         />
       </div>
 
@@ -87,6 +92,7 @@ const UpdateVisualizationModal = ({ visualization }) => {
           type="number"
           value={height}
           onChange={(e) => setHeight(e.target.value)}
+          required
         />
       </div>
 

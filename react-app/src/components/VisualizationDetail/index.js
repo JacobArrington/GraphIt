@@ -119,20 +119,20 @@ const VisualizationDetail = () => {
                             modalComponent={
                                 <UpdateVisualizationModal visualization={visualization} />
                             }
-                            buttonClass='btn'
+                            className='d-open-btn'
                         />
-                        <button className='btn' onClick={handleDelete}>Delete</button>
+                        <button className='d-open-btn' onClick={handleDelete}>Delete</button>
                     </div>
                 )}
                 {currentUser.id !== visualization.user_id && (
-                    <button className='btn' onClick={addToFavs}>Add to Favorites</button>
+                    <button className='d-open-btn' onClick={addToFavs}>Add to Favorites</button>
                 )}
                 <OpenModalButton
                     buttonText='Post Comment'
                     modalComponent={
                         <PostCommentModal visualizationId={visualization.id} />
                     }
-                    buttonClass='btn'
+                    className='d-open-btn'
                 />
             </div>
             {Object.values(comments).map((comment) => (
@@ -145,9 +145,9 @@ const VisualizationDetail = () => {
                                 modalComponent={
                                     <EditCommentModal comment={comment} />
                                 }
-                                buttonClass='btn'
+                                className='d-open-btn'
                             />
-                            <button className='btn' onClick={() => handleCommentDelete(comment.id)}>Delete</button>
+                            <button className='d-open-btn' onClick={() => handleCommentDelete(comment.id)}>Delete</button>
                         </div>
                     }
                 </div>

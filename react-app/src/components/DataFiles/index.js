@@ -6,7 +6,7 @@ import PostFileModal from '../PostFileModal';
 import { useState } from 'react';
 import PostVisualizationModal from '../PostVisualizationModal';
 import Favorites from '../Favorites';
-import UserVisualizations from '../UserVisualizations';
+
 import './datafiles.css'
 function DataFiles(){
     const dispatch = useDispatch()
@@ -49,8 +49,10 @@ return(
             ))} 
         </div>
     </div>
+    <div className='opn-btn-container'>
     <OpenModalButton 
         buttonText="Add a file"
+        className='open-btn'
         modalComponent={
             <PostFileModal />
         }
@@ -58,11 +60,13 @@ return(
     {selectedFileId &&
      <OpenModalButton 
         buttonText="Graph It!"
+        className='open-btn'
         modalComponent={
             <PostVisualizationModal selectedFileId={selectedFileId} selectedFileData={selectedFileData} />
         }
     />
 }
+</div>
 
 <Favorites />
     </>
