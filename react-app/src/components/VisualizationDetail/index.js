@@ -99,7 +99,7 @@ const VisualizationDetail = () => {
         return <p>Loading Graph</p>
     }
 
-    if (visualization.visibility === 'private' && currentUser.id !== visualization.user_id) {
+    if (visualization.visibility === 'private' && currentUser && currentUser.id !== visualization.user_id) {
         return <p>This graph is private.</p>
     }
 
@@ -107,12 +107,12 @@ const VisualizationDetail = () => {
         <div className='container'>
             <h2 className='title'>{visualization.title}</h2>
             <div className='graph-container'>
-    {getGraphComponent(visualization)}
-</div>
+              {getGraphComponent(visualization)}
+            </div>
             <p className='description'>{visualization.description}</p>
             <p className='views'>{visualization.views}</p>
             <div className='controls'>
-                {currentUser.id === visualization.user_id && (
+                {currentUser && currentUser.id === visualization.user_id && (
                     <div>
                         <OpenModalButton
                             buttonText="Update Visualization"
@@ -124,7 +124,7 @@ const VisualizationDetail = () => {
                         <button className='d-open-btn' onClick={handleDelete}>Delete</button>
                     </div>
                 )}
-                {currentUser.id !== visualization.user_id && (
+                {currentUser && currentUser.id !== visualization.user_id && (
                     <button className='d-open-btn' onClick={addToFavs}>Add to Favorites</button>
                 )}
                 <OpenModalButton
@@ -138,7 +138,7 @@ const VisualizationDetail = () => {
             {Object.values(comments).map((comment) => (
                 <div key={comment.id}>
                     <p><strong>{comment.username}:</strong> {comment.content}</p>
-                    {comment.user_id === currentUser.id &&
+                    {currentUser && comment.user_id === currentUser.id &&
                         <div>
                             <OpenModalButton
                                 buttonText={'Edit Comment'}
@@ -156,4 +156,4 @@ const VisualizationDetail = () => {
     )
 }
 
-export default VisualizationDetail
+export default VisualizationDetail;
