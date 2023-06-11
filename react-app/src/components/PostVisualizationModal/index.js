@@ -104,10 +104,10 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
       </div>
   
       <div className="chart-type-group">
-        <button type="button" onClick={() => setChartType('bar')}>Bar</button>
-        <button type="button" onClick={() => setChartType('line')}>Line</button>
-        <button type="button" onClick={() => setChartType('area')}>Area</button>
-        <button type="button" onClick={() => setChartType('radar')}>Radar</button>
+        <button className="chart-type-button"type="button" onClick={() => setChartType('bar')}>Bar</button>
+        <button className="chart-type-button" type="button" onClick={() => setChartType('line')}>Line</button>
+        <button className="chart-type-button" type="button" onClick={() => setChartType('area')}>Area</button>
+        <button className="chart-type-button" type="button" onClick={() => setChartType('radar')}>Radar</button>
       </div>
   
       <div className="form-group">
