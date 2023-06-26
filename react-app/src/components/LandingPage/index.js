@@ -78,11 +78,11 @@ const LandingPage = () => {
         <ComposedChart data={data} margin={{top: 0, right: 0, left: 0, bottom: 0}}>
         <defs>
     <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stopColor=" #0072ff " stopOpacity={1}/>
-      <stop offset="100%" stopColor="#800080" stopOpacity={1}/>
+      <stop offset="0%" stopColor=" 	#eeaf61 " stopOpacity={1}/>
+      <stop offset="100%" stopColor="#fb9062" stopOpacity={1}/>
     </linearGradient>
     <linearGradient id="colorAmt" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stopColor="#800080" stopOpacity={1}/>
+      <stop offset="0%" stopColor="#CB4258" stopOpacity={1}/>
       <stop offset="100%" stopColor="#0072ff" stopOpacity={1}/>
     </linearGradient>
   </defs>
