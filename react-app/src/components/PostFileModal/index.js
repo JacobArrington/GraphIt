@@ -39,9 +39,15 @@ function PostFileModal() {
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     setFilepath(file);
-    setFileName(file.name.split('.').slice(0, -1).join('.')); // Extracts the name without extension
+
+    let cleanedName = file.name.split('.').slice(0, -1).join('.'); // Extracts the name without extension
+    cleanedName = cleanedName.replace(/[\W_]+/g, ' '); // Removes special characters and underscores, replaces with whitespace
+    cleanedName = cleanedName.replace(/\s+/g, ''); // Removes whitespace characters
+    cleanedName = cleanedName.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); }); // Capitalizes first letter of every word
+
+    setFileName(cleanedName);
     setFileType(file.type);
-  }
+}
   return (
     <div className="modal-content-container"> {/* Outer Container */}
       <h1>Add File</h1>

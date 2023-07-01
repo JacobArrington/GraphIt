@@ -8,69 +8,86 @@ import PostVisualizationModal from '../PostVisualizationModal';
 import Favorites from '../Favorites';
 
 import './datafiles.css'
-function DataFiles(){
+function DataFiles() {
     const dispatch = useDispatch()
     const allFiles = useSelector((state) => state.fileReducer)
     const [selectedFileId, setSelectedFileId] = useState(null)
     const [selectedFileData, setSelectedFileData] = useState([]);
 
-    
 
-    useEffect(() =>{
+
+    useEffect(() => {
         dispatch(fetchFile());
-    },[dispatch])
+    }, [dispatch])
 
     const handleFileClick = (fileId) => {
         setSelectedFileId(fileId);
 
         fetch(`/api/files/${fileId}`)
-        .then(response => response.json())
-        .then(responseData => {
-          if (Array.isArray(responseData.data)) {
-            setSelectedFileData(responseData.data);
-          } ;
-          })
-        
-    
-      }
-return(
-    <>
-    <div className='file-container'>
-        <div className='file-header-container'>
-        <h2 className='file-header'>Your Files</h2>
-        </div>
+            .then(response => response.json())
+            .then(responseData => {
+                if (Array.isArray(responseData.data)) {
+                    setSelectedFileData(responseData.data);
+                };
+            })
 
-        <div className='file-list'>
-            {Object.values(allFiles).map((file,index)=>(
-                 <div key={index} className='file-item' onClick={() => handleFileClick(file.id)}>
-                 <h4 className='title'>{file.filename}</h4>
-                 
-             </div>
-            ))} 
-        </div>
-    </div>
-    <div className='opn-btn-container'>
-    <OpenModalButton 
-        buttonText="Add a file"
+
+    }
+    return (
+        <>
+            <div className='file-container'>
+                <div className='file-header-container'>
+                    <h2 className='file-header'>Your Files</h2>
+                </div>
+
+                <div className='file-list'>
+        {Object.values(allFiles).map((file, index) => (
+          <div key={index} className='file-item' onClick={() => handleFileClick(file.id)}>
+            <button className='file-icon '>
+            <i className="fa-regular fa-file-lines"></i>
+            <span className='file-name'>{file.filename}</span>
+            </button>
+          </div>
+
+
+
+
+                    ))}
+                </div>
+            </div>
+            <div className='opn-btn-container'>
+            <OpenModalButton
+        buttonText={
+            <>
+             <i class="fa-solid fa-file-arrow-up" ></i>
+              <span className="open-btn-text">Add</span>
+            </>
+          }
         className='open-btn'
         modalComponent={
             <PostFileModal />
         }
     />
-    {selectedFileId &&
-     <OpenModalButton 
-        buttonText="Graph It!"
-        className='open-btn'
-        modalComponent={
-            <PostVisualizationModal selectedFileId={selectedFileId} selectedFileData={selectedFileData} />
-        }
-    />
-}
-</div>
+                
+                {selectedFileId &&
+                    <OpenModalButton
+                        buttonText={
+                            <>
+                            <i class="fa-solid fa-chart-column"></i>
+                            <span className=" graph-text" >graph it!</span>
+                            </>
+                        }
+                        className='open-btn'
+                        modalComponent={
+                            <PostVisualizationModal selectedFileId={selectedFileId} selectedFileData={selectedFileData} />
+                        }
+                    />
+                }
+            </div>
 
-<Favorites />
-    </>
-)
+            <Favorites />
+        </>
+    )
 
 }
 export default DataFiles
