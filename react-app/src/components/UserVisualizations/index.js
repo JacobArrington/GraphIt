@@ -48,7 +48,7 @@ const UserVisualizations = () => {
 
   return (
     <div className='visualization-container'>
-      <h2 className='visualization-header'>My Visualizations</h2>
+      <h4 className='visualization-header'>MY VISUALIZATIONS</h4>
       <div className='visualization-list'>
         {Object.values(userVis)
         .filter(visualization => currentUser && visualization.user_id === currentUser.id)

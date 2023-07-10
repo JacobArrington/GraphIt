@@ -8,13 +8,13 @@ import PostVisualizationModal from '../PostVisualizationModal';
 import Favorites from '../Favorites';
 
 import './datafiles.css'
+
 function DataFiles() {
     const dispatch = useDispatch()
     const allFiles = useSelector((state) => state.fileReducer)
+    const currentUser = useSelector((state) => state.session.user);
     const [selectedFileId, setSelectedFileId] = useState(null)
     const [selectedFileData, setSelectedFileData] = useState([]);
-
-
 
     useEffect(() => {
         dispatch(fetchFile());
@@ -30,64 +30,64 @@ function DataFiles() {
                     setSelectedFileData(responseData.data);
                 };
             })
-
-
     }
+
     return (
-        <>
-            <div className='file-container'>
-                <div className='file-header-container'>
-                    <h2 className='file-header'>Your Files</h2>
-                </div>
+      <>
+      <div className='title'>
+        <h2>{currentUser.username}'s Libary</h2>
+      </div>
+      <div className='file-fav'>
+        <div className='file-container'>
 
-                <div className='file-list'>
-        {Object.values(allFiles).map((file, index) => (
-          <div key={index} className='file-item' onClick={() => handleFileClick(file.id)}>
-            <button className='file-icon '>
-            <i className="fa-regular fa-file-lines"></i>
-            <span className='file-name'>{file.filename}</span>
-            </button>
-          </div>
-
-
-
-
-                    ))}
-                </div>
+            <div className='file-header-container'>
+                <h4 className='file-header'>SELECT A FILE</h4>
             </div>
+           
+            <div className='file-list'>
+                {Object.values(allFiles).map((file, index) => (
+                    <div key={index} className='file-item' onClick={() => handleFileClick(file.id)}>
+                        <div className='file-icon'>
+                            <span className='file-name'>{file.filename}</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
             <div className='opn-btn-container'>
-            <OpenModalButton
-        buttonText={
-            <>
-             <i class="fa-solid fa-file-arrow-up" ></i>
-              <span className="open-btn-text">Add</span>
-            </>
-          }
-        className='open-btn'
-        modalComponent={
-            <PostFileModal />
-        }
-    />
-                
+                <OpenModalButton
+                    buttonText={
+                        <div className="button-content">
+                            <img src="https://storage.cloud.google.com/graphit_bucket/file_1092216.png" alt="Graph Icon" style={{width: "20px", height: "20px"}} />
+                            <span className="open-btn-text">upload</span>
+                        </div>
+                    }
+                    className='open-btn upload'
+                    modalComponent={
+                        <PostFileModal />
+                    }
+                />
+
                 {selectedFileId &&
                     <OpenModalButton
                         buttonText={
-                            <>
-                            <i class="fa-solid fa-chart-column"></i>
-                            <span className=" graph-text" >graph it!</span>
-                            </>
+                            <div className="button-content">
+                                <img src="https://storage.cloud.google.com/graphit_bucket/market-fluctuation_3121599.png" alt="Graph Icon" style={{width: "20px", height: "20px"}} />
+                                <span className="graph-text">graph it!</span>
+                            </div>
                         }
-                        className='open-btn'
+                        className='open-btn graph-btn'
                         modalComponent={
                             <PostVisualizationModal selectedFileId={selectedFileId} selectedFileData={selectedFileData} />
                         }
                     />
                 }
             </div>
-
-            <Favorites />
-        </>
+        </div>
+        <Favorites />
+      </div>
+      </>
     )
-
 }
+
 export default DataFiles

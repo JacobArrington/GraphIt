@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchFavorites, deleteFavorite } from '../../store/favorites'; 
 import { Link } from 'react-router-dom';
 import './fav.css'
 
-const Favorites = () => {
+function Favorites() {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.session?.user);
     const favorites = useSelector((state) => state.favoritesReducer);
@@ -22,24 +22,27 @@ const Favorites = () => {
     };
 
     return (
-        <div className='favorites-container'>
-            <h2 className='favorites-header'>Your Favorite Visualizations</h2>
-            <div className='favorites-list'>
-                {Object.values(favorites).map((favorite) => {
-                    const visualization = Object.values(visualizations).find(vis => vis.id === favorite.visualization_id);
-                    return (
-                        <div key={favorite.id} className='favorite-item'>
-                            <Link to={`/visualizations/${favorite.visualization_id}`} className='favorite-link'>
-                                {visualization?.title} - {visualization?.visualization_type}
-                            </Link>
-                            <button onClick={() => handleDeleteFavorite(favorite.id)} className='favorite-button'>
-                                -
-                            </button>
-                        </div>
-                    );
-                })}
+        <>
+            
+            <div className='favorites-container'>
+                <h4 className='favorites-header'>YOUR FAVORITES</h4>
+                <div className='favorites-list'>
+                    {Object.values(favorites).map((favorite) => {
+                        const visualization = Object.values(visualizations).find(vis => vis.id === favorite.visualization_id);
+                        return (
+                            <div key={favorite.id} className='favorite-item'>
+                                <Link to={`/visualizations/${favorite.visualization_id}`} className='favorite-link'>
+                                    {visualization?.title} - {visualization?.visualization_type}
+                                </Link>
+                                <button onClick={() => handleDeleteFavorite(favorite.id)} className='favorite-button'>
+                                <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
