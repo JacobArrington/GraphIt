@@ -74,7 +74,7 @@ const LandingPage = () => {
 
       
       <div className='landing-graph-container'>
-      <ResponsiveContainer width="80%" height={780}>
+      <ResponsiveContainer width="80%" height={750}>
         <ComposedChart data={data} margin={{top: 0, right: 0, left: 0, bottom: 0}}>
         <defs>
     <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -94,7 +94,7 @@ const LandingPage = () => {
             <Label content={<VerticalLabel />} value='A T A D R U O Y' position='insideLeft' offset={-1} style={{fontSize: '24px',fontWeight: 'bold',fill: '#000',letterSpacing:'2.1rem', textTransform: 'uppercase',}} />
           </YAxis>
           <Tooltip />
-          <Legend />
+        
           <Area type="monotone" dataKey="uv" areaSize={100} fill="url(#colorUv)" stroke="#2e2157"/>
           <Bar dataKey="amt" barSize={100} fill="url(#colorAmt)">
           

@@ -65,7 +65,7 @@ function SignupFormModal() {
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
-						className="comment-input"
+						className="signup-input"
 					/>
 				</div>
 				<div className="input-container">

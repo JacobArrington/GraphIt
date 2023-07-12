@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
   width:100%;
- 
+  font-family: 'Permanent Marker', cursive;
   overflow-y: auto;
   max-height: 100vh;
 }
@@ -27,6 +27,11 @@
   width:70%;
   
   justify-content: center;
-  background: linear-gradient(to right, #0072ff 0%, #800080 100%);
-  color: white
+  background: #E1E7F3;
+  background-image:
+  linear-gradient(0deg, transparent 24px, rgba(0,0,0,.05) 25px, rgba(0,0,0,.05) 26px, transparent 27px, transparent 49px, rgba(0,0,0,.05) 50px, rgba(0,0,0,.05) 51px, transparent 52px),
+  linear-gradient(90deg, transparent 24px, rgba(0,0,0,.05) 25px, rgba(0,0,0,.05) 26px, transparent 27px, transparent 49px, rgba(0,0,0,.05) 50px, rgba(0,0,0,.05) 51px, transparent 52px);
+
+background-size: 50px 50px;
+  
 }

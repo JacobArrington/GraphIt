@@ -28,9 +28,9 @@ const VisualizationDetail = () => {
     const [graphSize, setGraphSize] = useState({ width: 0, height: 0 });
 
     useEffect(() => {
-      if (visualization) {
-        setGraphSize({ width: visualization.width, height: visualization.height });
-      }
+        if (visualization) {
+            setGraphSize({ width: visualization.width, height: visualization.height });
+        }
     }, [visualization]);
 
 
@@ -73,7 +73,7 @@ const VisualizationDetail = () => {
 
 
     const getGraphComponent = (visualization) => {
-        const { visualization_type, data_file_id, color,  chart_data } = visualization;
+        const { visualization_type, data_file_id, color, chart_data } = visualization;
         switch (visualization_type) {
             case 'bar':
                 return <BarGraph file={data_file_id} color={color} width={graphSize.width} height={graphSize.height} selectedFileData={chart_data} />;
@@ -107,51 +107,83 @@ const VisualizationDetail = () => {
         <div className='container'>
             <h2 className='title'>{visualization.title}</h2>
             <div className='graph-container'>
-              {getGraphComponent(visualization)}
+                {getGraphComponent(visualization)}
             </div>
-            <p className='description'>{visualization.description}</p>
-            <p className='views'>{visualization.views}</p>
             <div className='controls'>
+
+
                 {currentUser && currentUser.id === visualization.user_id && (
-                    <div>
+                    <div className="edit-delete-buttons">
                         <OpenModalButton
-                            buttonText="Update Visualization"
+                            buttonText={
+                                <div className="button-content">
+                                    <img src="https://storage.cloud.google.com/graphit_bucket/edit_3102301.png" alt="edit Icon" style={{ width: "40px", height: "40px" }} />
+
+                                </div>
+                            }
                             modalComponent={
                                 <UpdateVisualizationModal visualization={visualization} />
                             }
-                            className='d-open-btn'
+                            className='vis-update'
                         />
-                        <button className='d-open-btn' onClick={handleDelete}>Delete</button>
+                        <button className='vis-delete' onClick={handleDelete}>
+                            <img src="https://storage.cloud.google.com/graphit_bucket/bin_484662.png" alt="delete Icon" style={{ width: "40px", height: "40px" }} />
+                        </button>
                     </div>
                 )}
                 {currentUser && currentUser.id !== visualization.user_id && (
-                    <button className='d-open-btn' onClick={addToFavs}>Add to Favorites</button>
+                    <button className='add-fav' onClick={addToFavs}>
+                        <img src="https://storage.cloud.google.com/graphit_bucket/love_4432261.png" alt="favorite Icon" style={{ width: "40px", height: "40px" }} />
+                    </button>
                 )}
-                <OpenModalButton
-                    buttonText='Post Comment'
-                    modalComponent={
-                        <PostCommentModal visualizationId={visualization.id} />
-                    }
-                    className='d-open-btn'
-                />
+                <p className='description'>{visualization.description}</p>
+                <div className="comment-views-buttons">
+                    
+
+                    <OpenModalButton
+                        buttonText={
+                            <div className="button-content">
+                                <img src="https://storage.cloud.google.com/graphit_bucket/new-message_5702378.png" alt="Comment Icon" style={{ width: "40px", height: "40px" }} />
+
+                            </div>
+
+                        }
+                        modalComponent={
+                            <PostCommentModal visualizationId={visualization.id} />
+                        }
+                        className='d-open-btn'
+                    />
+                    <button className='views'>
+                    <div lassName="button-content">
+                <img src="https://storage.cloud.google.com/graphit_bucket/monitoring_6103108.png" alt="view Icon" style={{width: "40px", height: "35px"}} />
+                    {visualization.views}
+                    </div>
+                    </button>
+                    </div>
             </div>
             {Object.values(comments).map((comment) => (
-                <div key={comment.id}>
-                    <p><strong>{comment.username}:</strong> {comment.content}</p>
+                <div key={comment.id} className="comment-card">
+                    <div className="comment-content">
+                        <h4 className="comment-user"><strong>{comment.username}:</strong></h4>
+                        <p className="comment-text">{comment.content}</p>
+                    </div>
                     {currentUser && comment.user_id === currentUser.id &&
-                        <div>
+                        <div className="comment-controls">
                             <OpenModalButton
-                                buttonText={'Edit Comment'}
+                                buttonText={
+                                    <i class="fa-solid fa-pen"></i>
+                                }
                                 modalComponent={
                                     <EditCommentModal comment={comment} />
                                 }
                                 className='d-open-btn'
                             />
-                            <button className='d-open-btn' onClick={() => handleCommentDelete(comment.id)}>Delete</button>
+                            <button className='d-open-btn' onClick={() => handleCommentDelete(comment.id)}><i class="fa-regular fa-trash-can"></i></button>
                         </div>
                     }
                 </div>
             ))}
+
         </div>
     )
 }

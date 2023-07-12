@@ -32,7 +32,7 @@ const RadarGraph =({selectedFileData, color, width, height}) =>{
                 <PolarGrid />
                 <PolarAngleAxis dataKey={axisKey} />
                 <PolarRadiusAxis />
-                <Radar  dataKey={dataKey} storke='#000000' fill={color} fillOpacity={0.5} />
+                <Radar  dataKey={dataKey} storke='#000000' fill={color} fillOpacity={0.3} />
 
             </RadarChart>
         </ResponsiveContainer>

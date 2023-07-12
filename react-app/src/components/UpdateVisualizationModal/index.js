@@ -35,6 +35,7 @@ const UpdateVisualizationModal = ({ visualization }) => {
   };
   return (
     <form onSubmit={handleSubmit} className="form-container">
+       <div><h2>Update Graph</h2></div>
       <div className="form-input">
         <label>Title:</label>
         <input

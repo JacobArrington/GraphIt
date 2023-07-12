@@ -35,11 +35,11 @@ const BarGraph = ({file, color, width, height, selectedFileData, }) =>{
                             top: 5, right: 30, left: 20, bottom: 5
                         }}
                     >
-                        <CartesianGrid strokeDasharray="3 3" />
+                       
                         <XAxis dataKey={xAxisKey}/>
                         <YAxis />
                         <Tooltip />
-                        <Legend />
+                        
                         <Bar dataKey={barDataKey} fill={color} />
                     </BarChart>
                 </ResponsiveContainer>

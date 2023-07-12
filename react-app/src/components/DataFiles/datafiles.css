@@ -6,7 +6,7 @@
 
 .file-container {
   width: 45%;
-  
+  border: 1px solid black;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
   padding: 10px; 
    
@@ -55,6 +55,8 @@
 .open-btn {
   border: none;
   background-color: transparent; 
+  font-family: 'Permanent Marker', cursive;
+  font-size: 18px;
 }
 
 .button-content {

@@ -87,6 +87,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
+      <div><h2>Graph it!</h2></div>
       <div className="form-group">
         <label>
           Title:
@@ -113,10 +114,33 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
       </div>
   
       <div className="chart-type-group">
-        <button className="chart-type-button"type="button" onClick={() => setChartType('bar')}>Bar</button>
-        <button className="chart-type-button" type="button" onClick={() => setChartType('line')}>Line</button>
-        <button className="chart-type-button" type="button" onClick={() => setChartType('area')}>Area</button>
-        <button className="chart-type-button" type="button" onClick={() => setChartType('radar')}>Radar</button>
+      <button className="chart-type-button" type="button" onClick={() => setChartType('bar')}>
+  <div className="chart-type-content">
+    <img src="https://storage.cloud.google.com/graphit_bucket/bar-chart_900772.png" alt="bar graph" style={{width: "40 px", height: "35px"}} />
+    <span>Bar</span>
+  </div>
+</button>
+
+<button className="chart-type-button" type="button" onClick={() => setChartType('line')}>
+  <div className="chart-type-content">
+    <img src="https://storage.cloud.google.com/graphit_bucket/line.png" alt="line graph" style={{width: "40px", height: "35px"}} />
+    <span>Line</span>
+  </div>
+</button>
+
+<button className="chart-type-button" type="button" onClick={() => setChartType('area')}>
+  <div className="chart-type-content">
+    <img src="https://storage.cloud.google.com/graphit_bucket/areagraph.png" alt="area graph" style={{width: "40px", height: "35px"}} />
+    <span>Area</span>
+  </div>
+</button>
+
+<button className="chart-type-button" type="button" onClick={() => setChartType('radar')}>
+  <div className="chart-type-content">
+    <img src="https://storage.cloud.google.com/graphit_bucket/radar-chart.png" alt="radar graph" style={{width: "40px", height: "35px"}} />
+    <span>Radar</span>
+  </div>
+</button>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
       </div>
   
