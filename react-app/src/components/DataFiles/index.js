@@ -35,7 +35,7 @@ function DataFiles() {
     return (
       <>
       <div className='title'>
-        <h2>{currentUser.username}'s Libary</h2>
+      <h2>{currentUser ? `${currentUser.username}'s Library` : 'Loading...'}</h2>
       </div>
       <div className='file-fav'>
         <div className='file-container'>
@@ -58,7 +58,7 @@ function DataFiles() {
                 <OpenModalButton
                     buttonText={
                         <div className="button-content">
-                            <img src="https://storage.cloud.google.com/graphit_bucket/file_1092216.png" alt="Graph Icon" style={{width: "20px", height: "20px"}} />
+                            <img src="https://storage.cloud.google.com/graphit_bucket/file_1092216.png" alt="Graph Icon" style={{width: "40px", height: "40px"}} />
                             <span className="open-btn-text">upload</span>
                         </div>
                     }
@@ -72,7 +72,7 @@ function DataFiles() {
                     <OpenModalButton
                         buttonText={
                             <div className="button-content">
-                                <img src="https://storage.cloud.google.com/graphit_bucket/market-fluctuation_3121599.png" alt="Graph Icon" style={{width: "20px", height: "20px"}} />
+                                <img src="https://storage.cloud.google.com/graphit_bucket/stats_182687.png" alt="Graph Icon" style={{width: "40px", height: "40px"}} />
                                 <span className="graph-text">graph it!</span>
                             </div>
                         }
