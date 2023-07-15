@@ -26,6 +26,7 @@ const VisualizationDetail = () => {
     const visualization = useSelector((state) => state.visualizationReducer[visId])
     const visualizationError = useSelector((state) => state.visualizationReducer.error)
     const [graphSize, setGraphSize] = useState({ width: 0, height: 0 });
+    const [favoriteAdded, setFavoriteAdded] = useState(false);
 
     useEffect(() => {
         if (visualization) {
@@ -49,6 +50,8 @@ const VisualizationDetail = () => {
 
     const addToFavs = async () => {
         await dispatch(createFavorite(visualization.id))
+        history.push('/library');
+
     }
 
 
@@ -135,6 +138,7 @@ const VisualizationDetail = () => {
                     <button className='add-fav' onClick={addToFavs}>
                         <img src="https://storage.cloud.google.com/graphit_bucket/love_4432261.png" alt="favorite Icon" style={{ width: "40px", height: "40px" }} />
                     </button>
+                    
                 )}
                 <p className='description'>{visualization.description}</p>
                 <div className="comment-views-buttons">
