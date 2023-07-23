@@ -5,7 +5,7 @@ const ADD_VIS = "visualization/ADD_VIS"
 const GET_BY_ID = "visualization/GET_BY_ID"
 const UPDATE_VIS = "visualization/UPDATE_VIS";
 const DELETE_VIS = "visualization/DELETE_VIS";
-const SET_COMPARE_VIS = "visualization/SET_COMPARING_VIS"
+// const SET_COMPARE_VIS = "visualization/SET_COMPARING_VIS"
 const SET_VIS_ERROR = 'visualization/SET_VISUALIZATION_ERROR'
 
 
@@ -35,10 +35,10 @@ const deleteVisualizations =(id) =>({
     id
 })
 
-export const setComparingVisualizations = (id1, id2) => ({
-    type: 'SET_COMPARING_VIS',
-    ids: [id1, id2]
-  });
+// export const setComparingVisualizations = (id1, id2) => ({
+//     type: 'SET_COMPARING_VIS',
+//     ids: [id1, id2]
+//   });
 
 export const setVisualizationError = (error) => ({
     type: SET_VIS_ERROR,
@@ -139,10 +139,10 @@ export default function visualizationReducer(state = initState, action){
             delete newState[action.id]
             return newState
         }
-        case SET_COMPARE_VIS:{
-            newState = {...state, comparisonIds: action.ids};
-            return newState;
-        }
+        // case SET_COMPARE_VIS:{
+        //     newState = {...state, comparisonIds: action.ids};
+        //     return newState;
+        // }
         case SET_VIS_ERROR:{
             
             newState.error = action.error

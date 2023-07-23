@@ -23,7 +23,11 @@ def get_data_from_cloud(file_id):
 @login_required
 def get_all_files():
     if request.method == 'GET':
-        files = DataFile.query.filter(DataFile.user_id == current_user.id).all()
+        owned_files = DataFile.query.filter(DataFile.user_id == current_user.id).all()
+
+        public_files = DataFile.query.filter(DataFile.is_public == True).all()
+
+        files = owned_files + [file for file in public_files if file not in owned_files]
         return jsonify([file.to_dict() for file in files])
     
     elif request.method == 'POST':
@@ -59,15 +63,17 @@ def get_all_files():
     'application/json': 'json',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx'
 }
+    is_public = request.form.get('is_public', type=bool, default=False)
 
     datafile = DataFile(
             user_id=current_user.id,
             filename=filename,
             file_type='text/csv' if file.mimetype == 'csv' else file.mimetype,
             file_path=path , 
+            is_public=is_public,
             created_at=datetime.now()
         )
-    print(datafile,'@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    
     db.session.add(datafile)
     db.session.commit()
 
@@ -94,3 +100,40 @@ def file_by_id(id):
     return jsonify(response)
     
    
+@datafile_routes.route('/<int:id>')
+@login_required
+def update_file(id):
+    file = DataFile.query.get(id)
+
+    if not file:
+        return jsonify({"error": "file not found"}),404
+    
+    if file.user_id != current_user.id:
+        return jsonify({"error": "Unauthorized"}),403
+    
+    is_public = request.form.get('is_public', type=bool)
+
+    if is_public is not None:
+        file.is_public = is_public
+
+        db.session.commit()
+
+        return jsonify(file.to_dict())
+    
+
+@datafile_routes.route('/<int:id>')
+@login_required
+def update_file(id):
+    file = DataFile.query.get(id)
+
+    if not file:
+        return jsonify({"error": "file not found"}),404
+    
+    if file.user_id != current_user.id:
+        return jsonify({"error": "Unauthorized"}),403
+    
+    db.session.delete(file)
+    db.session.commit()
+
+    return jsonify({'message': 'File successfully deleted'})
+

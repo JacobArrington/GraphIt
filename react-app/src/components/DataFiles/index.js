@@ -32,27 +32,42 @@ function DataFiles() {
             })
     }
 
-    return (
-      <>
-      <div className='title'>
-      <h2>{currentUser ? `${currentUser.username}'s Library` : 'Loading...'}</h2>
-      </div>
-      <div className='file-fav'>
-        <div className='file-container'>
+    const ownedFiles = currentUser && allFiles 
+    ? Object.values(allFiles).filter((file) => file.user_id === currentUser.id) 
+    : [];
 
-            <div className='file-header-container'>
-                <h4 className='file-header'>SELECT A FILE</h4>
+  const publicFiles = currentUser && allFiles 
+    ? Object.values(allFiles).filter((file) => file.is_public === true && file.user_id !== currentUser.id) 
+    : [];
+
+    return (
+        <>
+    <div className='title'>
+      <h2>{currentUser ? `${currentUser.username}'s Library` : 'Loading...'}</h2>
+    </div>
+    <div className='file-fav'>
+      <div className='file-container'>
+        <div className='file-header-container'>
+          <h4 className='file-header'>SELECT A FILE</h4>
+        </div>
+        <div className='file-list'>
+          <div className='list-title'><h4>Owned Files</h4></div>
+          {ownedFiles.map((file, index) => (
+            <div key={index} className='file-item' onClick={() => handleFileClick(file.id)}>
+              <div className='file-icon'>
+                <span className='file-name'>{file.filename}</span>
+              </div>
             </div>
-           
-            <div className='file-list'>
-                {Object.values(allFiles).map((file, index) => (
-                    <div key={index} className='file-item' onClick={() => handleFileClick(file.id)}>
-                        <div className='file-icon'>
-                            <span className='file-name'>{file.filename}</span>
-                        </div>
-                    </div>
-                ))}
+          ))}
+          <div className='list-title'><h4>Public Files</h4></div>
+          {publicFiles.map((file, index) => (
+            <div key={index} className='file-item' onClick={() => handleFileClick(file.id)}>
+              <div className='file-icon'>
+                <span className='file-name'>{file.filename}</span>
+              </div>
             </div>
+          ))}
+        </div>
 
             <div className='opn-btn-container'>
                 <OpenModalButton

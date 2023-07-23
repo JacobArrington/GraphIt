@@ -45,10 +45,12 @@ export default function fileReducer(state = initState, action){
     let newState = {}
     switch(action.type){
         case GET_FILE:{
-            action.files.forEach((file)=>{
-                newState[file.id] = file
-            })
-            return newState
+            newState = { ...state };
+            action.files.forEach((file) => {
+              newState[file.id] = file;
+            });
+            return newState;
+           
         }
         case ADD_FILE:{
             newState[action.file.id] = action.file

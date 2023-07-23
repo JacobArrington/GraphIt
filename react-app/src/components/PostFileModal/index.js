@@ -13,6 +13,7 @@ function PostFileModal() {
   const [filename, setFileName] = useState('')
   const [filetype, setFileType] = useState('')
   const [filepath, setFilepath] = useState(null);
+  const [isPublic, setIsPublic] = useState(false);
   const [errors, setErrors] = useState([])
 
   const handleSubmit = async (e) => {
@@ -73,20 +74,17 @@ function PostFileModal() {
             {filepath ? filepath.name : "No file chosen yet..."}
             <div className="upload-btn">Upload File</div>
           </label>
-          {/* <label>
-            File Type
-            <select
-              value={filetype}
-              onChange={(e) => setFileType(e.target.value)}
-              required
-              className="add-file-select"
-            >
-              <option value="">Select a file type...</option>
-              <option value="json">JSON</option>
-              <option value="text/csv">CSV</option>
-
-            </select>
-          </label> */}
+          
+          <label>
+            Public File
+            <input
+              type="checkbox"
+              checked={isPublic}
+              onChange={(e) => setIsPublic(e.target.checked)}
+              className="public-file-checkbox"
+            />
+          </label>
+        
         </div>
         <button type="submit" className="add-file-button">Add File</button>
       </form>

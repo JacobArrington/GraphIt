@@ -14,7 +14,7 @@ def seed_datafiles():
         '.csv': 'text/csv',
         '.json': 'application/json'
     }
-    users = User.query.all()
+    user = User.query.get(3)
     blobs = bucket.list_blobs(prefix=folder)
     
     files = []
@@ -35,13 +35,14 @@ def seed_datafiles():
             file_path = blob.name
             files.append((filename, file_type, file_path))
          
-    for user in users:
+    
         for filename, file_type, file_path in files:
             datafile = DataFile(
                 user_id=user.id,
                 filename=filename,
                 file_type=file_type,
                 file_path=file_path,
+                is_public = True,
                 created_at=datetime.now(),
             )
             db.session.add(datafile)

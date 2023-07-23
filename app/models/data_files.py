@@ -11,7 +11,7 @@ class DataFile(db.Model):
     filename = db.Column(db.String(256), nullable=False)
     file_type = db.Column(db.String(255),nullable=False)
     file_path = db.Column(db.String(500), nullable=False)
-    #data = db.Column(db.JSON, nullable=False)
+    is_public = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     user = db.relationship('User', back_populates='data_files')
@@ -25,5 +25,6 @@ class DataFile(db.Model):
             'filename': self.filename,
             'file_type': self.file_type,
             'file_path': self.file_path,
-            'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'is_public': self.is_public,
+            'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S')
     }
