@@ -1,5 +1,7 @@
 const GET_FILE = "session/GET_FILE"
 const ADD_FILE = "session/ADD_FILE"
+const UPDATE_FILE = "session/UPDATE_FILE"
+const DELETE_FILE = "session/DELETE_FILE"
 
 
 const getFiles =(files) =>({
@@ -13,6 +15,16 @@ const addFile =(file) =>({
     file,
 })
 
+const updateFile = (file) =>({
+    type: UPDATE_FILE,
+    file,
+})
+
+const deleteFile =(id) =>({
+    type: DELETE_FILE,
+    id,
+    
+})
 
 export const fetchFile = () => async (dispatch) => {
     const response = await fetch('/api/files')
@@ -37,6 +49,18 @@ export const postFile = (formData) => async(dispatch) =>{
     }
 }
 
+export const editFile =(id,fileData) => async(dispatch) =>{
+    const response = await fetch(`/api/files/${id}`,{
+        method: 'PUT',
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(fileData) 
+    })
+    if(response.ok){
+        const updateF =await response.json()
+        dispatch(updateFile(updateF))
+    }
+}
+
 
 
 const initState = {}
@@ -54,6 +78,16 @@ export default function fileReducer(state = initState, action){
         }
         case ADD_FILE:{
             newState[action.file.id] = action.file
+            return newState
+        }
+        case UPDATE_FILE:{
+            const newState = {...state}
+            newState =[action.file.id] = action.file
+            return newState
+        }
+        case DELETE_FILE:{
+            const newState = {...state}
+            delete newState[action.id]
             return newState
         }
         default:
