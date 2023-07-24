@@ -45,6 +45,9 @@
 }
 .file-item{
   margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .opn-btn-container {
@@ -69,6 +72,18 @@
 .graph-btn{
   margin-left: auto;
 }
-.list-title{
-  
+.file-info{
+  flex: 1;
+}
+
+.file-management-buttons{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.d{
+  border: none;
+  background: transparent;
+  font-size: 20px;
 }

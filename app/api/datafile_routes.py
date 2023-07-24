@@ -100,30 +100,36 @@ def file_by_id(id):
     return jsonify(response)
     
    
-@datafile_routes.route('/<int:id>')
+@datafile_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_file(id):
+
     file = DataFile.query.get(id)
 
     if not file:
-        return jsonify({"error": "file not found"}),404
-    
+        return jsonify({"error": "file not found"}), 404
+
     if file.user_id != current_user.id:
-        return jsonify({"error": "Unauthorized"}),403
+        return jsonify({"error": "Unauthorized"}), 403
+
+    data = request.get_json()
+    #print(f'Incoming data: {data}') 
+    #print(f'Current is_public value: {file.is_public}')
     
-    is_public = request.form.get('is_public', type=bool)
+    file.filename= data.get('filename', file.filename)
+    
+    file.is_public = data.get('isPublic', file.is_public)
+    #print(f'New is_public value: {file.is_public}')
+    file.updated_at = datetime.now()
 
-    if is_public is not None:
-        file.is_public = is_public
+    db.session.commit()
 
-        db.session.commit()
-
-        return jsonify(file.to_dict())
+    return jsonify(file.to_dict()), 200
     
 
-@datafile_routes.route('/<int:id>')
+@datafile_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
-def update_file(id):
+def delete_file(id):
     file = DataFile.query.get(id)
 
     if not file:
@@ -136,4 +142,3 @@ def update_file(id):
     db.session.commit()
 
     return jsonify({'message': 'File successfully deleted'})
-

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchFile } from '../../store/dataFiles';
+import { fetchFile, destroyFile } from '../../store/dataFiles';
 import OpenModalButton from "../OpenModalButton";
 import PostFileModal from '../PostFileModal';
 import { useState } from 'react';
 import PostVisualizationModal from '../PostVisualizationModal';
 import Favorites from '../Favorites';
+import UpdateFileModal from '../UpdateFileModal';
 
 import './datafiles.css'
 
@@ -15,6 +16,7 @@ function DataFiles() {
     const currentUser = useSelector((state) => state.session.user);
     const [selectedFileId, setSelectedFileId] = useState(null)
     const [selectedFileData, setSelectedFileData] = useState([]);
+   
 
     useEffect(() => {
         dispatch(fetchFile());
@@ -40,6 +42,16 @@ function DataFiles() {
     ? Object.values(allFiles).filter((file) => file.is_public === true && file.user_id !== currentUser.id) 
     : [];
 
+    const handleFileDelete = async (fileId) => {
+      const confrim = window.confirm('Are you sure you want to delete this file this action cant be undone')
+      if (confrim) {
+          await dispatch(destroyFile(fileId))
+          
+      }
+  }
+
+    
+
     return (
         <>
     <div className='title'>
@@ -54,11 +66,27 @@ function DataFiles() {
           <div className='list-title'><h4>Owned Files</h4></div>
           {ownedFiles.map((file, index) => (
             <div key={index} className='file-item' onClick={() => handleFileClick(file.id)}>
+            <div className='file-info'>
               <div className='file-icon'>
                 <span className='file-name'>{file.filename}</span>
               </div>
             </div>
+            <div className='file-management-buttons'>
+              <OpenModalButton
+                buttonText={
+                  <i className="fa-solid fa-pen"></i>
+                }
+                className='open-btn update'
+                modalComponent={
+                  <UpdateFileModal file={file} />
+                }
+              />
+              <button  className="d"onClick={() => handleFileDelete(file.id)}><i className="fa-regular fa-trash-can"></i></button>
+            </div>
+          </div>
+           
           ))}
+           
           <div className='list-title'><h4>Public Files</h4></div>
           {publicFiles.map((file, index) => (
             <div key={index} className='file-item' onClick={() => handleFileClick(file.id)}>
@@ -67,6 +95,7 @@ function DataFiles() {
               </div>
             </div>
           ))}
+        
         </div>
 
             <div className='opn-btn-container'>

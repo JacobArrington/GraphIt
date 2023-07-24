@@ -49,15 +49,28 @@ export const postFile = (formData) => async(dispatch) =>{
     }
 }
 
-export const editFile =(id,fileData) => async(dispatch) =>{
+export const editFile =(id, fileData) => async(dispatch) =>{
     const response = await fetch(`/api/files/${id}`,{
         method: 'PUT',
         headers: {"Content-Type" : "application/json"},
-        body: JSON.stringify(fileData) 
+        body: JSON.stringify({
+            ...fileData,
+            is_public: fileData.isPublic
+        })
     })
     if(response.ok){
-        const updateF =await response.json()
+        const updateF = await response.json()
         dispatch(updateFile(updateF))
+    }
+}
+
+export const destroyFile=(id) => async(dispatch) =>{
+    const response = await fetch(`/api/files/${id}`,{
+        method: "DELETE"
+    })
+    if(response.ok){
+        await response.json()
+        return dispatch(deleteFile(id))
     }
 }
 
@@ -80,10 +93,10 @@ export default function fileReducer(state = initState, action){
             newState[action.file.id] = action.file
             return newState
         }
-        case UPDATE_FILE:{
-            const newState = {...state}
-            newState =[action.file.id] = action.file
-            return newState
+        case UPDATE_FILE: {
+            const newState = { ...state };
+            newState[action.file.id] = action.file;
+            return newState;
         }
         case DELETE_FILE:{
             const newState = {...state}

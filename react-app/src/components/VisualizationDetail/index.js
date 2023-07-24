@@ -57,7 +57,7 @@ const VisualizationDetail = () => {
 
 
     const handleDelete = async () => {
-        const confrim = window.confirm('Are you sure you want to delete this this action cant be undone')
+        const confrim = window.confirm('Are you sure you want to delete this graph this action cant be undone')
         if (confrim) {
             await dispatch(destroyVisualization(visualization.id))
             history.push('/library')
@@ -67,7 +67,7 @@ const VisualizationDetail = () => {
 
 
     const handleCommentDelete = async (id) => {
-        const confrim = window.confirm('Are you sure you want to delete this this action cant be undone')
+        const confrim = window.confirm('Are you sure you want to delete this  comment this action cant be undone')
         if (confrim) {
             await dispatch(destroyComment(id))
 
