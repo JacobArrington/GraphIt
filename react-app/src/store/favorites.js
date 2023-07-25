@@ -37,6 +37,9 @@ export const createFavorite = (vis_id) => async(dispatch) => {
     if(response.ok){
         const newFav = await response.json();
         dispatch(addFavorite(newFav));
+    } else if (response.status === 400){
+        const data = await response.json();
+        alert(data.error)
     }
     
 }

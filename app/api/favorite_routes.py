@@ -15,7 +15,11 @@ def get_favorites():
 @favorite_routes.route('<int:vis_id>', methods=['POST'])
 @login_required
 def add_to_favorites(vis_id):
-    #print(f"vis_id in the backend: {vis_id}")
+    user_id = current_user.id
+    existing_fav = Favorite.query.filter_by(user_id=user_id, visualization_id=vis_id).first()
+    if existing_fav:
+        return{"error": "this graph is already in your favorites "}, 
+
     new_favorite =Favorite(
         user_id = current_user.id,
         visualization_id  = vis_id,

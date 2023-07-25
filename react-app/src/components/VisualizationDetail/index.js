@@ -11,7 +11,7 @@ import UpdateVisualizationModal from '../UpdateVisualizationModal';
 import PostCommentModal from '../PostCommentModal';
 import { destroyComment, fetchComments } from '../../store/comments';
 import EditCommentModal from '../EditCommentModal';
-import { createFavorite } from '../../store/favorites';
+import { createFavorite, deleteFavorite, fetchFavorites } from '../../store/favorites';
 import './detail.css'
 
 const VisualizationDetail = () => {
@@ -25,8 +25,10 @@ const VisualizationDetail = () => {
     const comments = useSelector((state) => state.commentReducer);
     const visualization = useSelector((state) => state.visualizationReducer[visId])
     const visualizationError = useSelector((state) => state.visualizationReducer.error)
+    const favorites = useSelector((state) => state.favoritesReducer)
     const [graphSize, setGraphSize] = useState({ width: 0, height: 0 });
-    const [favoriteAdded, setFavoriteAdded] = useState(false);
+    const [userFavorite, setUserFavorite] = useState({});
+
 
     useEffect(() => {
         if (visualization) {
@@ -48,11 +50,30 @@ const VisualizationDetail = () => {
 
     }, [dispatch, visId,])
 
+
+    useEffect(() => {
+        if (currentUser) {
+            dispatch(fetchFavorites)
+        }
+    }, [dispatch, currentUser])
+
+    useEffect(() => {
+        setUserFavorite(favorites)
+    }, [favorites])
+
+    const isFav = (visualizationId) => {
+        return Object.values(userFavorite).some(fav => fav.visualization_id === visualizationId);
+    }
+
     const addToFavs = async () => {
         await dispatch(createFavorite(visualization.id))
-        history.push('/library');
+        
 
     }
+    const removeFromFavs = async () => {
+        const favoriteId = Object.values(userFavorite).find(fav => fav.visualization_id === visualization.id).id;
+        await dispatch(deleteFavorite(favoriteId));
+    };
 
 
 
@@ -135,14 +156,19 @@ const VisualizationDetail = () => {
                     </div>
                 )}
                 {currentUser && currentUser.id !== visualization.user_id && (
-                    <button className='add-fav' onClick={addToFavs}>
-                        <img src="https://storage.googleapis.com/graphit_bucket/icons/love_4929791.ico" alt="favorite Icon" style={{ width: "40px", height: "40px" }} />
-                    </button>
-                    
+                    isFav(visualization.id) ?
+                        <button className='remove-fav' onClick={removeFromFavs}>
+                            <img src="https://storage.googleapis.com/graphit_bucket/icons/heart_7494155.ico" alt="favorite Icon" style={{ width: "40px", height: "40px" }} />
+                        </button>
+                        :
+                        <button className='add-fav' onClick={addToFavs}>
+                            <img src="https://storage.googleapis.com/graphit_bucket/icons/love_4929791.ico" alt="favorite Icon" style={{ width: "40px", height: "40px" }} />
+                        </button>
+
                 )}
                 <p className='description'>{visualization.description}</p>
                 <div className="comment-views-buttons">
-                    
+
 
                     <OpenModalButton
                         buttonText={
@@ -158,12 +184,12 @@ const VisualizationDetail = () => {
                         className='d-open-btn'
                     />
                     <button className='views'>
-                    <div lassName="button-content">
-                <img src="https://storage.googleapis.com/graphit_bucket/icons/monitoring_6103108.ico" alt="view Icon" style={{width: "40px", height: "35px"}} />
-                    {visualization.views}
-                    </div>
+                        <div lassName="button-content">
+                            <img src="https://storage.googleapis.com/graphit_bucket/icons/monitoring_6103108.ico" alt="view Icon" style={{ width: "40px", height: "35px" }} />
+                            {visualization.views}
+                        </div>
                     </button>
-                    </div>
+                </div>
             </div>
             {Object.values(comments).map((comment) => (
                 <div key={comment.id} className="comment-card">
