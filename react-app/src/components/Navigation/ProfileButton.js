@@ -55,14 +55,14 @@ function ProfileButton({ user }) {
             <li>{user.username}</li>
             <li>{user.email}</li>
             <li>
-            <button onClick={() => history.push('/')}><img src="https://storage.cloud.google.com/graphit_bucket/home_25694.png" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> home</button>
+            <button onClick={() => history.push('/')}><img src="https://storage.cloud.google.com/graphit_bucket/icons/home_25694.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> home</button>
           </li>
           
           <li>
-            <button onClick={() => history.push('/graph')}> <img src="https://storage.cloud.google.com/graphit_bucket/stats_182687.png" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> graphs</button>
+            <button onClick={() => history.push('/graph')}> <img src="https://storage.cloud.google.com/graphit_bucket/icons/stats_182687.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> graphs</button>
           </li>
             <li>
-              <button onClick={handleLogout}><img src="https://storage.cloud.google.com/graphit_bucket/logout_1828427.png" alt="Graph Icon" style={{width: "40px", height: "30px"}} /> Log Out</button>
+              <button onClick={handleLogout}><img src="https://storage.cloud.google.com/graphit_bucket/icons/logout_1828427.ico" alt="Graph Icon" style={{width: "40px", height: "30px"}} /> Log Out</button>
             </li>
           </>
         ) : (

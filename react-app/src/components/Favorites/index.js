@@ -35,7 +35,7 @@ function Favorites() {
                                     {visualization?.title} 
                                 </Link>
                                 <button onClick={() => handleDeleteFavorite(favorite.id)} className='favorite-button'>
-                                <i class="fa-regular fa-trash-can"></i>
+                                <img src="https://storage.cloud.google.com/graphit_bucket/icons/heart_7494155.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} />
                                 </button>
                             </div>
                         );
