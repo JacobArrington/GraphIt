@@ -120,7 +120,7 @@ const VisualizationDetail = () => {
                         <OpenModalButton
                             buttonText={
                                 <div className="button-content">
-                                    <img src="https://storage.cloud.google.com/graphit_bucket/icons/edit_3102301.ico" alt="edit Icon" style={{ width: "40px", height: "40px" }} />
+                                    <img src="https://storage.googleapis.com/graphit_bucket/icons/edit_3102301.ico" alt="edit Icon" style={{ width: "40px", height: "40px" }} />
 
                                 </div>
                             }
@@ -130,13 +130,13 @@ const VisualizationDetail = () => {
                             className='vis-update'
                         />
                         <button className='vis-delete' onClick={handleDelete}>
-                            <img src="https://storage.cloud.google.com/graphit_bucket/icons/bin_484662.ico" alt="delete Icon" style={{ width: "40px", height: "40px" }} />
+                            <img src="https://storage.googleapis.com/graphit_bucket/icons/bin_484662.ico" alt="delete Icon" style={{ width: "40px", height: "40px" }} />
                         </button>
                     </div>
                 )}
                 {currentUser && currentUser.id !== visualization.user_id && (
                     <button className='add-fav' onClick={addToFavs}>
-                        <img src="https://storage.cloud.google.com/graphit_bucket/icons/love_4929791.ico" alt="favorite Icon" style={{ width: "40px", height: "40px" }} />
+                        <img src="https://storage.googleapis.com/graphit_bucket/icons/love_4929791.ico" alt="favorite Icon" style={{ width: "40px", height: "40px" }} />
                     </button>
                     
                 )}
@@ -147,7 +147,7 @@ const VisualizationDetail = () => {
                     <OpenModalButton
                         buttonText={
                             <div className="button-content">
-                                <img src="https://storage.cloud.google.com/graphit_bucket/icons/comment_1380338.ico" alt="Comment Icon" style={{ width: "40px", height: "40px" }} />
+                                <img src="https://storage.googleapis.com/graphit_bucket/icons/comment_1380338.ico" alt="Comment Icon" style={{ width: "40px", height: "40px" }} />
 
                             </div>
 
@@ -159,7 +159,7 @@ const VisualizationDetail = () => {
                     />
                     <button className='views'>
                     <div lassName="button-content">
-                <img src="https://storage.cloud.google.com/graphit_bucket/icons/monitoring_6103108.ico" alt="view Icon" style={{width: "40px", height: "35px"}} />
+                <img src="https://storage.googleapis.com/graphit_bucket/icons/monitoring_6103108.ico" alt="view Icon" style={{width: "40px", height: "35px"}} />
                     {visualization.views}
                     </div>
                     </button>

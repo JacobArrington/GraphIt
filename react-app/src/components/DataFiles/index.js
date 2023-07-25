@@ -116,7 +116,7 @@ function DataFiles() {
                     <OpenModalButton
                         buttonText={
                             <div className="button-content">
-                                <img src="https://storage.cloud.google.com/graphit_bucket/icons/stats_182687.ico" alt="Graph Icon" style={{width: "40px", height: "40px"}} />
+                                <img src="https://storage.googleapis.com/graphit_bucket/icons/stats_182687.ico" alt="Graph Icon" style={{width: "40px", height: "40px"}} />
                                 <span className="graph-text">graph it!</span>
                             </div>
                         }
