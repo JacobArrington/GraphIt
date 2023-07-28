@@ -65,7 +65,7 @@ function DataFiles() {
         <div className='file-list'>
           <div className='list-title'><h4>Owned Files</h4></div>
           {ownedFiles.map((file, index) => (
-            <div key={index} className='file-item' onClick={() => handleFileClick(file.id)}>
+              <div key={index} className={`file-item ${file.id === selectedFileId ? 'selected-file' : ''}`} onClick={() => handleFileClick(file.id)}>
             <div className='file-info'>
               <div className='file-icon'>
                 <span className='file-name'>{file.filename}</span>
@@ -89,7 +89,7 @@ function DataFiles() {
            
           <div className='list-title'><h4>Public Files</h4></div>
           {publicFiles.map((file, index) => (
-            <div key={index} className='file-item' onClick={() => handleFileClick(file.id)}>
+            <div key={index} className={`file-item ${file.id === selectedFileId ? 'selected-file' : ''}`} onClick={() => handleFileClick(file.id)}>
               <div className='file-icon'>
                 <span className='file-name'>{file.filename}</span>
               </div>

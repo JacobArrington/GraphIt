@@ -114,28 +114,28 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
       </div>
   
       <div className="chart-type-group">
-      <button className="chart-type-button" type="button" onClick={() => setChartType('bar')}>
+      <button className={`chart-type-button ${chartType === 'bar' ? 'selected-graph' : ''}`} type="button" onClick={() => setChartType('bar')}>
   <div className="chart-type-content">
     <img src="https://storage.googleapis.com/graphit_bucket/icons/bar-chart_900772.ico" alt="bar graph" style={{width: "40 px", height: "35px"}} />
     <span>Bar</span>
   </div>
 </button>
 
-<button className="chart-type-button" type="button" onClick={() => setChartType('line')}>
+<button className={`chart-type-button ${chartType === 'line' ? 'selected-graph' : ''}`} type="button" onClick={() => setChartType('line')}>
   <div className="chart-type-content">
     <img src="https://storage.googleapis.com/graphit_bucket/icons/line.ico" alt="line graph" style={{width: "40px", height: "35px"}} />
     <span>Line</span>
   </div>
 </button>
 
-<button className="chart-type-button" type="button" onClick={() => setChartType('area')}>
+<button className={`chart-type-button ${chartType === 'area' ? 'selected-graph' : ''}`} type="button" onClick={() => setChartType('area')}>
   <div className="chart-type-content">
     <img src="https://storage.googleapis.com/graphit_bucket/icons/areagraph.ico" alt="area graph" style={{width: "40px", height: "35px"}} />
     <span>Area</span>
   </div>
 </button>
 
-<button className="chart-type-button" type="button" onClick={() => setChartType('radar')}>
+<button className={`chart-type-button ${chartType === 'radar' ? 'selected-graph' : ''}`} type="button" onClick={() => setChartType('radar')}>
   <div className="chart-type-content">
     <img src="https://storage.googleapis.com/graphit_bucket/icons/radar-chart.ico" alt="radar graph" style={{width: "40px", height: "35px"}} />
     <span>Radar</span>

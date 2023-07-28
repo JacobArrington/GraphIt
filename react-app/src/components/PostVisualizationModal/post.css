@@ -87,3 +87,7 @@
  .form-submit:hover {
   background: white;
 }
+
+.selected-graph {
+  background-color: white
+}
