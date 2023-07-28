@@ -69,22 +69,29 @@ const UpdateVisualizationModal = ({ visualization }) => {
 
       <div className="form-input">
         <label>Color:</label>
+       
         <input
+        className=''
           type="color"
           value={color}
           onChange={(e) => setColor(e.target.value)}
           required
         />
+        <div 
+   
+    />
       </div>
 
       <div className="form-input">
         <label>Width (%)</label>
+        
         <input
           type="number"
           value={width}
           onChange={(e) => setWidth(e.target.value)}
           required
         />
+        
       </div>
 
       <div className="form-input">
