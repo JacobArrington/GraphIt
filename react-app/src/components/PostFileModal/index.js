@@ -27,10 +27,10 @@ function PostFileModal() {
 
 
 
-    const data = await dispatch(postFile(formData))
+    const response = await dispatch(postFile(formData))
     await dispatch(fetchFile())
-    if (data) {
-      setErrors(data)
+    if (response.error) {
+      setErrors([response.error])
     } else {
       closeModal()
     }

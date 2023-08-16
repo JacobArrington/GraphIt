@@ -9,6 +9,8 @@ import os
 
 datafile_routes = Blueprint('files',__name__)
 
+ALLOWED_MIME_TYPES = ['text/csv', 'application/json']
+
 def get_data_from_cloud(file_id):
     datafile = DataFile.query.get(file_id)
     if not datafile:
@@ -37,6 +39,9 @@ def get_all_files():
 
     if file.filename == '':
         return jsonify({'error': 'No seleceted file'}), 400
+    
+    if file.mimetype not in ALLOWED_MIME_TYPES:
+        return jsonify({'error': 'File type not allowed. Please upload a JSON or CSV file.'}), 400
     
     filename = secure_filename(file.filename)
 
