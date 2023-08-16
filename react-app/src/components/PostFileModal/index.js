@@ -25,8 +25,7 @@ function PostFileModal() {
     formData.append('filetype', filetype)
 
 
-    console.log(formData, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    console.log(Array.from(formData.entries()), '~~~~~~~~~~~~~~~~~~~~~~~');
+
 
     const data = await dispatch(postFile(formData))
     await dispatch(fetchFile())

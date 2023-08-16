@@ -39,7 +39,7 @@ const VisualizationDetail = () => {
 
 
     useEffect(() => {
-        console.log('fetching visualization...');
+        
         dispatch(fetchVisualizationById(visId))
             .catch((error) => {
                 dispatch(setVisualizationError(error.toString()))
@@ -113,7 +113,7 @@ const VisualizationDetail = () => {
                 return null;
         }
     };
-    console.log('visualization: ', visualization);
+   
 
     if (visualizationError) {
         return <p>{visualizationError}</p>;
@@ -184,7 +184,7 @@ const VisualizationDetail = () => {
                         className='d-open-btn'
                     />
                     <button className='views'>
-                        <div lassName="button-content">
+                        <div className="button-content">
                             <img src="https://storage.googleapis.com/graphit_bucket/icons/monitoring_6103108.ico" alt="view Icon" style={{ width: "40px", height: "35px" }} />
                             {visualization.views}
                         </div>
@@ -201,7 +201,7 @@ const VisualizationDetail = () => {
                         <div className="comment-controls">
                             <OpenModalButton
                                 buttonText={
-                                    <i class="fa-solid fa-pen"></i>
+                                    <i className="fa-solid fa-pen"></i>
                                 }
                                 modalComponent={
                                     <EditCommentModal comment={comment} />

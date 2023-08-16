@@ -34,7 +34,7 @@ export const fetchComments =(vis_id) => async(dispatch) =>{
 
     if(response.ok){
         const comments = await response.json()
-        console.log(comments)
+        
         dispatch(getComments(comments.comments))
     }
 }

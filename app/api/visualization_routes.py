@@ -26,7 +26,7 @@ def convert_to_chart(file_name, file_type):
 
     mime_to_extension = {
         'text/csv': 'csv',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+        
         'application/json': 'json'
     }
 
@@ -36,8 +36,7 @@ def convert_to_chart(file_name, file_type):
     if file_extension == 'csv':
         file_as_string = blob.download_as_text()
         df = pd.read_csv(io.StringIO(file_as_string))
-    elif file_extension == 'xlsx':
-        df = pd.read_excel(io.BytesIO(blob.download_as_bytes()))
+    
     elif file_extension == 'json':
         file_as_string = blob.download_as_text()
         df =pd.DataFrame(json.loads(file_as_string))
@@ -45,8 +44,7 @@ def convert_to_chart(file_name, file_type):
         raise ValueError("Unsupported file type")
 
  
-    if df is not None:
-        print(df.head)
+   
 
     chart_data = []
 
@@ -56,7 +54,7 @@ def convert_to_chart(file_name, file_type):
         chart_data.append(row_dict)
 
 
-    print(chart_data[:5])
+   
 
     return chart_data
 

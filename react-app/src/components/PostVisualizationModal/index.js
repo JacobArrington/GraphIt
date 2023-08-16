@@ -29,7 +29,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
 
   useEffect(() => {
     setChartData(selectedFileData)
-    console.log(selectedFileData);
+    
   }, [selectedFileData])
 
 
@@ -56,7 +56,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
     };
   
     let newVis = await dispatch(postVisualization(visualizationData));
-    console.log(newVis)
+  
     if (newVis) {
       history.push(`/library`)
       closeModal()
@@ -64,7 +64,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
     }
   };
 
-  console.log(chartType)
+
 
   const graph = (chartType) => {
     switch (chartType) {
@@ -82,7 +82,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
         return null;
     }
   }
-  console.log(selectedFileId, '@@@@@@@@@@@')
+ 
 
 
   return (

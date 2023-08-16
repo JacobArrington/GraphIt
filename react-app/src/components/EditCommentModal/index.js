@@ -27,7 +27,7 @@ const EditCommentModal = ({ comment }) => {
 
         let result = await dispatch(editComment(updatedComment, comment.id));
         if (result) {
-            console.log("Comment updated, closing modal...")
+          
             closeModal()
             dispatch(fetchComments(comment.visualization_id));
             //setCommentUpdated(true);

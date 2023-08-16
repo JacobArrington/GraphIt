@@ -51,17 +51,16 @@ def get_all_files():
     file.save(file_path)
     public_url = upload_file_to_gcs(file_path, filename)
 
-    print(f'Public URL after upload: {public_url}')
+    
 
     path = public_url.replace(f"https://storage.googleapis.com/{current_app.config['GCS_BUCKET']}/", '')
 
-    print(f'Relative path for GCS: {path}')
-
+    
     os.remove(file_path)
     mime_to_type = {
     'text/csv': 'csv',
     'application/json': 'json',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx'
+    
 }
     is_public = request.form.get('is_public', type=bool, default=False)
 
@@ -84,7 +83,7 @@ def get_all_files():
 @login_required
 def file_by_id(id):
     file = DataFile.query.get(id)
-    print(f'Stored file path in database: {file.file_path}')
+    
 
     if not file:
         return jsonify({"error": "Data file not found"}), 404
