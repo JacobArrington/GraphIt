@@ -62,3 +62,27 @@ font-family: 'Permanent Marker', cursive;
 .demo-btn:hover{
     background: white;
 }
+
+.about{
+    margin-top: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.Social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .Social li {
+    margin: 0 10px; 
+  }
+  
+  .Social i {
+    font-size: 34px; 
+  }

@@ -2,7 +2,7 @@ import React from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useEffect, useState } from "react";
 
-const BarGraph = ({file, color, width, height, selectedFileData, }) =>{
+const BarGraph = ({ color, width, height, selectedFileData, }) =>{
     const [xAxisKey, setXAxisKey] = useState('');
     const [barDataKey, setBarDataKey] = useState('');
 
