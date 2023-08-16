@@ -27,11 +27,19 @@ function PostFileModal() {
 
 
 
-    const response = await dispatch(postFile(formData))
-    await dispatch(fetchFile())
-    if (response.error) {
-      setErrors([response.error])
-    } else {
+    try {
+      const data = await dispatch(postFile(formData));
+      await dispatch(fetchFile());
+  
+      if (data.error) {
+        // Handle the error case
+        setErrors([data.error]);
+      } else {
+        // Handle the success case
+        closeModal();
+      }
+    } catch (err) {
+      // Handle unexpected errors, e.g., network issues or server crashes
       closeModal()
     }
   }
