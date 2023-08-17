@@ -11,7 +11,7 @@ import AllVisualizations from "./components/AllVisulazations";
 import VisualizationDetail from "./components/VisualizationDetail";
 import LandingPage from "./components/LandingPage";
 import UserVisualizations from "./components/UserVisualizations";
-
+import About from "./components/About"
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -40,8 +40,9 @@ function App() {
             <Route path="/graph/:id" exact={true}>
             <VisualizationDetail />
           </Route>
-          
-          
+          <Route path ="/about">
+            <About />
+          </Route>
           <Route path="/graph">
             <AllVisualizations />
       

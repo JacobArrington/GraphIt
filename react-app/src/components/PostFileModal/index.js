@@ -14,11 +14,12 @@ function PostFileModal() {
   const [filetype, setFileType] = useState('')
   const [filepath, setFilepath] = useState(null);
   const [isPublic, setIsPublic] = useState(false);
+
   const [errors, setErrors] = useState([])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const formData = new FormData();
     formData.append('file', filepath);
     formData.append('filename', filename)
@@ -42,6 +43,7 @@ function PostFileModal() {
       // Handle unexpected errors, e.g., network issues or server crashes
       closeModal()
     }
+   
   }
 
   const handleFileUpload = (e) => {

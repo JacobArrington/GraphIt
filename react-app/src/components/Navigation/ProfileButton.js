@@ -50,13 +50,14 @@ function ProfileButton({ user }) {
       </button>
       </div>
       <ul className={ulClassName} ref={ulRef}>
+      
+      
         {user ? (
           <>
             <li>{user.username}</li>
             <li>{user.email}</li>
-            <li>
             <button onClick={() => history.push('/')}><img src="https://storage.googleapis.com/graphit_bucket/icons/home_25694.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> home</button>
-          </li>
+      <button onClick={() => history.push('/about')}><img src="https://storage.googleapis.com/graphit_bucket/icons/noun-about-2516500.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> about me</button>
           
           <li>
             <button onClick={() => history.push('/graph')}> <img src="https://storage.googleapis.com/graphit_bucket/icons/stats_182687.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> graphs</button>
@@ -78,6 +79,8 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
+            <button onClick={() => history.push('/')}><img src="https://storage.googleapis.com/graphit_bucket/icons/home_25694.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> home</button>
+      <button onClick={() => history.push('/about')}><img src="https://storage.googleapis.com/graphit_bucket/icons/noun-about-2516500.ico" alt="Graph Icon" style={{width: "40px", height: "40px"}} />about me</button>
           </>
         )}
       </ul>
