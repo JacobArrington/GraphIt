@@ -6,10 +6,33 @@ from datetime import datetime
 from .visualization_routes import convert_to_chart
 from .cloud_storage import upload_file_to_gcs, download_file_from_gcs
 import os
+import pandas as pd 
+import numpy as np 
 
 datafile_routes = Blueprint('files',__name__)
 
 ALLOWED_MIME_TYPES = ['text/csv', 'application/json']
+
+def has_valid_dtypes(file_path, int_dtype=np.int32, str_dtype=np.object):
+    if file_path.endswith('.csv'):
+        df = pd.read_csv(file_path)
+    elif file_path.endswith('.json'):
+        df = pd.read_json(file_path)
+    else:
+        return False, "Invalid file format"
+    
+    has_int = any(df[column].dtype == int_dtype for column in df.columns)
+    has_str = any(df[column].dtype == str_dtype for column in df.columns)
+
+    if has_int and has_str:
+        return True, "Valid file"
+    else:
+        missing_types = []
+        if not has_int:
+            missing_types.append("int32")
+        if not has_str:
+            missing_types.append("string")
+        return False, f"File is missing columns with these data types: {', '.join(missing_types)}"
 
 def get_data_from_cloud(file_id):
     datafile = DataFile.query.get(file_id)
@@ -54,10 +77,14 @@ def get_all_files():
     file_path = os.path.join(current_app.config['UPLOAD_FOLDER'],filename)
 
     file.save(file_path)
+
+    is_valid, message = has_valid_dtypes(file_path)
+    if not is_valid:
+        os.remove(file_path)
+        return jsonify({'error': message}), 400
+
+   
     public_url = upload_file_to_gcs(file_path, filename)
-
-    
-
     path = public_url.replace(f"https://storage.googleapis.com/{current_app.config['GCS_BUCKET']}/", '')
 
     
