@@ -13,7 +13,7 @@ datafile_routes = Blueprint('files',__name__)
 
 ALLOWED_MIME_TYPES = ['text/csv', 'application/json']
 
-def has_valid_dtypes(file_path, int_dtype=np.int32, str_dtype=np.object):
+def has_valid_dtypes(file_path, int_dtype=np.int32, str_dtype=object):
     if file_path.endswith('.csv'):
         df = pd.read_csv(file_path)
     elif file_path.endswith('.json'):
