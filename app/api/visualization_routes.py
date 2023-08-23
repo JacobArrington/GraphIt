@@ -43,24 +43,22 @@ def convert_to_chart(file_name, file_type):
     else:
         raise ValueError("Unsupported file type")
 
- 
-   
+    df = df.select_dtypes(include=['int32', 'object'])
 
-    chart_data = []
+   # Limit rows to 100 if there are more than 100 rows
+    if df.shape[0] > 100:
+        df = df.iloc[:100, :]
 
-    #converts each row to a dict
-    for index, row in df.iterrows():
-        row_dict = row.to_dict()
-        chart_data.append(row_dict)
+    #removes spases from string and captilizes them
+    for col in df.select_dtypes(include='object').columns:
+        df[col] = df[col].str.replace(' ', '').str.capitalize()
 
-
-   
-
+    chart_data = df.to_dict(orient='records')
     return chart_data
 
+   
 
-
-
+   
 
 
 @visualization_routes.route('', methods=['GET', 'POST'])
