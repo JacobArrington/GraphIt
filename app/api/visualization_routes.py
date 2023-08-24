@@ -43,7 +43,7 @@ def convert_to_chart(file_name, file_type):
     else:
         raise ValueError("Unsupported file type")
 
-    df = df.select_dtypes(include=['int32', 'object'])
+    df = df.select_dtypes(include=['int64', 'object'])
 
    # Limit rows to 100 if there are more than 100 rows
     if df.shape[0] > 100:

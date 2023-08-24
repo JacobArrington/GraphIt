@@ -13,7 +13,7 @@ datafile_routes = Blueprint('files',__name__)
 
 ALLOWED_MIME_TYPES = ['text/csv', 'application/json']
 
-def has_valid_dtypes(file_path, int_dtype=np.int32, str_dtype=object):
+def has_valid_dtypes(file_path):
     if file_path.endswith('.csv'):
         df = pd.read_csv(file_path)
     elif file_path.endswith('.json'):
@@ -21,15 +21,18 @@ def has_valid_dtypes(file_path, int_dtype=np.int32, str_dtype=object):
     else:
         return False, "Invalid file format"
     
-    has_int = any(df[column].dtype == int_dtype for column in df.columns)
-    has_str = any(df[column].dtype == str_dtype for column in df.columns)
+    # Check for any integer type
+    has_int = any(df[column].dtype.name.startswith('int') for column in df.columns)
+    
+    # Check for string type
+    has_str = 'object' in df.dtypes.values
 
     if has_int and has_str:
         return True, "Valid file"
     else:
         missing_types = []
         if not has_int:
-            missing_types.append("int32")
+            missing_types.append("integer")
         if not has_str:
             missing_types.append("string")
         return False, f"File is missing columns with these data types: {', '.join(missing_types)}"
