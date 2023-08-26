@@ -5,44 +5,53 @@
     justify-content: center;
     width: 80%;
     margin: 0 auto;
-}
-.editCommentModal form {
+    padding: 20px;  
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .editCommentModal form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 95%;
-    
-}
-.editCommentModal textarea,
-.editCommentModal input{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 95%; 
+    margin-bottom: 20px; 
+  }
+  
+  .editCommentModal textarea,
+  .editCommentModal input {
+    padding: 10px;  
     width: 100%;
     margin: 0.5em 0;
-    background-color: transparent;
+    
+    border-radius: 4px;
+    background-color: white;
     font-family: 'Permanent Marker', cursive;
     font-size: 24px;
-}
-
-
-
-.editCommentModal form button{
-    display: block;
-    margin-top: 10px;
-    padding: 10px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .editCommentModal textarea:focus,
+  .editCommentModal input:focus {
+    border-color: #007BFF; 
+    outline: none;
+  }
+  
+  .editCommentModal form button {
+    padding: 12px 0; 
     width: 100%;
-    border: 1px solid black;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
-    background: transparent;
-    color: black;
+    border: none;
+    background-color: #007BFF; 
+    color: #ffffff;
     border-radius: 4px;
+    font-size: 16px;
+    font-family: 'Permanent Marker', cursive;
     font-weight: bold;
     cursor: pointer;
-    
-}
-.editCommentModal form button:hover{
-    background: white;
-}
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .editCommentModal form button:hover {
+    background-color: #0056b3; 
+    transform: scale(1.02);
+  }

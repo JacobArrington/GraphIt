@@ -1,0 +1,61 @@
+.modal-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;  
+  
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .update-file-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%; 
+    margin-bottom: 20px; 
+  }
+  
+  .update-file-form ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+    color: red;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 16px;
+  }
+  
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .public-file-checkbox {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .update-file-button {
+    padding: 12px 0; 
+    width: 100%;
+    border: none;
+    background-color: #007BFF; 
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'Permanent Marker', cursive;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .update-file-button:hover {
+    background-color: #0056b3; 
+    transform: scale(1.02);
+  }

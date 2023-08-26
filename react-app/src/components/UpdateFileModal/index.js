@@ -38,13 +38,14 @@ function UpdateFileModal({file}){
             <div className="input-container">
               <label>
                 Public File
+                </label>
                 <input
                   type="checkbox"
                   checked={isPublic}
                   onChange={(e) => setIsPublic(e.target.checked)}
                   className="public-file-checkbox"
                 />
-              </label>
+              
             </div>
             <button type="submit" className="update-file-button">Update File</button>
           </form>

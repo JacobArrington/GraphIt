@@ -1,81 +1,100 @@
 .form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    flex-wrap: wrap;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 20px; 
   
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 95%;
-    
-    margin-bottom: 10px;
-  }
-  
-  .form-input {
-    width: 100%;
-    box-sizing: border-box;
-    
-  }
-
-  .form-group label {
-    width: 100%;
-    display: block;
+  border-radius: 8px;
 }
-  
-  .chart-type-group {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-    
-   
-  }
 
-  .chart-type-button{
-    display: block;
-    margin-top: 10px;
-    margin-left: 50px;
-    padding: 10px;
-    width: 100%;
-    border: 1px solid black;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    background-color: transparent;
-    color: black;
-    border-radius: 4px;
-    font-family: 'Permanent Marker', cursive;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 95%;
+  margin-bottom: 20px; 
+}
 
-  }
+.form-input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
   
-  .graph-container {
-    width: 90%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .form-submit {
-    width: 100%;
-    text-align: center;
-    
-  }
-  button.form-submit {
-    display: block;
-    margin-top: 10px;
-    padding: 10px;
-    width: 100%;
-    border: 1px solid black;
-    font-family: 'Permanent Marker', cursive;
-    color: black;
-    border-radius: 4px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  border-radius: 4px; 
+  transition: border-color 0.3s ease; 
+}
+
+.form-input:focus {
+  border-color: #007BFF; 
+  outline: none;
+}
+
+.form-group label {
+  width: 100%;
+  display: block;
+  margin-bottom: 8px; 
+  font-weight: 600; 
+  color: #333; 
+  align-self: flex-start;
+}
+
+.chart-type-group {
+  display: flex;
+  justify-content: space-around; 
+  width: 100%; 
+  margin-bottom: 20px; 
+}
+
+.chart-type-button {
+  margin: 0 5px; 
+  padding: 10px 15px; 
+  border: none; 
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: #e7e7e7;
+  color: #333; 
+  border-radius: 4px;
+  font-family: 'Permanent Marker', cursive;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.chart-type-button:hover {
+  background-color: #d7d7d7; 
+  transform: scale(1.05); 
+}
+
+.graph-container {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; 
+}
+
+.form-submit {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px; 
+}
+
+button.form-submit {
+  padding: 12px 0;
+  border: none;
+  background-color: #007BFF; 
+  color: white; 
+  font-family: 'Permanent Marker', cursive;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.form-submit:hover {
+  background-color: #0056b3; 
+  transform: scale(1.02); 
 }
 
 .chart-type-content {
@@ -84,10 +103,7 @@
   align-items: center;
 }
 
- .form-submit:hover {
-  background: white;
-}
-
 .selected-graph {
-  background-color: white
+  border-color: #007BFF; 
+  background-color: #eef5fd; 
 }

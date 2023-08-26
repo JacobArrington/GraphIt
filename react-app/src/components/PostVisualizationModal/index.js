@@ -91,6 +91,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
       <div className="form-group">
         <label>
           Title:
+          </label>
           <input
             type="text"
             value={title}
@@ -98,19 +99,20 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
             onChange={(e) => setTitle(e.target.value)}
             required
           />
-        </label>
+        
       </div>
   
       <div className="form-group">
         <label>
           Description:
+          </label>
           <textarea
             value={description}
             className="form-input"
             onChange={(e) => setDescription(e.target.value)}
             required
           />
-        </label>
+       
       </div>
   
       <div className="chart-type-group">
@@ -147,6 +149,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
       <div className="form-group">
         <label>
           Visibility:
+          </label>
           <select
             checked={visibility}
             className="form-input"
@@ -156,12 +159,13 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
             <option value="private">Private</option>
             <option value="public">Public</option>
           </select>
-        </label>
+        
       </div>
   
       <div className="form-group">
         <label>
           Color:
+          </label>
           <input
             type="color"
             value={color}
@@ -169,7 +173,7 @@ const PostVisualizationModal = ({ selectedFileId, selectedFileData }) => {
             onChange={(e) => setColor(e.target.value)}
             required
           />
-        </label>
+        
       </div>
   
       <div className="form-group">
