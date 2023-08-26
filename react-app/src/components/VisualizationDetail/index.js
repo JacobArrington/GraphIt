@@ -141,7 +141,7 @@ const VisualizationDetail = () => {
                         <OpenModalButton
                             buttonText={
                                 <div className="button-content">
-                                    <img src="https://storage.googleapis.com/graphit_bucket/icons/edit_3102301.ico" alt="edit Icon" style={{ width: "40px", height: "40px" }} />
+                                    <img src="https://res.cloudinary.com/dfnqaxcck/image/upload/v1693074707/graphit%20icons%20and%20pngs/edit_3102301_nczfsp.ico" alt="edit Icon" style={{ width: "40px", height: "40px" }} />
 
                                 </div>
                             }
@@ -151,18 +151,18 @@ const VisualizationDetail = () => {
                             className='vis-update'
                         />
                         <button className='vis-delete' onClick={handleDelete}>
-                            <img src="https://storage.googleapis.com/graphit_bucket/icons/bin_484662.ico" alt="delete Icon" style={{ width: "40px", height: "40px" }} />
+                            <img src="https://res.cloudinary.com/dfnqaxcck/image/upload/v1693074708/graphit%20icons%20and%20pngs/bin_484662_poklaj.ico" alt="delete Icon" style={{ width: "40px", height: "40px" }} />
                         </button>
                     </div>
                 )}
                 {currentUser && currentUser.id !== visualization.user_id && (
                     isFav(visualization.id) ?
                         <button className='remove-fav' onClick={removeFromFavs}>
-                            <img src="https://storage.googleapis.com/graphit_bucket/icons/heart_7494155.ico" alt="favorite Icon" style={{ width: "40px", height: "40px" }} />
+                            <img src="https://res.cloudinary.com/dfnqaxcck/image/upload/v1693074708/graphit%20icons%20and%20pngs/heart_7494155_nupxhp.png" alt="favorite Icon" style={{ width: "40px", height: "40px" }} />
                         </button>
                         :
                         <button className='add-fav' onClick={addToFavs}>
-                            <img src="https://storage.googleapis.com/graphit_bucket/icons/love_4929791.ico" alt="favorite Icon" style={{ width: "40px", height: "40px" }} />
+                            <img src="https://res.cloudinary.com/dfnqaxcck/image/upload/v1693074708/graphit%20icons%20and%20pngs/love_4929791_myco01.ico" alt="favorite Icon" style={{ width: "40px", height: "40px" }} />
                         </button>
 
                 )}
@@ -173,7 +173,7 @@ const VisualizationDetail = () => {
                     <OpenModalButton
                         buttonText={
                             <div className="button-content">
-                                <img src="https://storage.googleapis.com/graphit_bucket/icons/comment_1380338.ico" alt="Comment Icon" style={{ width: "40px", height: "40px" }} />
+                                <img src="https://res.cloudinary.com/dfnqaxcck/image/upload/v1693074707/graphit%20icons%20and%20pngs/comment_1380338_znswqh.ico" alt="Comment Icon" style={{ width: "40px", height: "40px" }} />
 
                             </div>
 
@@ -185,7 +185,7 @@ const VisualizationDetail = () => {
                     />
                     <button className='views'>
                         <div className="button-content">
-                            <img src="https://storage.googleapis.com/graphit_bucket/icons/monitoring_6103108.ico" alt="view Icon" style={{ width: "40px", height: "35px" }} />
+                            <img src="https://res.cloudinary.com/dfnqaxcck/image/upload/v1693074709/graphit%20icons%20and%20pngs/monitoring_6103108_ukpxpl.ico" alt="view Icon" style={{ width: "40px", height: "35px" }} />
                             {visualization.views}
                         </div>
                     </button>

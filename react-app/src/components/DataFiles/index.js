@@ -103,7 +103,7 @@ function DataFiles() {
                 <OpenModalButton
                     buttonText={
                         <div className="button-content">
-                            <img src="https://storage.googleapis.com/graphit_bucket/icons/file_1092216.ico" alt="Graph Icon" style={{width: "40px", height: "40px"}} />
+                            <img src="https://res.cloudinary.com/dfnqaxcck/image/upload/v1693074707/graphit%20icons%20and%20pngs/file_1092216_wlmrzx.png" alt="Upload Icon" style={{width: "40px", height: "40px"}} />
                             <span className="open-btn-text">upload</span>
                         </div>
                     }
@@ -117,7 +117,7 @@ function DataFiles() {
                     <OpenModalButton
                         buttonText={
                             <div className="button-content">
-                                <img src="https://storage.googleapis.com/graphit_bucket/icons/stats_182687.ico" alt="Graph Icon" style={{width: "40px", height: "40px"}} />
+                                <img src="https://res.cloudinary.com/dfnqaxcck/image/upload/v1693074709/graphit%20icons%20and%20pngs/stats_182687_flqo3r.ico" alt="Graph Icon" style={{width: "40px", height: "40px"}} />
                                 <span className="graph-text">graph it!</span>
                             </div>
                         }

@@ -56,14 +56,14 @@ function ProfileButton({ user }) {
           <>
             <li>{user.username}</li>
             <li>{user.email}</li>
-            <button onClick={() => history.push('/')}><img src="https://storage.googleapis.com/graphit_bucket/icons/home_25694.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> home</button>
-      <button onClick={() => history.push('/about')}><img src="https://storage.googleapis.com/graphit_bucket/icons/noun-about-2516500.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> about me</button>
+            <button onClick={() => history.push('/')}><img src="https://res.cloudinary.com/dfnqaxcck/image/upload/v1693074708/graphit%20icons%20and%20pngs/home_25694_siwjfm.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> home</button>
+      <button onClick={() => history.push('/about')}><img src="https://res.cloudinary.com/dfnqaxcck/image/upload/v1693076170/noun-about-2516500_ugrfqv.png" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> about me</button>
           
           <li>
-            <button onClick={() => history.push('/graph')}> <img src="https://storage.googleapis.com/graphit_bucket/icons/stats_182687.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> graphs</button>
+            <button onClick={() => history.push('/graph')}> <img src="https://res.cloudinary.com/dfnqaxcck/image/upload/v1693074709/graphit%20icons%20and%20pngs/stats_182687_flqo3r.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} /> graphs</button>
           </li>
             <li>
-              <button onClick={handleLogout}><img src="https://storage.googleapis.com/graphit_bucket/icons/logout_1828427.ico" alt="Graph Icon" style={{width: "40px", height: "30px"}} /> Log Out</button>
+              <button onClick={handleLogout}><img src="https://res.cloudinary.com/dfnqaxcck/image/upload/v1693074708/graphit%20icons%20and%20pngs/logout_1828427_s5jtc0.ico" alt="Graph Icon" style={{width: "40px", height: "30px"}} /> Log Out</button>
             </li>
           </>
         ) : (
