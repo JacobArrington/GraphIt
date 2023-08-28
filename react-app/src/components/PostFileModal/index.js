@@ -80,19 +80,21 @@ function PostFileModal() {
           </label> */}
           <label className="custom-file-upload">
             <input type="file" style={{ display: "none" }} onChange={handleFileUpload} required />
+            </label>
             {filepath ? filepath.name : "No file chosen yet..."}
             <div className="upload-btn">Upload File</div>
-          </label>
+          
           
           <label>
             Public File
+            </label>
             <input
               type="checkbox"
               checked={isPublic}
               onChange={(e) => setIsPublic(e.target.checked)}
               className="public-file-checkbox"
             />
-          </label>
+         
         
         </div>
         <button type="submit" className="add-file-button">Add File</button>
