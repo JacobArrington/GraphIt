@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import User, Visualization, DataFile, db
 from datetime import datetime
+from sqlalchemy.orm import joinedload
 from google.cloud import storage
 from app.config import Config
 import io
@@ -68,11 +69,11 @@ def get_all_visualizations():
         user_id = current_user.id
     
         
-        public_visualizations = Visualization.query.filter(Visualization.visibility == 'public').all()
+        public_visualizations = Visualization.query.options(joinedload('user')).filter(Visualization.visibility == 'public').all()
         public_vis_list = [{'type': 'public', **visualization.to_dict()} for visualization in public_visualizations]
         
         
-        user_visualizations = Visualization.query.filter(Visualization.user_id == user_id).all()
+        user_visualizations = Visualization.query.options(joinedload('user')).filter(Visualization.user_id == user_id).all()
         user_vis_list = [{'type': 'user', **visualization.to_dict()} for visualization in user_visualizations]
         
         

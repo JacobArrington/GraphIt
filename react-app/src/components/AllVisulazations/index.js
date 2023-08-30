@@ -51,7 +51,7 @@ const AllVisualizations = () => {
           .map((visualization) => (
             <div key={visualization.id} className='all-visualization-list-item' onClick={() => handleVisualizationClick(visualization.id)}>
               <h4 className='title'>{visualization.title}</h4>
-              <p className='details'>{visualization.description}</p>
+              <p className='username'>Created by: {visualization.username || "Unknown"}</p>
               {getGraphComponent(visualization)}
             </div>
           ))}

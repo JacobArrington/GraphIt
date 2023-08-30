@@ -23,7 +23,8 @@
     text-align: center;
     height: auto;
     width: 80%;
-    background: transparent
+    background: transparent;
+    cursor: pointer;
 }
 
 .title {

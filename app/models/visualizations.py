@@ -35,6 +35,7 @@ class Visualization(db.Model):
         return {
             'id': self.id,
             'user_id': self.user_id,
+            'username': self.user.username if self.user else None, 
             'data_file_id': self.data_file_id,
             'chart_data': self.chart_data,
             'visualization_type': self.visualization_type,
