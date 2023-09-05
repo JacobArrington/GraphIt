@@ -89,23 +89,28 @@
 }
 
 .selected-file{
-  background-color: white
+  background-color: rgb(255, 255, 255);
 }
 
 .file-name {
   cursor: pointer;
 }
 
-.spinner {
-  border: 8px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top: 8px solid #000;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
+.open-btn:hover,
+.d:hover {
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.35);  
+    color: #333;             
+    cursor: pointer;         
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.file-name:hover {
+    text-decoration: underline;
+    
+}
+
+.graph-btn:hover {
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.35);
+    cursor: pointer;
 }

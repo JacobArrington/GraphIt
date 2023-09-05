@@ -27,19 +27,25 @@ function Favorites() {
             <div className='favorites-container'>
                 <h4 className='favorites-header'>YOUR FAVORITES</h4>
                 <div className='favorites-list'>
-                    {Object.values(favorites).map((favorite) => {
-                        const visualization = Object.values(visualizations).find(vis => vis.id === favorite.visualization_id);
-                        return (
-                            <div key={favorite.id} className='favorite-item'>
-                                <Link to={`/graph/${favorite.visualization_id}`} className='favorite-link'>
-                                    {visualization?.title} 
-                                </Link>
-                                <button onClick={() => handleDeleteFavorite(favorite.id)} className='favorite-button'>
-                                <img src="https://storage.googleapis.com/graphit_bucket/icons/heart_7494155.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} />
-                                </button>
-                            </div>
-                        );
-                    })}
+                    {Object.values(favorites).length ? 
+                        Object.values(favorites).map((favorite) => {
+                            const visualization = Object.values(visualizations).find(vis => vis.id === favorite.visualization_id);
+                            return (
+                                <div key={favorite.id} className='favorite-item'>
+                                    <Link to={`/graph/${favorite.visualization_id}`} className='favorite-link'>
+                                        {visualization?.title} 
+                                    </Link>
+                                    <button onClick={() => handleDeleteFavorite(favorite.id)} className='favorite-button'>
+                                    <img src="https://storage.googleapis.com/graphit_bucket/icons/heart_7494155.ico" alt="Graph Icon" style={{width: "30px", height: "30px"}} />
+                                    </button>
+                                </div>
+                            );
+                        })
+                        :
+                        (
+                            <p>No favorites yet! Find some<Link to="/graph"> here</Link></p>
+                        )
+                    }
                 </div>
             </div>
         </>

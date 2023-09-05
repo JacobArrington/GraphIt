@@ -46,6 +46,15 @@ font-size: 34px;
     background-color: transparent; 
   }
 
+.controls button:hover,
+.d-open-btn:hover,
+.add-fav:hover {
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.55);  
+    color: #333;             
+    cursor: pointer;         
+}
+
   .add-fav{
     color: pink;
   }
@@ -101,4 +110,10 @@ font-size: 34px;
 .comment-controls {
     display: flex;
     justify-content: space-between;
+}
+.comment-controls button:hover {
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.55);
+    color: #333;
+    cursor: pointer;
 }
