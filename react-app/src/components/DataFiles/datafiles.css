@@ -99,8 +99,7 @@
 .open-btn:hover,
 .d:hover {
     transition: all 0.3s ease-in-out;
-    transform: scale(1.35);  
-    color: #333;             
+  background-color: #888;   
     cursor: pointer;         
 }
 

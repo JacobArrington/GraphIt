@@ -63,6 +63,10 @@
     color: #fff;
     cursor: pointer;
   }
+
+  .favorites-list p a {
+    text-decoration: none;
+}
   
   .favorite-button:hover {
     background-color: #c82333;
